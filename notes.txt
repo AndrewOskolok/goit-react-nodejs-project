@@ -1,0 +1,38 @@
+DB structure: {
+    email: // string
+    username: // string
+    passwordHash: // string
+    avatarUrl: // string
+    currentBalance: // number
+    transactions: // transaction[]
+    customCategories?: // string[] 
+}
+sessions: // object[] 
+categories?: // string[]
+=======
+transaction object: {
+    date: // Date
+    month: // string
+    year: // string
+    type: // string (income | consumption)
+    category: // string (every possible category from back)
+    description: // string
+    sum: // number
+    balance: // number
+}
+=======
+redux structure: {
+    auth: {
+        token:
+    }
+    loader: 
+    errorState:
+    errorMessage:
+    currentUser: {
+        balance:
+        uid:
+        email: 
+        username: 
+    }
+    transactions: transaction[]
+}
