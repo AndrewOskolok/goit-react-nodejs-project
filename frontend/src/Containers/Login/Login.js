@@ -1,18 +1,21 @@
 import React from "react";
 import css from "./Login.module.css";
 
-const Authorization = () => {
-  return  <div
-  className={css.loginForm}>
-  <form onSubmit>
-    <p className={css.loginLogo}>
+const Login = () => {
+  return <div className={css.login}>
+
+  <div
+  className={css.login__wrapper}>
+  <form onSubmit
+  className={css.login__wrapper_form}>
+    <p className={css.login__wrapper_form_logo}>
       Wallet
     </p>
     {/* --------- email input --------- */}
     <label
-    className={css.loginInputEmailIcon}>
+    className={css.login__wrapper_form_email_icon}>
     <input
-      className={css.loginInputEmail}
+      className={css.login__wrapper_form_email}
       id="email"
       type="email"
       placeholder="E-mail"
@@ -25,9 +28,9 @@ const Authorization = () => {
 
     {/* --------- password input --------- */}
     <label
-    className={css.loginInputPasswordIcon}>
+    className={css.login__wrapper_form_password_icon}>
     <input
-      className={css.loginInputPassword}
+      className={css.login__wrapper_form_password}
       placeholder="Пароль"
       id="password"
       type="password"
@@ -41,13 +44,12 @@ const Authorization = () => {
     {/* --------- buttons login/register --------- */}
     <div>
       <button type="submit"
-      className={css.loginInput}>
+      className={css.login__wrapper_form_input}>
         Вход
       </button>
 
-
       <button
-        type="button"  className={css.loginRegister}
+        type="button"  className={css.login__wrapper_form_register}
       >
         Регистрация
       </button>
@@ -56,6 +58,7 @@ const Authorization = () => {
     {/* --------- /form end --------- */}
   </form>
 </div>;
+</div>
 };
 
-export default Authorization;
+export default Login;

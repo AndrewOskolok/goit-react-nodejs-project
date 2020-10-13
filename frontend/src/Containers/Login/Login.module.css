@@ -1,67 +1,76 @@
-.loginForm {
-    padding-left: 20px;
-    padding-right: 20px;
+.login{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
-.loginLogo {
-    font-size: 17px;
-    font-weight: bold;
-    padding-top: 100px;
-    margin-bottom: 110px;
-    left: 130px;
-    position: relative; 
-    padding-left: 20px;
+.login__wrapper {
+    width: 280px;
+    height: 350px;
+    margin: 0 auto;
+}
+.login__wrapper_form{
+   
+}
+.login__wrapper_form_logo {
+    font-size: 23px;
+    font-weight: 700;
+    font-family: "Montserrat";
+    margin-bottom: 50px;
+    position: relative;     
+    text-align: center;
 
 }
-.loginLogo::before {
-    position: absolute;
-    display: block;
+.login__wrapper_form_logo::before {
     content: ''; 
-    background-image: url(../../images/icons/logo.svg);   
+    display: block;
     height: 30px;
     width: 30px;
-    left: -20px;
-    bottom: -3px;
-
+    position: absolute;
+    top: 50%;
+    left: 27%;
+    transform: translate(-50%, -50%);
+    background-image: url(../../images/icons/logo.svg);   
 }
-.loginInputEmail {
+.login__wrapper_form_email {
+    font-family: "Montserrat";
+    font-size: 20px;
     width: 280px;
-    height: 34px;
+    height: 44px;
     outline: none;
     border: none;
     border-bottom: 1px solid #E0E0E0;
+    margin-bottom: 44px;
     padding-left: 55px;
-    padding-bottom: 5px;
-    margin-bottom: 30px;
 }
 
-.loginInputEmailIcon::before {
+.login__wrapper_form_email_icon::before {
     position: absolute;
+    transform: translate(12px, 10px);
     display: block;
     content: '';
     background-image: url(../../images/icons/email.svg);
     width: 24px;
     height: 24px;
-    /* height: auto;
-    left: 20px; */
-    /* right: auto; */
-
     
 }
 
-.loginInputPassword {
+.login__wrapper_form_password {
+    font-family: "Montserrat";
+    font-size: 20px;
     width: 280px;
-    height: 34px;
+    height: 44px;
     outline: none;
     border: none;
     border-bottom: 1px solid #E0E0E0;
-    margin-bottom: 30px;
-    padding-bottom: 5px;
+    margin-bottom: 44px;
     padding-left: 55px;
 
 }
 
-.loginInputPasswordIcon::before {
+.login__wrapper_form_password_icon::before {
     position: absolute;
+    transform: translate(12px, 10px);
     display: block;
     content: '';
     background-image: url(../../images/icons/password.svg);
@@ -69,26 +78,34 @@
     height: 24px;
 }
 
-.loginInput {
+.login__wrapper_form_input {
+    font-family: "Montserrat";
     font-size:18px;
     font-weight: 400;
     color:black;
     width: 280px;
     height: 50px;
-    background: white;
-    border: 1px solid #4A56E2;
+    background: #24CCA7;
+    border: 1px solid #24CCA7;
     border-radius: 20px;
     font-size: 18px;
     margin-bottom: 20px;
 
 }
-.loginInput:hover{
-    background: #24CCA7;
-    border: 1px solid  #24CCA7;
+.login__wrapper_form_input:hover{
+    background: #70b1a3;;
+    border: 1px solid #70b1a3;;
     color:white;
 }
 
-.loginRegister {
+.login__wrapper_form_input:focus{
+    background: #E0E0E0;;
+    border: 1px solid  #E0E0E0;;
+    color:white;
+}
+
+.login__wrapper_form_register {
+    font-family: "Montserrat";
     font-size:18px;
     font-weight: 400;
     width: 280px;
@@ -100,7 +117,7 @@
 
 }
 
-.loginRegister:hover{
+.login__wrapper_form_register:hover{
     background: #24CCA7;
     border: 1px solid  #24CCA7;
     color:white;
