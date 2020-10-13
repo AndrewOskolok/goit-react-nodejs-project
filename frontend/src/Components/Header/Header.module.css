@@ -1,0 +1,107 @@
+.header {
+  width: 320px;
+  height: 60px;
+  background: #ffffff;
+  margin: 0 auto;
+  padding-top: 17px;
+}
+
+.header__logotype_image {
+  margin-left: 20px;
+  display: inline-block;
+  margin-right: 16px;
+  width: 30px;
+  height: 30px;
+}
+
+.header__title {
+  font-family: 'Poppins';
+  font-size: 17px;
+  font-weight: bold;
+  display: inline-block;
+  margin-right: 126px;
+  height: 32px;
+  vertical-align: middle;
+}
+
+.header__loginName {
+  display: inline-block;
+  font-size: 17px;
+  color: #bdbdbd;
+  margin-right: 10px;
+  height: 30px;
+  vertical-align: middle;
+}
+
+.header__logoutButton {
+  cursor: pointer;
+  background-color: #ffffff;
+  border: none;
+}
+
+@media (min-width: 768px) {
+  .header {
+    width: 768px;
+    height: 80px;
+    padding-top: 20px;
+  }
+
+  .header__logotype_image {
+    margin-left: 40px;
+    width: 40px;
+    height: 40px;
+    margin-right: 20px;
+  }
+
+  .header__title {
+    font-size: 30px;
+    height: 50px;
+    margin-right: 366px;
+  }
+
+  .header__loginName {
+    font-size: 24px;
+    height: 40px;
+    margin-right: 26px;
+    position: relative;
+  }
+
+  .header__loginName::after {
+    position: absolute;
+    bottom: 12px;
+    left: 55px;
+    display: block;
+    content: '';
+    height: 30px;
+    width: 2px;
+    background-color: #bdbdbd;
+  }
+
+  .header__logoutButton {
+    position: relative;
+  }
+
+  .header__logoutButton::after {
+    position: absolute;
+    bottom: -13px;
+    left: 35px;
+    display: block;
+    content: 'Выйти';
+    color: #bdbdbd;
+    font-size: 24px;
+    height: 40px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .header {
+    width: 1280px;
+  }
+  .header__logotype_image {
+    margin-left: 85px;
+  }
+
+  .header__title {
+    margin-right: 780px;
+  }
+}
