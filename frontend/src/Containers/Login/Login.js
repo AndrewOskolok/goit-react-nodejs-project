@@ -11,39 +11,40 @@ return <div className={css.login}>
             </p>
 
 {/* --------- email input --------- */}
-
-            <label className={css.login__wrapper_form_email_icon}>
-              <input
-                className={css.login__wrapper_form_email}
-                id="email"
-                type="email"
-                placeholder="E-mail"
-                name="email"
-                onChange
-                required
-                autoFocus
-              />
-            </label>
+            <div className={css.login__wrapper_form_sabmit}>
+              <label className={css.login__wrapper_form_email_icon}>
+                <input
+                  className={css.login__wrapper_form_email}
+                  id="email"
+                  type="email"
+                  placeholder="E-mail"
+                  name="email"
+                  onChange
+                  required
+                  autoFocus
+                />
+              </label>
 
 {/* --------- password input --------- */}
 
-            <label className={css.login__wrapper_form_password_icon}>
-              <input
-                className={css.login__wrapper_form_password}
-                placeholder="Пароль"
-                id="password"
-                type="password"
-                name="password"
-                onChange
-                minLength="6"
-                maxLength="15"
-                required
-              />
-            </label>
+              <label className={css.login__wrapper_form_password_icon}>
+                <input
+                  className={css.login__wrapper_form_password}
+                  placeholder="Пароль"
+                  id="password"
+                  type="password"
+                  name="password"
+                  onChange
+                  minLength="6"
+                  maxLength="15"
+                  required
+                />
+              </label>
+            </div>
 
 {/* --------- buttons login/register --------- */}
 
-            <div>
+            <div className={css.login__wrapper_form_button}>
               <button type="submit"
                 className={css.login__wrapper_form_input}>
                 Вход

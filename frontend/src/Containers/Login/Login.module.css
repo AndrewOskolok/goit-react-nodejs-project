@@ -4,12 +4,15 @@
     align-items: center;
     height: 100vh;
 }
+
 .login__wrapper {
     width: 280px;
     height: 350px;
     margin: 0 auto;
 }
+
 .login__wrapper_form{
+   
    
 }
 .login__wrapper_form_logo {
@@ -21,6 +24,7 @@
     text-align: center;
 
 }
+
 .login__wrapper_form_logo::before {
     content: ''; 
     display: block;
@@ -30,11 +34,15 @@
     top: 50%;
     left: 27%;
     transform: translate(-50%, -50%);
-    background-image: url(../../images/icons/logo.svg);   
+    background-image: url(../../images/icons/logo.svg); 
+    background-repeat: no-repeat; 
+    background-position: center;  
 }
+
 .login__wrapper_form_email {
     font-family: "Montserrat";
     font-size: 20px;
+    font-weight: 400;
     width: 280px;
     height: 44px;
     outline: none;
@@ -51,13 +59,13 @@
     content: '';
     background-image: url(../../images/icons/email.svg);
     width: 24px;
-    height: 24px;
-    
+    height: 24px;  
 }
 
 .login__wrapper_form_password {
     font-family: "Montserrat";
     font-size: 20px;
+    font-weight: 400;
     width: 280px;
     height: 44px;
     outline: none;
@@ -65,7 +73,6 @@
     border-bottom: 1px solid #E0E0E0;
     margin-bottom: 44px;
     padding-left: 55px;
-
 }
 
 .login__wrapper_form_password_icon::before {
@@ -82,7 +89,7 @@
     font-family: "Montserrat";
     font-size:18px;
     font-weight: 400;
-    color:black;
+    color: white;
     width: 280px;
     height: 50px;
     background: #24CCA7;
@@ -90,19 +97,19 @@
     border-radius: 20px;
     font-size: 18px;
     margin-bottom: 20px;
-
 }
+
 .login__wrapper_form_input:hover{
     background: #70b1a3;;
     border: 1px solid #70b1a3;;
-    color:white;
+    color:black;
     transition-delay: 0.3s;
 }
 
 .login__wrapper_form_input:focus{
     background: #E0E0E0;;
     border: 1px solid  #E0E0E0;;
-    color:white;
+    color: black;
     transition-delay: 0.3s;
 }
 
@@ -116,7 +123,6 @@
     border: 1px solid #4A56E2;
     box-sizing: border-box;
     border-radius: 20px;
-
 }
 
 .login__wrapper_form_register:hover{
@@ -132,4 +138,54 @@
     color:white;
     transition-delay: 0.3s;
 }
-/* @media (min-width: 768px) { */
+
+@media (min-width: 768px) {
+    .login__wrapper {
+        width: 540px;
+        height: 468px;
+        
+    }
+    
+    .login__wrapper_form_logo {
+        font-size: 30px;
+        line-height: 45px;
+        margin-bottom: 54px;
+    }
+
+    .login__wrapper_form_logo::before {
+        height: 40px;
+        width: 40px;
+        left: 33%;
+        background-image: url(../../images/icons/logoTablet.svg);   
+    }
+    .login__wrapper_form_sabmit{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .login__wrapper_form_email {
+        width: 410px;
+        margin-bottom: 40px;
+       
+    }
+
+    .login__wrapper_form_password {
+        width: 410px;
+        margin-bottom: 40px;
+    }
+    
+    .login__wrapper_form_button{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+    }
+    .login__wrapper_form_input {
+        width: 300px;
+      
+    }
+    .login__wrapper_form_register{
+        width: 300px;
+    }
+}
