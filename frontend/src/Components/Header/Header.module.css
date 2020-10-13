@@ -1,74 +1,83 @@
-.header {
-  width: 320px;
+.header__wrapper {
+  width: 280px;
   height: 60px;
-  background: #ffffff;
   margin: 0 auto;
-  padding-top: 17px;
-}
-
-.header__logotype_image {
-  margin-left: 20px;
-  display: inline-block;
-  margin-right: 16px;
-  width: 30px;
-  height: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .header__title {
-  font-family: 'Poppins';
-  font-size: 17px;
+  font-family: sans-serif;
+  font-size: 20px;
   font-weight: bold;
-  display: inline-block;
-  margin-right: 126px;
-  height: 32px;
-  vertical-align: middle;
+  position: relative;
+  padding-left: 42px;
 }
 
-.header__loginName {
-  display: inline-block;
+.header__title::before {
+  position: absolute;
+  content: '';
+  background-image: url(../../images/icons/Logotype.svg);
+  background-size: cover;
+  display: block;
+  width: 30px;
+  height: 30px;
+  left: 0px;
+  top: -4px;
+}
+
+.header__login_wrapper {
+  display: flex;
+}
+
+.header__login_name {
   font-size: 17px;
   color: #bdbdbd;
-  margin-right: 10px;
-  height: 30px;
-  vertical-align: middle;
+  margin-right: 12px;
 }
 
-.header__logoutButton {
+.header__logout_button {
   cursor: pointer;
   background-color: #ffffff;
+  background-size: cover;
   border: none;
+  outline: none;
+  background-image: url(../../images/icons/Logout.svg);
+  display: block;
+  height: 18px;
+  width: 18px;
 }
 
 @media (min-width: 768px) {
-  .header {
-    width: 768px;
+  .header__wrapper {
+    width: 688px;
     height: 80px;
-    padding-top: 20px;
-  }
-
-  .header__logotype_image {
-    margin-left: 40px;
-    width: 40px;
-    height: 40px;
-    margin-right: 20px;
   }
 
   .header__title {
     font-size: 30px;
-    height: 50px;
-    margin-right: 366px;
+    padding-left: 60px;
   }
 
-  .header__loginName {
-    font-size: 24px;
+  .header__title::before {
+    width: 40px;
     height: 40px;
+  }
+
+  .header__login_name {
+    font-size: 24px;
     margin-right: 26px;
     position: relative;
   }
 
-  .header__loginName::after {
+  .header__login_wrapper {
+    padding-right: 84px;
+  }
+
+  .header__login_name::after {
     position: absolute;
-    bottom: 12px;
+    bottom: 1px;
     left: 55px;
     display: block;
     content: '';
@@ -77,14 +86,15 @@
     background-color: #bdbdbd;
   }
 
-  .header__logoutButton {
+  .header__logout_button {
     position: relative;
+    top: 4px;
   }
 
-  .header__logoutButton::after {
+  .header__logout_button::after {
     position: absolute;
-    bottom: -13px;
-    left: 35px;
+    bottom: -18px;
+    left: 32px;
     display: block;
     content: 'Выйти';
     color: #bdbdbd;
@@ -94,11 +104,8 @@
 }
 
 @media (min-width: 1280px) {
-  .header {
-    width: 1280px;
-  }
-  .header__logotype_image {
-    margin-left: 85px;
+  .header__wrapper {
+    width: 1110px;
   }
 
   .header__title {
