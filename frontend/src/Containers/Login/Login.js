@@ -5,6 +5,9 @@ const Authorization = () => {
   return  <div
   className={css.loginForm}>
   <form onSubmit>
+    <p className={css.loginLogo}>
+      Wallet
+    </p>
     {/* --------- email input --------- */}
     <input
       className={css.loginInputEmail}
