@@ -9,6 +9,8 @@ const Authorization = () => {
       Wallet
     </p>
     {/* --------- email input --------- */}
+    <label
+    className={css.loginInputEmailIcon}>
     <input
       className={css.loginInputEmail}
       id="email"
@@ -19,9 +21,11 @@ const Authorization = () => {
       required
       autoFocus
     />
+    </label>
 
     {/* --------- password input --------- */}
-
+    <label
+    className={css.loginInputPasswordIcon}>
     <input
       className={css.loginInputPassword}
       placeholder="Пароль"
@@ -33,7 +37,7 @@ const Authorization = () => {
       maxLength="15"
       required
     />
-
+    </label>
     {/* --------- buttons login/register --------- */}
     <div>
       <button type="submit"

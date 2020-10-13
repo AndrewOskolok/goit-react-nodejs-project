@@ -29,20 +29,23 @@
     outline: none;
     border: none;
     border-bottom: 1px solid #E0E0E0;
-    padding-left: 30px;
+    padding-left: 55px;
+    padding-bottom: 5px;
     margin-bottom: 30px;
-    position: relative; 
 }
 
-.loginInputEmail::before {
+.loginInputEmailIcon::before {
     position: absolute;
     display: block;
     content: '';
-    /* background-image: url(../../images/icons/email.svg); */
-
-    /* width: 20px; */
+    background-image: url(../../images/icons/email.svg);
+    width: 24px;
+    height: 24px;
     /* height: auto;
     left: 20px; */
+    /* right: auto; */
+
+    
 }
 
 .loginInputPassword {
@@ -52,21 +55,42 @@
     border: none;
     border-bottom: 1px solid #E0E0E0;
     margin-bottom: 30px;
-    padding-left: 30px;
+    padding-bottom: 5px;
+    padding-left: 55px;
 
 }
 
+.loginInputPasswordIcon::before {
+    position: absolute;
+    display: block;
+    content: '';
+    background-image: url(../../images/icons/password.svg);
+    width: 24px;
+    height: 24px;
+}
+
 .loginInput {
+    font-size:18px;
+    font-weight: 400;
+    color:black;
     width: 280px;
     height: 50px;
-    background: #24CCA7;
+    background: white;
+    border: 1px solid #4A56E2;
     border-radius: 20px;
     font-size: 18px;
     margin-bottom: 20px;
 
 }
+.loginInput:hover{
+    background: #24CCA7;
+    border: 1px solid  #24CCA7;
+    color:white;
+}
 
 .loginRegister {
+    font-size:18px;
+    font-weight: 400;
     width: 280px;
     height: 50px;
     background: #FFFFFF;
@@ -76,3 +100,10 @@
 
 }
 
+.loginRegister:hover{
+    background: #24CCA7;
+    border: 1px solid  #24CCA7;
+    color:white;
+}
+
+/* @media (min-width: 768px) { */
