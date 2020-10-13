@@ -2,6 +2,35 @@
     width: 280px;
     margin: 0 auto;
 }
+/* ==================== */
+
+.transaction__header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 58px;
+    background: #FFFFFF;
+    border-radius: 30px;
+
+    padding: 0 20px;
+}
+
+.transaction__header_item{
+    font-family: Circe;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 27px;
+    color: #000000;
+}
+
+@media(max-width:767px){
+    .transaction__header{
+        display: none;
+    }
+}
+
+/* ===================== */
 
 .transaction__list {
     background-color: #FFFFFF;
@@ -16,7 +45,7 @@
     height: 46px;
 }
 
-.tarnsaction__list_item:nth-of-type(5) .item_value {
+.tarnsaction__list_item:nth-of-type(5) .tarnsaction__list_item_value {
     color: #FF6596;
 }
 
@@ -46,4 +75,75 @@
 
     color: #000000;
     margin-right: 20px;
+}
+
+@media(min-width:768px){
+    /* ================= */
+    .temporary_wrapper{
+        width: 688px;
+    }
+    /* ================= */
+    .transaction__list{
+        display: flex;
+        justify-content: space-between;
+        border-left: none;
+        border-radius: 0;
+        margin: 0;
+        background-color: transparent;
+
+        padding: 0 20px;
+    }
+
+    .transaction__list:not(:last-child){
+        border-bottom: 1px solid #DCDCDF
+    }
+
+    .tarnsaction__list_item{
+        flex-direction: column;
+        justify-content: center;
+        height: 54px;
+
+        /* width: 108px; */
+    }
+
+    .tarnsaction__list_item:nth-of-type(1) .tarnsaction__list_item_value{
+        width: 56px;
+    }
+
+    .tarnsaction__list_item:nth-of-type(2) .tarnsaction__list_item_value {
+        width: 25px;
+        text-align: center;
+    }
+
+    .tarnsaction__list_item:nth-of-type(3) .tarnsaction__list_item_value {
+        width: 118px;
+        text-align: center;
+    }
+
+    .tarnsaction__list_item:nth-of-type(4) .tarnsaction__list_item_value {
+        width: 118px;
+        text-align: left;
+    }
+
+    .tarnsaction__list_item:nth-of-type(5) .tarnsaction__list_item_value {
+        width: 62px;
+        text-align: center;
+    }
+
+    .tarnsaction__list_item:nth-of-type(6) .tarnsaction__list_item_value {
+        width: 67px;
+    }
+
+    .tarnsaction__list_item:not(:last-child) {
+        border: none;
+    }
+
+    .tarnsaction__list_item_key{
+        display: none;
+    }
+
+    .tarnsaction__list_item_value{
+        margin: 0;
+        line-height: normal;
+    }
 }
