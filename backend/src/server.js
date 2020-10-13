@@ -1,5 +1,6 @@
 const path = require("path");
 require("dotenv").config({ path: path.join(__dirname, "../.env") });
+const { transactionRouter } = require("./transactions/transactions.router");
 
 const cors = require("cors");
 const morgan = require("morgan");
@@ -47,7 +48,7 @@ exports.Server = class Server {
   }
 
   initRoutes() {
-    // this.app.use("/auth", morgan("tiny"), ROUTER_NAME);
+    this.app.use("/transactions", transactionRouter);
   }
 
   initErrorHandling() {
@@ -58,7 +59,7 @@ exports.Server = class Server {
   }
 
   startListening() {
-    this.app.listen(process.env.PORT, () => {
+    this.app.listen(process.env.PORT = 3000, () => {
       console.log("Started listening on port", process.env.PORT);
     });
   }
