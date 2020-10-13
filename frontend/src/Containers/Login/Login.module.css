@@ -11,10 +11,6 @@
     margin: 0 auto;
 }
 
-.login__wrapper_form{
-   
-   
-}
 .login__wrapper_form_logo {
     font-size: 23px;
     font-weight: 700;
@@ -140,10 +136,28 @@
 }
 
 @media (min-width: 768px) {
+    .login{
+        /* background: #E5E5E5; */
+        background: url(../../images/icons/authForm/backgroundSpot.svg) no-repeat,
+                    url(../../images/icons/authForm/backgroundSpot2.svg) no-repeat,
+                    url(../../images//icons//authForm/backgroundFrame.svg) no-repeat,
+                    url(../../images/icons/authForm/financeApp.svg) no-repeat,           
+
+        #E5E5E5;
+        /* background-repeat: no-repeat;  */
+        background-position: right top 20px, left bottom, left 114px top 60px,
+        right 140px top 330px ; 
+        height: auto; 
+
+    }
     .login__wrapper {
         width: 540px;
         height: 468px;
-        
+        background: #FFFFFF;
+        border-radius: 20px;
+        margin-top: 370px;
+        margin-bottom: 196px;   
+        padding-top: 40px; 
     }
     
     .login__wrapper_form_logo {
