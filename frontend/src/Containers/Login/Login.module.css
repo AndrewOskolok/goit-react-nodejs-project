@@ -11,16 +11,16 @@
     margin: 0 auto;
 }
 
-.login__form_logo {
+.login__logo {
+    font-family: "Montserrat";
     font-size: 23px;
     font-weight: 700;
-    font-family: "Montserrat";
     margin-bottom: 50px;
     position: relative;     
     text-align: center;
 }
 
-.login__form_logo::before {
+.login__logo::before {
     content: ''; 
     display: block;
     height: 30px;
@@ -34,7 +34,7 @@
     background-position: center;  
 }
 
-.login__form_email {
+.login__email {
     font-family: "Montserrat";
     font-size: 20px;
     font-weight: 400;
@@ -47,7 +47,7 @@
     padding-left: 55px;
 }
 
-.login__form_email_icon::before {
+.login__email_icon::before {
     position: absolute;
     transform: translate(12px, 10px);
     display: block;
@@ -57,7 +57,7 @@
     height: 24px;  
 }
 
-.login__form_password {
+.login__password {
     font-family: "Montserrat";
     font-size: 20px;
     font-weight: 400;
@@ -70,7 +70,7 @@
     padding-left: 55px;
 }
 
-.login__form_password_icon::before {
+.login__password_icon::before {
     position: absolute;
     transform: translate(12px, 10px);
     display: block;
@@ -80,7 +80,7 @@
     height: 24px;
 }
 
-.login__form_input {
+.login__input {
     font-family: "Montserrat";
     font-size:18px;
     font-weight: 400;
@@ -96,13 +96,13 @@
     transition: all 0.2s linear;
 }
 
-.login__form_input:hover,
-.login__form_input:focus{
+.login__input:hover,
+.login__input:focus{
     background:  #fff;
     color:black;
 }
 
-.login__form_register {
+.login__register {
     font-family: "Montserrat";
     font-size:18px;
     font-weight: 400;
@@ -116,8 +116,8 @@
     transition: all 0.2s linear;
 }
 
-.login__form_register:hover,
-.login__form_register:focus{
+.login__register:hover,
+.login__register:focus{
     background: #4A56E2;
     color:white;
 }
@@ -153,45 +153,45 @@
         justify-content: center;
     }
     
-    .login__form_logo {
+    .login__logo {
         font-size: 30px;
         margin-bottom: 65px;
     }
 
-    .login__form_logo::before {
+    .login__logo::before {
         height: 40px;
         width: 40px;
         left: 33%;
         background-image: url(../../images/icons/logoTablet.svg);   
     }
 
-    .login__form_sabmit{
+    .login__button_data{
         display: flex;
         flex-direction: column;
         align-items: center;
     }
     
-    .login__form_email {
+    .login__email {
         width: 410px;
         margin-bottom: 40px;
     }
 
-    .login__form_password {
+    .login__password {
         width: 410px;
         margin-bottom: 40px;
     }
     
-    .login__form_button{
+    .login__button{
         display: flex;
         flex-direction: column;
         align-items: center;
     }
 
-    .login__form_input {
+    .login__input {
         width: 300px;
     }
 
-    .login__form_register{
+    .login__register{
         width: 300px;
     }
 }
@@ -210,6 +210,19 @@
         background-repeat: no-repeat;
     }
     
+    .login::before{
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 618px;
+        height: 547px;
+        background-image: url(../../images/icons/authForm/backgroundSpotDesktop.svg);
+        background-size: cover;
+        filter: blur(40px);
+    }
+    
     .login__wrapper {
         position: relative;
         height: 100vh;
@@ -223,19 +236,6 @@
         box-shadow: -15px 0 15px 0 rgba(255,255,255,0.4);
     }
     
-    .login::before{
-        content: '';
-        display: block;
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 618px;
-        height: 547px;
-        background-image: url(../../images/icons/authForm/backgroundSpotDesktop.svg);
-        background-size: cover;
-        filter: blur(40px);
-    }
-
     
     .login__form_wrapper{
         z-index: 10;

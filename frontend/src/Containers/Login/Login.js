@@ -6,16 +6,16 @@ return <div className={css.login}>
         <div className={css.login__wrapper}>
           <form onSubmit
             className={css.login__form_wrapper}>
-            <p className={css.login__form_logo}>
+            <p className={css.login__logo}>
                Wallet
             </p>
 
 {/* --------- email input --------- */}
 
-            <div className={css.login__form_sabmit}>
-              <label className={css.login__form_email_icon}>
+            <div className={css.login__button_data}>
+              <label className={css.login__email_icon}>
                 <input
-                  className={css.login__form_email}
+                  className={css.login__email}
                   id="email"
                   type="email"
                   placeholder="E-mail"
@@ -28,9 +28,9 @@ return <div className={css.login}>
 
 {/* --------- password input --------- */}
 
-              <label className={css.login__form_password_icon}>
+              <label className={css.login__password_icon}>
                 <input
-                  className={css.login__form_password}
+                  className={css.login__password}
                   placeholder="Пароль"
                   id="password"
                   type="password"
@@ -45,14 +45,14 @@ return <div className={css.login}>
 
 {/* --------- buttons login/register --------- */}
 
-            <div className={css.login__form_button}>
+            <div className={css.login__button}>
               <button type="submit"
-                className={css.login__form_input}>
+                className={css.login__input}>
                 Вход
               </button>
 
               <button
-                type="button"  className={css.login__form_register}
+                type="button"  className={css.login__register}
               >
                 Регистрация
               </button>
