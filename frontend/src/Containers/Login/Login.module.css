@@ -137,18 +137,17 @@
 
 @media (min-width: 768px) {
     .login{
-        /* background: #E5E5E5; */
-        background: url(../../images/icons/authForm/backgroundSpot.svg) no-repeat,
-                    url(../../images/icons/authForm/backgroundSpot2.svg) no-repeat,
-                    url(../../images//icons//authForm/backgroundFrame.svg) no-repeat,
-                    url(../../images/icons/authForm/financeApp.svg) no-repeat,           
-
-        #E5E5E5;
-        /* background-repeat: no-repeat;  */
-        background-position: right top 20px, left bottom, left 114px top 60px,
-        right 140px top 330px ; 
+        background: url(../../images/icons/authForm/financeApp.svg),           
+                    url(../../images/icons/authForm/backgroundSpot.svg),
+                    url(../../images/icons/authForm/backgroundSpot2.svg),
+                    url(../../images//icons//authForm/backgroundFrame.svg),
+                    #E5E5E5;
+        background-position: right 170px top 175px,
+                             right top 20px,
+                             left bottom,
+                             left 114px top 60px;                     
+        background-repeat: no-repeat;
         height: auto; 
-
     }
     .login__wrapper {
         width: 540px;
