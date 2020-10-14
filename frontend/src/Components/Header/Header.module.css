@@ -1,3 +1,7 @@
+.header {
+  background-color: #fff;
+}
+
 .header__wrapper {
   width: 280px;
   height: 60px;
@@ -18,12 +22,12 @@
 
 .header__title:hover,
 .header__title:focus {
-  color: #24CCA7;
+  color: #24cca7;
 }
 
 .header__title::before {
   position: absolute;
-  content: '';
+  content: "";
   background-image: url(../../images/icons/Logotype.svg);
   background-size: cover;
   display: block;
@@ -86,7 +90,7 @@
     bottom: 1px;
     left: 57px;
     display: block;
-    content: '';
+    content: "";
     height: 30px;
     width: 1px;
     background-color: #bdbdbd;
@@ -102,7 +106,7 @@
     bottom: -18px;
     left: 32px;
     display: block;
-    content: 'Выйти';
+    content: "Выйти";
     color: #bdbdbd;
     font-size: 24px;
     height: 40px;

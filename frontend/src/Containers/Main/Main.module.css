@@ -1,41 +1,30 @@
 .main {
-  background-color: rgba(255, 255, 255, 0.4);
-  padding-top: 13px;
+  background-color: #eee;
 }
 
-.main__buttons_wrapper {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 13px;
+.main__wrapper {
+  width: 280px;
+  height: 100vh;
+  margin: 0 auto;
 }
 
-.main__btn {
-  display: block;
-  width: 38px;
-  height: 38px;
-  border: none;
-}
-
-.main__btn_home {
-  background-image: url(../../images/icons/home.svg);
-  margin-right: 36px;
-}
-
-.main__btn_statistic {
-  background-image: url(../../images/icons/Statistic.svg);
-  margin-right: 36px;
-}
-
-.main__btn_course {
-  background-image: url(../../images/icons/Course.svg);
-}
-
-.main__balance {
-    width: 280px;
-    height: 80px;
-    background-color: #fff;
-    /* border: none; */
-    border-radius: 30px;
+@media (min-width: 768px) {
+  .main__wrapper {
+    width: 100%;
+    /* height: 100%; */
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(30px);
+  }
+  
+  .main::before {
+    content: "";
     display: block;
-    margin: 0 auto;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url(../../images/icons/MainBackground.svg),
+    url(../../images/icons/BackgroundMain.svg);
+    background-position: left bottom, right top 80px;
+    background-repeat: no-repeat;
+  }
 }
