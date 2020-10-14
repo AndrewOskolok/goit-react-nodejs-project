@@ -11,17 +11,16 @@
     margin: 0 auto;
 }
 
-.login__wrapper_form_logo {
+.login__form_logo {
     font-size: 23px;
     font-weight: 700;
     font-family: "Montserrat";
     margin-bottom: 50px;
     position: relative;     
     text-align: center;
-
 }
 
-.login__wrapper_form_logo::before {
+.login__form_logo::before {
     content: ''; 
     display: block;
     height: 30px;
@@ -35,7 +34,7 @@
     background-position: center;  
 }
 
-.login__wrapper_form_email {
+.login__form_email {
     font-family: "Montserrat";
     font-size: 20px;
     font-weight: 400;
@@ -48,7 +47,7 @@
     padding-left: 55px;
 }
 
-.login__wrapper_form_email_icon::before {
+.login__form_email_icon::before {
     position: absolute;
     transform: translate(12px, 10px);
     display: block;
@@ -58,7 +57,7 @@
     height: 24px;  
 }
 
-.login__wrapper_form_password {
+.login__form_password {
     font-family: "Montserrat";
     font-size: 20px;
     font-weight: 400;
@@ -71,7 +70,7 @@
     padding-left: 55px;
 }
 
-.login__wrapper_form_password_icon::before {
+.login__form_password_icon::before {
     position: absolute;
     transform: translate(12px, 10px);
     display: block;
@@ -81,7 +80,7 @@
     height: 24px;
 }
 
-.login__wrapper_form_input {
+.login__form_input {
     font-family: "Montserrat";
     font-size:18px;
     font-weight: 400;
@@ -93,23 +92,17 @@
     border-radius: 20px;
     font-size: 18px;
     margin-bottom: 20px;
+    outline: none;
+    transition: all 0.2s linear;
 }
 
-.login__wrapper_form_input:hover{
-    background: #70b1a3;;
-    border: 1px solid #70b1a3;;
+.login__form_input:hover,
+.login__form_input:focus{
+    background:  #fff;
     color:black;
-    transition-delay: 0.3s;
 }
 
-.login__wrapper_form_input:focus{
-    background: #E0E0E0;;
-    border: 1px solid  #E0E0E0;;
-    color: black;
-    transition-delay: 0.3s;
-}
-
-.login__wrapper_form_register {
+.login__form_register {
     font-family: "Montserrat";
     font-size:18px;
     font-weight: 400;
@@ -119,20 +112,14 @@
     border: 1px solid #4A56E2;
     box-sizing: border-box;
     border-radius: 20px;
+    outline: none;
+    transition: all 0.2s linear;
 }
 
-.login__wrapper_form_register:hover{
-    background: #E0E0E0;
-    border: 1px solid  #E0E0E0;
+.login__form_register:hover,
+.login__form_register:focus{
+    background: #4A56E2;
     color:white;
-    transition-delay: 0.3s;
-}
-
-.login__wrapper_form_register:focus{
-    background: #E0E0E0;;
-    border: 1px solid  #E0E0E0;;
-    color:white;
-    transition-delay: 0.3s;
 }
 
 /* --------------------------- tablet --------------------------- */
@@ -145,66 +132,113 @@
                     url(../../images//icons//authForm/backgroundFrame.svg),
                     #E5E5E5;
         background-position: right 170px top 175px,
-                             right top 20px,
+                             right top,
                              left bottom,
                              left 114px top 60px;                     
         background-repeat: no-repeat;
-        height: auto; 
     }
 
     .login__wrapper {
         width: 540px;
-        height: 468px;
-        background: #FFFFFF;
-        border-radius: 20px;
-        margin-top: 370px;
-        margin-bottom: 196px;   
-        padding-top: 40px; 
-    }
-    
-    .login__wrapper_form_logo {
-        font-size: 30px;
-        line-height: 45px;
-        margin-bottom: 54px;
     }
 
-    .login__wrapper_form_logo::before {
+    .login__form_wrapper {
+        width: 540px;
+        height: 468px;
+        background-color: #fff;
+        border-radius: 20px;
+        transform: translateY(10%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    
+    .login__form_logo {
+        font-size: 30px;
+        margin-bottom: 65px;
+    }
+
+    .login__form_logo::before {
         height: 40px;
         width: 40px;
         left: 33%;
         background-image: url(../../images/icons/logoTablet.svg);   
     }
 
-    .login__wrapper_form_sabmit{
+    .login__form_sabmit{
         display: flex;
         flex-direction: column;
         align-items: center;
     }
     
-    .login__wrapper_form_email {
+    .login__form_email {
         width: 410px;
         margin-bottom: 40px;
-       
     }
 
-    .login__wrapper_form_password {
+    .login__form_password {
         width: 410px;
         margin-bottom: 40px;
     }
     
-    .login__wrapper_form_button{
+    .login__form_button{
         display: flex;
         flex-direction: column;
         align-items: center;
-
     }
 
-    .login__wrapper_form_input {
+    .login__form_input {
         width: 300px;
-      
     }
 
-    .login__wrapper_form_register{
+    .login__form_register{
         width: 300px;
+    }
+}
+
+/* --------------------------- desktop --------------------------- */
+
+@media (min-width: 1280px) {
+    .login{
+        background: url(../../images/icons/authForm/financeApp.svg),   
+        url(../../images//icons//authForm/backgroundFrameDesktop.svg),
+        url(../../images/icons/authForm/backgroundSpot2Desktop.svg),
+        #E5E5E5 repeat-x 50% ;
+        background-position: left 195px top 625px,
+        left 70px top 150px,
+        left bottom; 
+        background-repeat: no-repeat;
+    }
+    
+    .login__wrapper {
+        position: relative;
+        height: 100vh;
+        width: 55%;
+        margin-right: 0;
+        border-radius: 0px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color:rgba(255,255,255,0.4);
+        box-shadow: -15px 0 15px 0 rgba(255,255,255,0.4);
+    }
+    
+    .login::before{
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 618px;
+        height: 547px;
+        background-image: url(../../images/icons/authForm/backgroundSpotDesktop.svg);
+        background-size: cover;
+        filter: blur(40px);
+    }
+
+    
+    .login__form_wrapper{
+        z-index: 10;
+        transform: translateY(0);
     }
 }

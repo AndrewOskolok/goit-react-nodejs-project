@@ -2,19 +2,20 @@ import React from "react";
 import css from "./Login.module.css";
 
 const Login = () => {
-return <div className={css.login}>
+return <div className={css.login}>   
         <div className={css.login__wrapper}>
           <form onSubmit
-            className={css.login__wrapper_form}>
-            <p className={css.login__wrapper_form_logo}>
+            className={css.login__form_wrapper}>
+            <p className={css.login__form_logo}>
                Wallet
             </p>
 
 {/* --------- email input --------- */}
-            <div className={css.login__wrapper_form_sabmit}>
-              <label className={css.login__wrapper_form_email_icon}>
+
+            <div className={css.login__form_sabmit}>
+              <label className={css.login__form_email_icon}>
                 <input
-                  className={css.login__wrapper_form_email}
+                  className={css.login__form_email}
                   id="email"
                   type="email"
                   placeholder="E-mail"
@@ -27,9 +28,9 @@ return <div className={css.login}>
 
 {/* --------- password input --------- */}
 
-              <label className={css.login__wrapper_form_password_icon}>
+              <label className={css.login__form_password_icon}>
                 <input
-                  className={css.login__wrapper_form_password}
+                  className={css.login__form_password}
                   placeholder="Пароль"
                   id="password"
                   type="password"
@@ -44,20 +45,20 @@ return <div className={css.login}>
 
 {/* --------- buttons login/register --------- */}
 
-            <div className={css.login__wrapper_form_button}>
+            <div className={css.login__form_button}>
               <button type="submit"
-                className={css.login__wrapper_form_input}>
+                className={css.login__form_input}>
                 Вход
               </button>
 
               <button
-                type="button"  className={css.login__wrapper_form_register}
+                type="button"  className={css.login__form_register}
               >
                 Регистрация
               </button>
             </div>
          </form>
-        </div>;
+        </div>
        </div>
 };
 
