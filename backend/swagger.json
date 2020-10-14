@@ -1,0 +1,316 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "BC20-21 Final Project API docs",
+    "description": "",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Transactions",
+      "description": "Transaction operations"
+    }
+  ],
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/transactions": {
+      "post": {
+        "tags": ["Transactions"],
+        "summary": "Create a transaction",
+        "parameters": [
+          {
+            "name": "Request body",
+            "in": "body",
+            "description": "Transaction request body",
+            "required": true,
+            "schema": { "$ref": "#/components/schemas/Transaction" }
+          },
+          {
+            "name": "JWT token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/components/schemas/ReturnedTransaction"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {}
+          },
+          "404": {
+            "description": "Unauthorized",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/{transactionId}": {
+      "delete": {
+        "tags": ["Transactions"],
+        "summary": "Delete transaction",
+        "parameters": [
+          {
+            "name": "Transaction ID",
+            "in": "path",
+            "description": "ID of the transaction you want to delete",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "JWT token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful operation",
+            "content": {}
+          },
+          "404": {
+            "description": "Unauthorized",
+            "content": {}
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Transactions"],
+        "summary": "Update transaction",
+        "parameters": [
+          {
+            "name": "Request body",
+            "in": "body",
+            "description": "Request body. At least one parameter required. IF DATE IS CHANGED, PROVIDE NEW 'month' and 'year' FIELDS WITH IT!",
+            "required": true,
+            "schema": { "$ref": "#/components/schemas/PatchTransaction" }
+          },
+          {
+            "name": "Transaction ID",
+            "in": "path",
+            "description": "ID of the transaction you want to delete",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "JWT token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful operation",
+            "schema": { "$ref": "#/components/schemas/ReturnedTransaction" }
+          },
+          "404": {
+            "description": "Unauthorized",
+            "content": {}
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Transaction": {
+        "required": [
+          "date",
+          "month",
+          "year",
+          "type",
+          "category",
+          "description",
+          "amount",
+          "balanceAfter"
+        ],
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "integer",
+            "description": "Date of transaction (time in ms since 1970)"
+          },
+          "month": {
+            "type": "string",
+            "description": "Transaction's month",
+            "enum": [
+              "January",
+              "February",
+              "March",
+              "April",
+              "May",
+              "June",
+              "July",
+              "August",
+              "September",
+              "October",
+              "November",
+              "December"
+            ]
+          },
+          "year": {
+            "type": "integer",
+            "description": "Transaction's year",
+            "minimum": 1970,
+            "maximum": "Current year"
+          },
+          "type": {
+            "type": "string",
+            "description": "Transaction's type",
+            "enum": ["income", "expense"]
+          },
+          "category": {
+            "type": "string",
+            "description": "Transaction's category. Default or user's custom allowed in body"
+          },
+          "description": {
+            "type": "string",
+            "description": "Transaction's description"
+          },
+          "amount": {
+            "type": "integer",
+            "description": "Transaction's amount"
+          },
+          "balanceAfter": {
+            "type": "integer",
+            "description": "User's balance after provided transaction"
+          }
+        }
+      },
+      "ReturnedTransaction": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "integer",
+            "description": "Date of transaction (time in ms since 1970)"
+          },
+          "month": {
+            "type": "string",
+            "description": "Transaction's month",
+            "enum": [
+              "January",
+              "February",
+              "March",
+              "April",
+              "May",
+              "June",
+              "July",
+              "August",
+              "September",
+              "October",
+              "November",
+              "December"
+            ]
+          },
+          "year": {
+            "type": "integer",
+            "description": "Transaction's year",
+            "minimum": 1970,
+            "maximum": "Current year"
+          },
+          "type": {
+            "type": "string",
+            "description": "Transaction's type",
+            "enum": ["income", "expense"]
+          },
+          "category": {
+            "type": "string",
+            "description": "Transaction's category. Default or user's custom allowed in body"
+          },
+          "description": {
+            "type": "string",
+            "description": "Transaction's description"
+          },
+          "amount": {
+            "type": "integer",
+            "description": "Transaction's amount"
+          },
+          "balanceAfter": {
+            "type": "integer",
+            "description": "User's balance after provided transaction"
+          },
+          "_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "uuid"
+          }
+        }
+      },
+      "PatchTransaction": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "integer",
+            "description": "Date of transaction (time in ms since 1970)"
+          },
+          "month": {
+            "type": "string",
+            "description": "Transaction's month",
+            "enum": [
+              "January",
+              "February",
+              "March",
+              "April",
+              "May",
+              "June",
+              "July",
+              "August",
+              "September",
+              "October",
+              "November",
+              "December"
+            ]
+          },
+          "year": {
+            "type": "integer",
+            "description": "Transaction's year",
+            "minimum": 1970,
+            "maximum": "Current year"
+          },
+          "type": {
+            "type": "string",
+            "description": "Transaction's type",
+            "enum": ["income", "expense"]
+          },
+          "category": {
+            "type": "string",
+            "description": "Transaction's category. Default or user's custom allowed in body"
+          },
+          "description": {
+            "type": "string",
+            "description": "Transaction's description"
+          },
+          "amount": {
+            "type": "integer",
+            "description": "Transaction's amount"
+          },
+          "balanceAfter": {
+            "type": "integer",
+            "description": "User's balance after provided transaction"
+          }
+        }
+      }
+    }
+  }
+}
