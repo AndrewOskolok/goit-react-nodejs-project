@@ -11,7 +11,7 @@ sessions: // object[]
 categories?: // string[]
 =======
 transaction object: {
-    date: // Date
+    date: // number
     month: // string
     year: // string
     type: // string (income | consumption)

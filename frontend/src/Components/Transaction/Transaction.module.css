@@ -1,0 +1,166 @@
+.transaction__list {
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    border-left: 5px solid #FF6596;
+    margin-bottom: 10px;
+}
+
+.tarnsaction__list_item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 46px;
+}
+
+.tarnsaction__list_item:nth-of-type(5) .tarnsaction__list_item_value {
+    color: #FF6596;
+}
+
+.tarnsaction__list_item:not(:last-child) {
+    border-bottom: 1px solid #DCDCDF;
+}
+
+.tarnsaction__list_item_key {
+    font-family: "Montserrat", sans-serif;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 18px;
+    line-height: 46px;
+    text-align: right;
+    color: #000000;
+     margin-left: 15px;
+}
+
+.tarnsaction__list_item_value {
+    font-family: "Montserrat", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    text-align: right;
+    color: #000000;
+    margin-right: 20px;
+}
+
+@media(max-width:767px) {
+    .transaction__header {
+        display: none;
+    }
+}
+
+@media(min-width:768px){
+
+    .transaction__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 58px;
+        background: #FFFFFF;
+        border-radius: 30px;
+
+        padding: 0 20px;
+    }
+
+    .transaction__header_item {
+        font-family: "Montserrat",
+        sans-serif;
+        font-style: normal;
+        font-weight: 900;
+        font-size: 18px;
+        line-height: 27px;
+        color: #000000;
+    }
+
+    .transaction__header_item:nth-of-type(1) {
+        width: 80px;
+        text-align: center;
+    }
+
+    .transaction__header_item:nth-of-type(2) {
+        width: 60px;
+        text-align: center;
+    }
+
+    .transaction__header_item:nth-of-type(3) {
+        width: 120px;
+        text-align: left;
+    }
+
+    .transaction__header_item:nth-of-type(4) {
+        width: 120px;
+        text-align: left;
+    }
+
+    .transaction__header_item:nth-of-type(5) {
+        width: 60px;
+        text-align: right;
+    }
+
+   .transaction__header_item:nth-of-type(6) {
+        width: 80px;
+        text-align: right;
+    }
+
+    .transaction__list{
+        display: flex;
+        justify-content: space-between;
+        border-left: none;
+        border-radius: 0;
+        margin: 0;
+        background-color: transparent;
+
+        padding: 0 20px;
+    }
+
+    .transaction__list:not(:last-child){
+        border-bottom: 1px solid #DCDCDF
+    }
+
+    .tarnsaction__list_item{
+        flex-direction: column;
+        justify-content: center;
+        height: 54px;
+    }
+
+    .tarnsaction__list_item:nth-of-type(1) .tarnsaction__list_item_value{
+         width: 80px;
+         text-align: center;
+    }
+
+    .tarnsaction__list_item:nth-of-type(2) .tarnsaction__list_item_value {
+         width: 60px;
+        text-align: center;
+    }
+
+    .tarnsaction__list_item:nth-of-type(3) .tarnsaction__list_item_value {
+         width: 120px;
+        text-align: left;
+    }
+
+    .tarnsaction__list_item:nth-of-type(4) .tarnsaction__list_item_value {
+         width: 120px;
+        text-align: left;
+    }
+
+    .tarnsaction__list_item:nth-of-type(5) .tarnsaction__list_item_value {
+         width: 60px;
+        text-align: right;
+    }
+
+    .tarnsaction__list_item:nth-of-type(6) .tarnsaction__list_item_value {
+         width: 80px;
+         text-align: right;
+    }
+
+    .tarnsaction__list_item:not(:last-child) {
+        border: none;
+    }
+
+    .tarnsaction__list_item_key{
+        display: none;
+    }
+
+    .tarnsaction__list_item_value{
+        margin: 0;
+        line-height: normal;
+    }
+}
