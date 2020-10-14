@@ -31,7 +31,7 @@ async function updateTransaction(req, res) {
     await UserModel.update({"transactions.id": req.params.transactionId},  {'$set': {
              'transactions.$': updatedTransaction,
 	   }},)
-    return res.status(204).send();
+    return res.status(204).send(updatedTransaction);
 }
 
 module.exports = {
