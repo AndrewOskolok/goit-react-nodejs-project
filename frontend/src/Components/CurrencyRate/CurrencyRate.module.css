@@ -2,6 +2,7 @@
   display: flex;
   flex-wrap: wrap;
   width: 280px;
+  height: 174px;
   background: url('../../images/icons/currency_header.svg'),
     url('../../images/icons/wave.svg'), #4a56e2;
   background-repeat: no-repeat;
@@ -14,7 +15,7 @@
 .transaction__types {
   display: flex;
   flex-wrap: wrap;
-  padding: 15px 9px;
+  padding: 12px 8px;
   justify-content: space-between;
   width: 280px;
 }
@@ -44,17 +45,22 @@
 
   .transaction__types {
     width: 334px;
-    padding: 15px 20px;
+    padding: 10px 20px;
   }
 }
 
 @media (min-width: 1280px) {
   .currency_rate {
     width: 348px;
+    height: 347px;
     background: url('../../images/icons/currency_header1280.svg'),
       url('../../images/icons/wave1280.svg'), #4a56e2;
     background-repeat: no-repeat;
     background-position: top 0 left 0, bottom left 0;
     padding-bottom: 150px;
+  }
+  .transaction__types {
+    width: 334px;
+    padding: 16px 20px;
   }
 } ;
