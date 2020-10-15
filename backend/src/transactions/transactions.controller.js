@@ -3,11 +3,9 @@ const { UserModel } = require("../users/user.model");
 
 async function createTransaction(req, res) {
   const transactionId = uuidv4();
-  const userToUpdate = await UserModel.findByIdAndUpdate(
-    "5f85f5c86e965b45cca0574e",
-    { $push: { transactions: { ...req.body, id: transactionId } } }
-  );
-  // Вместо первого параметра будет браться ID авторизированного юзера из объекта request.
+  const userToUpdate = await UserModel.findByIdAndUpdate(req.user._id, {
+    $push: { transactions: { ...req.body, id: transactionId } },
+  });
   if (!userToUpdate) {
     return res.status(404).send({ message: "Unauthorized" });
   }
@@ -15,11 +13,9 @@ async function createTransaction(req, res) {
 }
 
 async function deleteTransaction(req, res) {
-  const userToUpdate = await UserModel.findByIdAndUpdate(
-    "5f85f5c86e965b45cca0574e",
-    { $pull: { transactions: { id: `${req.params.transactionId}` } } }
-  );
-  // Вместо первого параметра будет браться ID авторизированного юзера из объекта request.
+  const userToUpdate = await UserModel.findByIdAndUpdate(req.user._id, {
+    $pull: { transactions: { id: `${req.params.transactionId}` } },
+  });
   if (!userToUpdate) {
     return res.status(404).send({ message: "Unauthorized" });
   }
@@ -27,8 +23,7 @@ async function deleteTransaction(req, res) {
 }
 
 async function updateTransaction(req, res) {
-  const userToUpdate = await UserModel.findById("5f85f5c86e965b45cca0574e");
-  // Вместо первого параметра будет браться ID авторизированного юзера из объекта request.
+  const userToUpdate = await UserModel.findById(req.user._id);
   if (!userToUpdate) {
     return res.status(404).send({ message: "Unauthorized" });
   }

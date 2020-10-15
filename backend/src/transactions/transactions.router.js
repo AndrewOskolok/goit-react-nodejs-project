@@ -5,6 +5,7 @@ const {
   deleteTransaction,
   updateTransaction,
 } = require("./transactions.controller");
+const { authorize } = require("../auth/auth.controller");
 const { tryCatchWrapper } = require("../helpers/try-catch-wrapper");
 const { validate } = require("../helpers/validate");
 
@@ -66,12 +67,14 @@ const updateTransactionScheme = Joi.object({
 
 router.post(
   "/",
+  authorize,
   validate(createTransactionScheme),
   tryCatchWrapper(createTransaction)
 );
-router.delete("/:transactionId", tryCatchWrapper(deleteTransaction));
+router.delete("/:transactionId", authorize, tryCatchWrapper(deleteTransaction));
 router.patch(
   "/:transactionId",
+  authorize,
   validate(updateTransactionScheme),
   tryCatchWrapper(updateTransaction)
 );

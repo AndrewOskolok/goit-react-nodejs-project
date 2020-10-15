@@ -4,7 +4,6 @@ const nodemailer = require("nodemailer");
 const uuid = require("uuid").v4;
 const { SessionModel } = require("../sessions/session.model");
 const { UserModel } = require("../users/user.model");
-const { generateAvatar } = require("../helpers/generate-avatar");
 
 const monthNames = [
   "January",
@@ -29,7 +28,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-async function register(req, res, next) {
+async function register(req, res) {
   const { email, password, username } = req.body;
   const existingUser = await UserModel.findOne({ email });
   if (existingUser) {
@@ -41,13 +40,11 @@ async function register(req, res, next) {
     password,
     Number(process.env.HASH_POWER)
   );
-  const newUserAvatar = await generateAvatar(next);
   const newUser = await UserModel.create({
     email,
     passwordHash,
     username,
-    avatarUrl: `http://localhost:3000/images/${newUserAvatar}`,
-    // изменить на ссылку Heroku
+    avatarUrl: "",
     verificationToken: uuid(),
   });
   await sendVerificationEmail(email, newUser.verificationToken);
@@ -55,7 +52,7 @@ async function register(req, res, next) {
     id: newUser._id,
     email,
     username,
-    avatarUrl: `http://localhost:3000/images/${newUserAvatar}`,
+    avatarUrl: "",
     currentBalance: newUser.currentBalance,
     transactions: newUser.transactions,
     customCategories: newUser.customCategories,
@@ -68,11 +65,11 @@ async function login(req, res) {
   if (!user) {
     return res
       .status(403)
-      .json({ message: `User with ${email} email doesn't exist.` });
+      .json({ message: `User with ${email} email doesn't exist` });
   }
   const isPasswordCorrect = await bcrypt.compare(password, user.passwordHash);
   if (!isPasswordCorrect) {
-    return res.status(403).json({ message: "Password is wrong." });
+    return res.status(403).json({ message: "Password is wrong" });
   }
   const newSession = await SessionModel.create({
     uid: user._id,
@@ -99,15 +96,93 @@ async function login(req, res) {
   return res.status(200).send({
     id: user._id,
     username: user.username,
-    balance: user.balance,
+    currentBalance: user.currentBalance,
     transactions: currentMonthTransactions,
     accessToken,
     refreshToken,
   });
 }
 
+async function authorize(req, res, next) {
+  const authorizationHeader = req.get("Authorization");
+  if (authorizationHeader) {
+    const accessToken = authorizationHeader.replace("Bearer ", "");
+    let payload;
+    try {
+      payload = jwt.verify(accessToken, process.env.JWT_SECRET);
+    } catch (err) {
+      return res.status(401).send({ message: "Unauthorized" });
+    }
+    const user = await UserModel.findById(payload.uid);
+    const session = await SessionModel.findById(payload.sid);
+    if (!user) {
+      return res.status(404).send({ message: "Invalid user" });
+    }
+    if (!session) {
+      return res.status(404).send({ message: "Invalid session" });
+    }
+    // if (user.verificationToken) {
+    //   return res
+    //     .status(401)
+    //     .send({ message: "You haven't verified your email address." });
+    // }
+    // gmail не парсит ссылку, после изменения на heroku вернуть этот блок
+    req.user = user;
+    req.session = session;
+    next();
+  } else return res.status(400).json({ message: "No token provided" });
+}
+
+async function refreshTokens(req, res) {
+  const authorizationHeader = req.get("Authorization");
+  if (authorizationHeader) {
+    const reqRefreshToken = authorizationHeader.replace("Bearer ", "");
+    let payload;
+    try {
+      payload = jwt.verify(reqRefreshToken, process.env.JWT_SECRET);
+    } catch (err) {
+      return res.status(401).send({ message: "Unauthorized" });
+    }
+    const user = await UserModel.findById(payload.uid);
+    const session = await SessionModel.findById(payload.sid);
+    if (!user) {
+      return res.status(404).send({ message: "Invalid user" });
+    }
+    if (!session) {
+      return res.status(404).send({ message: "Invalid session" });
+    }
+    await SessionModel.findByIdAndDelete(payload.sid);
+    const newSession = await SessionModel.create({
+      uid: user._id,
+    });
+    const accessToken = jwt.sign(
+      { uid: user._id, sid: newSession._id },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: process.env.JWT_ACCESS_EXPIRE_TIME,
+      }
+    );
+    const refreshToken = jwt.sign(
+      { uid: user._id, sid: newSession._id },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: process.env.JWT_REFRESH_EXPIRE_TIME,
+      }
+    );
+    return res.status(200).send({ accessToken, refreshToken });
+  }
+}
+
+async function logout(req, res) {
+  const currentSession = req.session;
+  await SessionModel.deleteOne({ _id: currentSession._id });
+  req.user = null;
+  req.session = null;
+  res.status(204).end();
+}
+
 async function sendVerificationEmail(email, verificationToken) {
-  const verificationLink = `http://localhost:3000/auth/verify/${verificationToken}`;
+  const verificationLink = `${process.env.BASE_URL}/auth/verify/${verificationToken}`;
   return transporter.sendMail({
     to: email,
     from: process.env.NODEMAILER_EMAIL,
@@ -119,4 +194,7 @@ async function sendVerificationEmail(email, verificationToken) {
 module.exports = {
   register,
   login,
+  refreshTokens,
+  authorize,
+  logout,
 };
