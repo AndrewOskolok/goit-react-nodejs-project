@@ -105,14 +105,19 @@
 }
 
 .registration__password_confirm_status {
-    content: '';
-    display: block;
     height: 4px;
     background: linear-gradient(to right,#ff0000 33%, #E5F1EF 34%);
     /* background: linear-gradient(to right,rgb(255, 238, 0) 63%, #E5F1EF 34%); */
     /* background: #24CCA7; */
     margin-bottom: 30px;
 }
+
+/* .registration__password_confirm_status::before{
+    content: '';
+    display: block;
+    height: 4px;
+    background: #24CCA7;
+} */
 
 .registration__name_input {
     font-family: "Montserrat";
@@ -209,8 +214,6 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        /* padding-top: 40px; */
-        /* padding-bottom: 30px; */
     }
     
     .registration__logo {
@@ -246,8 +249,17 @@
         margin-bottom: 10px;
     }
 
+    /* .registration__password_confirm_status::before{
+        display: block;
+        height: 4px;
+        width: 30px;
+        background: #24CCA7;
+        border-bottom: 1px solid #E0E0E0;
+    } */
+
     .registration__name_input {
         width: 410px;
+        padding-left: 55px;
         margin-bottom: 50px;
     }
 
