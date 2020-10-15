@@ -8,32 +8,22 @@
      overflow: hidden;
 }
 
-.transaction__list:hover {
-    background-color: #FFFFFF;
-    padding-right: 90px;
-}
 
-.transaction__list:hover .transaction__list_item{
-    /* filter: blur(2px); */
-    cursor: default;
-    /* transform: translateX(-70px); */
-}
 
 .transaction__list::before{
     content: "";
     width: 20px;
     height: 20px;
     position: absolute;
-    top: 50%;
+    top: -10px;
     right: -50px;
     transform: translate(-50%,-50%);
     background-image: url('../../images/icons/edit.ico');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    /* z-index: 1; */
     cursor: pointer;
-    transition: all 250ms linear;
+    transition: right 250ms linear;
 }
 
 .transaction__list::after {
@@ -41,24 +31,15 @@
     width: 20px;
     height: 20px;
     position: absolute;
-    top: 50%;
+    top: -10px;
     right: -50px;
     transform: translate(-50%, -50%);
     background-image: url('../../images/icons/delete.ico');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    /* z-index: 1; */
     cursor: pointer;
-     transition: all 250ms linear;
-}
-
-.transaction__list:hover::before{
-right: 34px;
-}
-
-.transaction__list:hover::after {
-right: 8px;
+     transition: right 250ms linear;
 }
 
 .transaction__list_item {
@@ -99,20 +80,27 @@ right: 8px;
 }
 
 @media(max-width:767px) {
+.transaction__list:hover .transaction__list_item {
+    padding-right: 20px;
+}
+
+.transaction__list:hover::before {
+    top: 115px;
+    right: 5px;
+
+}
+
+.transaction__list:hover::after {
+    top: 160px;
+    right: 5px;
+}
+
     .transaction__header {
         display: none;
     }
 }
 
 @media(min-width:768px){
-
-    .transaction__list:hover{
-        border-radius: 30px;
-    }
-
-    .transaction__list:hover:first-of-type{
-         border-top: 1px solid #DCDCDF
-    }
 
     .transaction__header {
         display: flex;
@@ -179,6 +167,38 @@ right: 8px;
     .transaction__list:not(:last-child){
         border-bottom: 1px solid #DCDCDF
     }
+
+     .transaction__list:hover {
+         background-color: #FFFFFF;
+         padding-right: 90px;
+         border-radius: 30px;
+     }
+
+     .transaction__list:hover .transaction__list_item {
+         cursor: default;
+     }
+
+     .transaction__list:hover:first-of-type {
+         border-top: 1px solid #DCDCDF
+     }
+
+     .transaction__list::before {
+         top: 50%;
+         right: -50px;
+     }
+
+     .transaction__list::after {
+         top: 50%;
+         right: -50px;
+     }
+
+     .transaction__list:hover::before {
+         right: 34px;
+     }
+
+     .transaction__list:hover::after {
+         right: 8px;
+     }
 
     .transaction__list_item{
         flex-direction: column;
