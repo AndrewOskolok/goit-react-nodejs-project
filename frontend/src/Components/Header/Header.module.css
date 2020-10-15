@@ -47,6 +47,7 @@
   font-size: 17px;
   color: #bdbdbd;
   margin-right: 12px;
+  font-family: "Montserrat";
 }
 
 .header__logout_button {
@@ -78,7 +79,7 @@
   }
 
   .header__login_name {
-    font-size: 24px;
+    font-size: 20px;
     margin-right: 30px;
     position: relative;
   }
@@ -89,8 +90,8 @@
 
   .header__login_name::after {
     position: absolute;
-    bottom: 1px;
-    left: 57px;
+    bottom: -4px;
+    left: 58px;
     display: block;
     content: "";
     height: 30px;
@@ -100,18 +101,19 @@
 
   .header__logout_button {
     position: relative;
-    top: 4px;
+    top: 2px;
   }
 
   .header__logout_button::after {
     position: absolute;
-    bottom: -18px;
+    bottom: -20px;
     left: 32px;
     display: block;
     content: "Выйти";
     color: #bdbdbd;
-    font-size: 24px;
+    font-size: 20px;
     height: 40px;
+    font-family: "Montserrat";
   }
 }
 

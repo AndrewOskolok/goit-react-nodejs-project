@@ -1,0 +1,37 @@
+.main__balance {
+  width: 280px;
+  height: 80px;
+  background-color: #fff;
+  border: none;
+  border-radius: 30px;
+  margin: 0 auto;
+}
+
+.balance__name {
+  text-transform: uppercase;
+  font-family: "Montserrat";
+  font-size: 12px;
+  color: #a6a6a6;
+  text-align: left;
+  margin-left: 30px;
+  margin-bottom: 10px;
+}
+
+.balance__total {
+  margin-left: 30px;
+  float: left;
+  font-size: 30px;
+  font-family: "Montserrat";
+  font-weight: bold;
+}
+
+.balance__marker {
+    font-weight: normal;
+}
+
+@media (min-width: 768px) {
+  .main__balance {
+    width: 334px;
+    margin: 0;
+  }
+}
