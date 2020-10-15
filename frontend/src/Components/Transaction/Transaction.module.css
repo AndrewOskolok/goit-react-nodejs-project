@@ -3,24 +3,67 @@
     border-radius: 5px;
     border-left: 5px solid #FF6596;
     margin-bottom: 10px;
+    transition: all 250ms linear;
+     position: relative;
 }
 
-.tarnsaction__list_item {
+.transaction__list:hover {
+    background-color: #FFFFFF;
+}
+
+.transaction__list:hover .transaction__list_item{
+    filter: blur(2px);
+    cursor: default;
+}
+
+.transaction__list:hover::before{
+    content: "";
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-image: url('./icons/edit_icon-icons.com_52382.ico');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    z-index: 1;
+    cursor: pointer;
+}
+
+.transaction__list:hover::after {
+    content: "";
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-image: url('./icons/1486504830-delete-dustbin-empty-recycle-recycling-remove-trash_81361.ico');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    z-index: 1;
+    cursor: pointer;
+}
+
+.transaction__list_item {
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 46px;
 }
 
-.tarnsaction__list_item:nth-of-type(5) .tarnsaction__list_item_value {
+.transaction__list_item:nth-of-type(5) .transaction__list_item_value {
     color: #FF6596;
 }
 
-.tarnsaction__list_item:not(:last-child) {
+.transaction__list_item:not(:last-child) {
     border-bottom: 1px solid #DCDCDF;
 }
 
-.tarnsaction__list_item_key {
+.transaction__list_item_key {
     font-family: "Montserrat", sans-serif;
     font-style: normal;
     font-weight: 900;
@@ -31,7 +74,7 @@
      margin-left: 15px;
 }
 
-.tarnsaction__list_item_value {
+.transaction__list_item_value {
     font-family: "Montserrat", sans-serif;
     font-style: normal;
     font-weight: 400;
@@ -48,6 +91,20 @@
 }
 
 @media(min-width:768px){
+
+    .transaction__list:hover{
+        border-radius: 30px;
+    }
+
+    .transaction__list:hover::before {
+        top: 50%;
+        left: 33.3%;
+    }
+
+    .transaction__list:hover::after {
+        top: 50%;
+        left: 66.6%;
+    }
 
     .transaction__header {
         display: flex;
@@ -115,51 +172,51 @@
         border-bottom: 1px solid #DCDCDF
     }
 
-    .tarnsaction__list_item{
+    .transaction__list_item{
         flex-direction: column;
         justify-content: center;
         height: 54px;
     }
 
-    .tarnsaction__list_item:nth-of-type(1) .tarnsaction__list_item_value{
+    .transaction__list_item:nth-of-type(1) .transaction__list_item_value{
          width: 80px;
          text-align: center;
     }
 
-    .tarnsaction__list_item:nth-of-type(2) .tarnsaction__list_item_value {
+    .transaction__list_item:nth-of-type(2) .transaction__list_item_value {
          width: 60px;
         text-align: center;
     }
 
-    .tarnsaction__list_item:nth-of-type(3) .tarnsaction__list_item_value {
+    .transaction__list_item:nth-of-type(3) .transaction__list_item_value {
          width: 120px;
         text-align: left;
     }
 
-    .tarnsaction__list_item:nth-of-type(4) .tarnsaction__list_item_value {
+    .transaction__list_item:nth-of-type(4) .transaction__list_item_value {
          width: 120px;
         text-align: left;
     }
 
-    .tarnsaction__list_item:nth-of-type(5) .tarnsaction__list_item_value {
+    .transaction__list_item:nth-of-type(5) .transaction__list_item_value {
          width: 60px;
         text-align: right;
     }
 
-    .tarnsaction__list_item:nth-of-type(6) .tarnsaction__list_item_value {
+    .transaction__list_item:nth-of-type(6) .transaction__list_item_value {
          width: 80px;
          text-align: right;
     }
 
-    .tarnsaction__list_item:not(:last-child) {
+    .transaction__list_item:not(:last-child) {
         border: none;
     }
 
-    .tarnsaction__list_item_key{
+    .transaction__list_item_key{
         display: none;
     }
 
-    .tarnsaction__list_item_value{
+    .transaction__list_item_value{
         margin: 0;
         line-height: normal;
     }
