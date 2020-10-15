@@ -1,9 +1,9 @@
-.statistic {
+/* .statistic {
   width: 320px;
   padding: 0 20px;
   margin: 0 auto;
   background: #e7eaf2;
-}
+} */
 .statistic__wrapper {
 }
 .statistic__title {
@@ -86,12 +86,12 @@
 }
 
 @media (min-width: 768px) {
-  .statistic {
+  /* .statistic {
     width: 768px;
     margin: 0 auto;
     background: #e7eaf2;
     padding: 0 20px 0 40px;
-  }
+  } */
   .statistic__wrapper {
     display: flex;
     justify-content: space-between;
@@ -125,10 +125,10 @@
   }
 }
 @media (min-width: 1280px) {
-  .statistic {
+  /* .statistic {
     width: 815px;
     margin: 0 auto;
     background: #e7eaf2;
     padding: 0 85px 0 30px;
-  }
+  } */
 }
