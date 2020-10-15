@@ -1,0 +1,66 @@
+.currency_rate {
+  display: flex;
+  flex-wrap: wrap;
+  width: 280px;
+  height: 174px;
+  background: url('../../images/icons/currency_header.svg'),
+    url('../../images/icons/wave.svg'), #4a56e2;
+  background-repeat: no-repeat;
+  background-position: top 0 left 0, bottom left 0;
+  border-radius: 30px;
+  color: #fff;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+}
+.transaction__types {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 12px 8px;
+  justify-content: space-between;
+  width: 280px;
+}
+.transaction__types_title {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+}
+.transaction__types_item {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  height: 16px;
+}
+.transaction__types_item:last-child {
+  padding-bottom: 22px;
+}
+
+@media (min-width: 768px) {
+  .currency_rate {
+    width: 334px;
+    background: url('../../images/icons/curency_header768.svg'),
+      url('../../images/icons/wave768.svg'), #4a56e2;
+    background-repeat: no-repeat;
+    background-position: top 0 left 0, bottom left 0;
+  }
+
+  .transaction__types {
+    width: 334px;
+    padding: 10px 20px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .currency_rate {
+    width: 348px;
+    height: 347px;
+    background: url('../../images/icons/currency_header1280.svg'),
+      url('../../images/icons/wave1280.svg'), #4a56e2;
+    background-repeat: no-repeat;
+    background-position: top 0 left 0, bottom left 0;
+    padding-bottom: 150px;
+  }
+  .transaction__types {
+    width: 334px;
+    padding: 16px 20px;
+  }
+} ;
