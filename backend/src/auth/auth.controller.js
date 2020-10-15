@@ -6,6 +6,21 @@ const { SessionModel } = require("../sessions/session.model");
 const { UserModel } = require("../users/user.model");
 const { generateAvatar } = require("../helpers/generate-avatar");
 
+const monthNames = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
@@ -36,7 +51,7 @@ async function register(req, res, next) {
     verificationToken: uuid(),
   });
   await sendVerificationEmail(email, newUser.verificationToken);
-  res.status(201).json({
+  return res.status(201).json({
     id: newUser._id,
     email,
     username,
@@ -44,6 +59,50 @@ async function register(req, res, next) {
     currentBalance: newUser.currentBalance,
     transactions: newUser.transactions,
     customCategories: newUser.customCategories,
+  });
+}
+
+async function login(req, res) {
+  const { email, password } = req.body;
+  const user = await UserModel.findOne({ email });
+  if (!user) {
+    return res
+      .status(403)
+      .json({ message: `User with ${email} email doesn't exist.` });
+  }
+  const isPasswordCorrect = await bcrypt.compare(password, user.passwordHash);
+  if (!isPasswordCorrect) {
+    return res.status(403).json({ message: "Password is wrong." });
+  }
+  const newSession = await SessionModel.create({
+    uid: user._id,
+  });
+  const accessToken = jwt.sign(
+    { uid: user._id, sid: newSession._id },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: process.env.JWT_ACCESS_EXPIRE_TIME,
+    }
+  );
+  const refreshToken = jwt.sign(
+    { uid: user._id, sid: newSession._id },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: process.env.JWT_REFRESH_EXPIRE_TIME,
+    }
+  );
+  const d = new Date();
+  const currentMonth = monthNames[d.getMonth()];
+  const currentMonthTransactions = user.transactions.filter(
+    (transaction) => transaction.month === currentMonth
+  );
+  return res.status(200).send({
+    id: user._id,
+    username: user.username,
+    balance: user.balance,
+    transactions: currentMonthTransactions,
+    accessToken,
+    refreshToken,
   });
 }
 
@@ -59,4 +118,5 @@ async function sendVerificationEmail(email, verificationToken) {
 
 module.exports = {
   register,
+  login,
 };
