@@ -1,0 +1,181 @@
+.registration{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.registration__wrapper {
+    width: 280px;
+    height: 350px;
+    margin: 0 auto;
+}
+
+.registration__logo {
+    padding-left: 50px;
+    font-family: "Montserrat";
+    font-size: 23px;
+    font-weight: 700;
+    margin-bottom: 50px;
+    position: relative;     
+    text-align: center;
+}
+
+.registration__logo::before {
+    content: ''; 
+    display: block;
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    top: 12px;
+    left: 98px;
+    transform: translate(-50%, -50%);
+    background-image: url(../../images/icons/authForm/icon/logo.svg); 
+    background-repeat: no-repeat; 
+    background-position: center;  
+}
+
+.registration__email {
+    font-family: "Montserrat";
+    font-size: 20px;
+    font-weight: 400;
+    width: 280px;
+    height: 44px;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #E0E0E0;
+    margin-bottom: 40px;
+    padding-left: 55px;
+}
+
+.registration__email_icon::before {
+    position: absolute;
+    transform: translate(12px, 10px);
+    display: block;
+    content: '';
+    background-image: url(../../images/icons/authForm/icon/email.svg);
+    width: 24px;
+    height: 24px;  
+}
+
+.registration__password {
+    font-family: "Montserrat";
+    font-size: 20px;
+    font-weight: 400;
+    width: 280px;
+    height: 44px;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #E0E0E0;
+    margin-bottom: 40px;
+    padding-left: 55px;
+}
+
+.registration__password_icon::before {
+    position: absolute;
+    transform: translate(12px, 10px);
+    display: block;
+    content: '';
+    background-image: url(../../images/icons/authForm/icon/password.svg);
+    width: 24px;
+    height: 24px;
+}
+
+.registration__password_confirm {
+    font-family: "Montserrat";
+    font-size: 20px;
+    font-weight: 400;
+    width: 280px;
+    height: 44px;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #E0E0E0;
+    margin-bottom: 10px;
+    padding-left: 55px;
+}
+
+.registration__password_confirm_icon::before {
+    position: absolute;
+    transform: translate(12px, 10px);
+    display: block;
+    content: '';
+    background-image: url(../../images/icons/authForm/icon/password.svg);
+    width: 24px;
+    height: 24px;
+}
+
+.registration__password_confirm_status {
+    content: '';
+    display: block;
+    height: 4px;
+    background: linear-gradient(to right,#ff0000 33%, #E5F1EF 34%);
+    /* background: linear-gradient(to right,rgb(255, 238, 0) 63%, #E5F1EF 34%); */
+    /* background: #24CCA7; */
+    margin-bottom: 30px;
+}
+
+.registration__name_input {
+    font-family: "Montserrat";
+    font-size: 20px;
+    font-weight: 400;
+    width: 280px;
+    height: 44px;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #E0E0E0;
+    margin-bottom: 40px;
+    padding-left: 40px;
+}
+
+.registration__avatar_icon::before {
+    position: absolute;
+    transform: translate(12px, 10px);
+    display: block;
+    content: '';
+    background-image: url(../../images/icons/authForm/icon/avatar.svg);
+    width: 24px;
+    height: 24px;
+}
+
+.registration__submit_btn {
+    font-family: "Montserrat";
+    font-size:18px;
+    font-weight: 400;
+    color: white;
+    width: 280px;
+    height: 50px;
+    background: #24CCA7;
+    border: none;
+    border-radius: 20px;
+    font-size: 18px;
+    margin-bottom: 20px;
+    outline: none;
+    transition: all 0.2s linear;
+}
+
+.registration__submit_btn:hover,
+.registration__submit_btn:focus{
+    background:  #fff;
+    color:black;
+    border: 1px solid #24CCA7;
+}
+
+.registration__registration_btn {
+    font-family: "Montserrat";
+    font-size:18px;
+    font-weight: 400;
+    width: 280px;
+    height: 50px;
+    background: #FFFFFF;
+    border: 1px solid #4A56E2;
+    box-sizing: border-box;
+    border-radius: 20px;
+    outline: none;
+    transition: all 0.2s linear;
+}
+
+.registration__registration_btn:hover,
+.registration__registration_btn:focus{
+    background: #4A56E2;
+    color:white;
+}
