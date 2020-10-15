@@ -1,0 +1,134 @@
+.statistic {
+  width: 320px;
+  padding: 0 20px;
+  margin: 0 auto;
+  background: #e7eaf2;
+}
+.statistic__wrapper {
+}
+.statistic__title {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 30px;
+  line-height: 45px;
+  align-items: center;
+  color: #000000;
+  margin-bottom: 10px;
+}
+.statistic__chart_wrapper {
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: #fed057;
+  margin-bottom: 30px;
+}
+.statistic__info_select {
+  margin-bottom: 20px;
+}
+.statistic__group {
+  width: 280px;
+}
+.statistic__group_header {
+  width: 100%;
+  height: 58px;
+  padding: 15px 20px;
+  background: #ffffff;
+  border-radius: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.statistic__group_title {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 27px;
+  color: #000000;
+}
+.statistic__group_result {
+  width: 100%;
+  padding: 0 20px;
+}
+
+.statistic__group_result_income,
+.statistic__group_result_expense {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-between;
+}
+.statistic__group_result_expense {
+  margin-bottom: 10px;
+}
+.statistic__group_result_expense_info,
+.statistic__group_result_income_info {
+  width: 35%;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 24px;
+  color: #000000;
+}
+
+.statistic__group_result_income_info:nth-child(2) {
+  width: 65%;
+  text-align: right;
+  color: rgb(36, 204, 167);
+}
+.statistic__group_result_expense_info:nth-child(2) {
+  width: 65%;
+  color: rgb(255, 101, 150);
+  text-align: right;
+}
+
+@media (min-width: 768px) {
+  .statistic {
+    width: 768px;
+    margin: 0 auto;
+    background: #e7eaf2;
+    padding: 0 20px 0 40px;
+  }
+  .statistic__wrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  .statistic__title {
+    margin-bottom: 20px;
+  }
+  .statistic__chart_wrapper {
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    background: #fed057;
+    margin-bottom: 0;
+  }
+  .statistic__group {
+    width: 350px;
+  }
+  .statistic__info_select {
+    display: flex;
+    justify-content: space-between;
+  }
+  .statistic__group {
+    width: 350px;
+  }
+  .statistic__group_header {
+    padding: 15px 30px;
+  }
+  .statistic__group_result {
+    padding: 0 30px 0 20px;
+  }
+}
+@media (min-width: 1280px) {
+  .statistic {
+    width: 815px;
+    margin: 0 auto;
+    background: #e7eaf2;
+    padding: 0 85px 0 30px;
+  }
+}
