@@ -14,6 +14,8 @@ const CurrencyRate = () => {
         if (item.ccy === 'RUR') {
           item.ccy = 'RUB';
         }
+        parseFloat(item.buy).toFixed(2);
+        parseFloat(item.sale).toFixed(2);
         return item;
       });
       setRateList(data);
@@ -34,12 +36,8 @@ const CurrencyRate = () => {
         <li className={css['currency__rate_item']} key={item.ccy}>
           <ul className={css['transaction__types']}>
             <li className={css['transaction__types_item']}>{item.ccy}</li>
-            <li className={css['transaction__types_item']}>
-              {parseFloat(item.buy).toFixed(2)}
-            </li>
-            <li className={css['transaction__types_item']}>
-              {parseFloat(item.sale).toFixed(2)}
-            </li>
+            <li className={css['transaction__types_item']}>{item.buy}</li>
+            <li className={css['transaction__types_item']}>{item.sale}</li>
           </ul>
         </li>
       ))}
