@@ -277,3 +277,49 @@
         width: 300px;
     }
 }
+
+/* --------------------------- desktop --------------------------- */
+
+@media (min-width: 1280px) {
+    .registration{
+        background: url(../../images/icons/authForm/financeApp.svg),   
+        url(../../images//icons//authForm/backgroundFrameDesktop.svg),
+        url(../../images/icons/authForm/backgroundSpot2Desktop.svg),
+        #E5E5E5 repeat-x 50% ;
+        background-position: left 195px top 625px,
+        left 70px top 150px,
+        left bottom; 
+        background-repeat: no-repeat;
+    }
+    
+    .registration::before{
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 618px;
+        height: 547px;
+        background-image: url(../../images/icons/authForm/backgroundSpotDesktop.svg);
+        background-size: cover;
+        filter: blur(40px);
+    }
+    
+    .registration__wrapper {
+        position: relative;
+        height: 100vh;
+        width: 55%;
+        margin-right: 0;
+        border-radius: 0px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color:rgba(255,255,255,0.4);
+        box-shadow: -15px 0 15px 0 rgba(255,255,255,0.4);
+    }
+    
+    .registration__form_wrapper{
+        z-index: 10;
+        transform: translateY(0);
+    }
+}
