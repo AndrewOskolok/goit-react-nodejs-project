@@ -1,0 +1,246 @@
+.login{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login__wrapper {
+    width: 280px;
+    height: 350px;
+    margin: 0 auto;
+}
+
+.login__logo {
+    padding-left: 50px;
+    font-family: "Montserrat";
+    font-size: 23px;
+    font-weight: 700;
+    margin-bottom: 50px;
+    position: relative;     
+    text-align: center;
+}
+
+.login__logo::before {
+    content: ''; 
+    display: block;
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    top: 12px;
+    left: 98px;
+    transform: translate(-50%, -50%);
+    background-image: url(../../images/icons/authForm/icon/logo.svg); 
+    background-repeat: no-repeat; 
+    background-position: center;  
+}
+
+.login__email {
+    font-family: "Montserrat";
+    font-size: 20px;
+    font-weight: 400;
+    width: 280px;
+    height: 44px;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #E0E0E0;
+    margin-bottom: 44px;
+    padding-left: 55px;
+}
+
+.login__email_icon::before {
+    position: absolute;
+    transform: translate(12px, 10px);
+    display: block;
+    content: '';
+    background-image: url(../../images/icons/authForm/icon/email.svg);
+    width: 24px;
+    height: 24px;  
+}
+
+.login__password {
+    font-family: "Montserrat";
+    font-size: 20px;
+    font-weight: 400;
+    width: 280px;
+    height: 44px;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #E0E0E0;
+    margin-bottom: 44px;
+    padding-left: 55px;
+}
+
+.login__password_icon::before {
+    position: absolute;
+    transform: translate(12px, 10px);
+    display: block;
+    content: '';
+    background-image: url(../../images/icons/authForm/icon/password.svg);
+    width: 24px;
+    height: 24px;
+}
+
+.login__submit_btn {
+    font-family: "Montserrat";
+    font-size:18px;
+    font-weight: 400;
+    color: white;
+    width: 280px;
+    height: 50px;
+    background: #24CCA7;
+    border: none;
+    border-radius: 20px;
+    font-size: 18px;
+    margin-bottom: 20px;
+    outline: none;
+    transition: all 0.2s linear;
+}
+
+.login__submit_btn:hover,
+.login__submit_btn:focus{
+    background:  #fff;
+    color:black;
+    border: 1px solid #24CCA7;
+}
+
+.login__registration_btn {
+    font-family: "Montserrat";
+    font-size:18px;
+    font-weight: 400;
+    width: 280px;
+    height: 50px;
+    background: #FFFFFF;
+    border: 1px solid #4A56E2;
+    box-sizing: border-box;
+    border-radius: 20px;
+    outline: none;
+    transition: all 0.2s linear;
+}
+
+.login__registration_btn:hover,
+.login__registration_btn:focus{
+    background: #4A56E2;
+    color:white;
+}
+
+/* --------------------------- tablet --------------------------- */
+
+@media (min-width: 768px) {
+    .login{
+        background: url(../../images/icons/authForm/financeApp.svg),           
+                    url(../../images/icons/authForm/backgroundSpot.svg),
+                    url(../../images/icons/authForm/backgroundSpot2.svg),
+                    url(../../images//icons//authForm/backgroundFrame.svg),
+                    #E5E5E5;
+        background-position: right 170px top 175px,
+                             right top,
+                             left bottom,
+                             left 114px top 60px;                     
+        background-repeat: no-repeat;
+    }
+
+    .login__wrapper {
+        width: 540px;
+    }
+
+    .login__form_wrapper {
+        width: 540px;
+        height: 468px;
+        background-color: #fff;
+        border-radius: 20px;
+        transform: translateY(10%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    
+    .login__logo {
+        font-size: 30px;
+        margin-bottom: 65px;
+    }
+
+    .login__logo::before {
+        height: 40px;
+        width: 40px;
+        left: 33%;
+        background-image: url(../../images/icons/authForm/icon/logoTablet.svg);   
+    }
+
+    .login__button_data{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .login__email {
+        width: 410px;
+        margin-bottom: 40px;
+    }
+
+    .login__password {
+        width: 410px;
+        margin-bottom: 40px;
+    }
+    
+    .login__button{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .login__submit_btn {
+        width: 300px;
+    }
+
+    .login__registration_btn{
+        width: 300px;
+    }
+}
+
+/* --------------------------- desktop --------------------------- */
+
+@media (min-width: 1280px) {
+    .login{
+        background: url(../../images/icons/authForm/financeApp.svg),   
+        url(../../images//icons//authForm/backgroundFrameDesktop.svg),
+        url(../../images/icons/authForm/backgroundSpot2Desktop.svg),
+        #E5E5E5 repeat-x 50% ;
+        background-position: left 195px top 625px,
+        left 70px top 150px,
+        left bottom; 
+        background-repeat: no-repeat;
+    }
+    
+    .login::before{
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 618px;
+        height: 547px;
+        background-image: url(../../images/icons/authForm/backgroundSpotDesktop.svg);
+        background-size: cover;
+        filter: blur(40px);
+    }
+    
+    .login__wrapper {
+        position: relative;
+        height: 100vh;
+        width: 55%;
+        margin-right: 0;
+        border-radius: 0px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color:rgba(255,255,255,0.4);
+        box-shadow: -15px 0 15px 0 rgba(255,255,255,0.4);
+    }
+    
+    
+    .login__form_wrapper{
+        z-index: 10;
+        transform: translateY(0);
+    }
+}
