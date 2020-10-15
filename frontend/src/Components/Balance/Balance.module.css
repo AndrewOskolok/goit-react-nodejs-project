@@ -1,10 +1,11 @@
-.main__balance {
+.balance {
   width: 280px;
   height: 80px;
   background-color: #fff;
   border: none;
   border-radius: 30px;
-  margin: 0 auto;
+  margin: 0 auto 30px;
+  padding-top: 8px;
 }
 
 .balance__name {
@@ -26,12 +27,20 @@
 }
 
 .balance__marker {
-    font-weight: normal;
+  font-weight: normal;
 }
 
 @media (min-width: 768px) {
-  .main__balance {
+  .balance {
     width: 334px;
     margin: 0;
+  }
+}
+
+@media (min-width: 1280px) {
+  .balance {
+    width: 350px;
+    margin-bottom: 30px;
+
   }
 }

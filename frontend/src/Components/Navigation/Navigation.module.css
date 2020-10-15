@@ -88,3 +88,9 @@
     display: none;
   }
 }
+
+@media (min-width: 1280px) {
+  .main__buttons_wrapper {
+    width: 350px;
+  }
+}
