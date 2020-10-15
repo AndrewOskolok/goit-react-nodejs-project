@@ -172,10 +172,96 @@
     border-radius: 20px;
     outline: none;
     transition: all 0.2s linear;
+    margin-bottom: 30px;
 }
 
 .registration__registration_btn:hover,
 .registration__registration_btn:focus{
     background: #4A56E2;
     color:white;
+}
+
+/* --------------------------- tablet --------------------------- */
+
+@media (min-width: 768px) {
+    .registration{
+        background: url(../../images/icons/authForm/financeApp.svg),           
+                    url(../../images/icons/authForm/backgroundSpot.svg),
+                    url(../../images/icons/authForm/backgroundSpot2.svg),
+                    url(../../images//icons//authForm/backgroundFrame.svg),
+                    #E5E5E5;
+        background-position: right 170px top 175px,
+                             right top,
+                             left bottom,
+                             left 114px top 60px;                     
+        background-repeat: no-repeat;
+    }
+
+    .registration__wrapper {
+        width: 540px;
+    }
+
+    .registration__form_wrapper {
+        width: 540px;
+        height: 670px;
+        background-color: #fff;
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        /* padding-top: 40px; */
+        /* padding-bottom: 30px; */
+    }
+    
+    .registration__logo {
+        font-size: 30px;
+        margin-bottom: 65px;
+    }
+
+    .registration__logo::before {
+        height: 40px;
+        width: 40px;
+        left: 33%;
+        background-image: url(../../images/icons/authForm/icon/logoTablet.svg);   
+    }
+
+    .registration__button_data{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .registration__email {
+        width: 410px;
+        margin-bottom: 40px;
+    }
+
+    .registration__password {
+        width: 410px;
+        margin-bottom: 40px;
+    }
+
+    .registration__password_confirm {
+        width: 410px;
+        margin-bottom: 10px;
+    }
+
+    .registration__name_input {
+        width: 410px;
+        margin-bottom: 50px;
+    }
+
+    .registration__button{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .registration__submit_btn {
+        width: 300px;
+    }
+
+    .registration__registration_btn{
+        width: 300px;
+    }
 }
