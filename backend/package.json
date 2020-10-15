@@ -21,6 +21,7 @@
     "morgan": "^1.10.0",
     "nodemon": "^2.0.4",
     "path": "^0.12.7",
+    "swagger-ui-express": "^4.1.4",
     "uuid": "^8.3.1"
   }
 }

@@ -10,10 +10,10 @@ const createTransactionScheme = Joi.object({
   date: Joi.number().min(0).max(new Date().getTime()).required(),
   month: Joi.string().valid("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December").required(),
   year: Joi.number().integer().min(1970).max(new Date().getFullYear()).required(),
-  type: Joi.string().valid("income", "expenditure").required(),
+  type: Joi.string().valid("income", "expense").required(),
   description: Joi.string().required(),
-  sum: Joi.number().required(),
-  balance: Joi.number().required(),
+  amount: Joi.number().required(),
+  balanceAfter: Joi.number().required(),
   category: Joi.string().required(),
 });
 
@@ -21,10 +21,10 @@ const updateTransactionScheme = Joi.object({
   date: Joi.number().min(0).max(new Date().getTime()),
   month: Joi.string().valid("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"),
   year: Joi.number().integer().min(1970).max(new Date().getFullYear()),
-  type: Joi.string().valid("income", "expenditure"),
+  type: Joi.string().valid("income", "expense"),
   description: Joi.string(),
-  sum: Joi.number(),
-  balance: Joi.number(),
+  amount: Joi.number(),
+  balanceAfter: Joi.number(),
   category: Joi.string(),
 }).min(1);
 
