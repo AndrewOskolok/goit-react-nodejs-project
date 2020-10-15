@@ -4,7 +4,6 @@
   background-color: #fff;
   border: none;
   border-radius: 30px;
-  display: block;
   margin: 0 auto;
 }
 
@@ -33,5 +32,6 @@
 @media (min-width: 768px) {
   .main__balance {
     width: 334px;
+    margin: 0;
   }
 }
