@@ -1,0 +1,48 @@
+.main {
+  background-color: rgba(238, 238, 238, 0.4);
+}
+
+.main__wrapper {
+  width: 280px;
+  height: 100vh;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .main {
+    height: 100vh;
+    background: url(../../images/icons/main/MainBackground.svg),
+      url(../../images/icons/main/BackgroundMain.svg), rgba(238, 238, 238, 0.4);
+    background-position: left bottom, right top 80px;
+    background-repeat: no-repeat;
+  }
+
+  .main__wrapper::after {
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    content: "";
+    backdrop-filter: blur(50px);
+  }
+
+  .main__wrapper {
+    width: 688px;
+    height: calc(100% - 80px);
+  }
+}
+
+@media (min-width: 1280px) {
+ .main {
+    background: url(../../images/icons/main/MainBackground.svg),
+      url(../../images/icons/main/BackgroundDesktop.svg), rgba(238, 238, 238, 0.4);
+    background-position: left bottom, right top 80px;
+    background-repeat: no-repeat;
+ }
+
+  .main__wrapper {
+    width: 1110px;
+  }
+}
