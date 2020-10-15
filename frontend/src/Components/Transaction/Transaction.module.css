@@ -3,8 +3,9 @@
     border-radius: 5px;
     border-left: 5px solid #FF6596;
     margin-bottom: 10px;
-    transition: all 250ms linear;
+    transition: transform 250ms linear;
      position: relative;
+     overflow: hidden;
 }
 
 .transaction__list:hover {
@@ -12,40 +13,51 @@
 }
 
 .transaction__list:hover .transaction__list_item{
-    filter: blur(2px);
+    /* filter: blur(2px); */
     cursor: default;
+    transform: translateX(-70px);
 }
 
-.transaction__list:hover::before{
+.transaction__list::before{
     content: "";
-    width: 40px;
-    height: 40px;
+    width: 20px;
+    height: 20px;
     position: absolute;
-    top: 60%;
-    left: 50%;
+    top: 50%;
+    right: -50px;
     transform: translate(-50%,-50%);
     background-image: url('./icons/edit_icon-icons.com_52382.ico');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    z-index: 1;
+    /* z-index: 1; */
     cursor: pointer;
+    transition: all 250ms linear;
 }
 
-.transaction__list:hover::after {
+.transaction__list::after {
     content: "";
-    width: 40px;
-    height: 40px;
+    width: 20px;
+    height: 20px;
     position: absolute;
-    top: 35%;
-    left: 50%;
+    top: 50%;
+    right: -50px;
     transform: translate(-50%, -50%);
     background-image: url('./icons/1486504830-delete-dustbin-empty-recycle-recycling-remove-trash_81361.ico');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    z-index: 1;
+    /* z-index: 1; */
     cursor: pointer;
+     transition: all 250ms linear;
+}
+
+.transaction__list:hover::before{
+right: 34px;
+}
+
+.transaction__list:hover::after {
+right: 8px;
 }
 
 .transaction__list_item {
@@ -53,6 +65,7 @@
     justify-content: space-between;
     align-items: center;
     height: 46px;
+    transition: all 250ms linear;
 }
 
 .transaction__list_item:nth-of-type(5) .transaction__list_item_value {
@@ -96,14 +109,8 @@
         border-radius: 30px;
     }
 
-    .transaction__list:hover::before {
-        top: 50%;
-        left: 33.3%;
-    }
-
-    .transaction__list:hover::after {
-        top: 50%;
-        left: 66.6%;
+    .transaction__list:hover:first-of-type{
+         border-top: 1px solid #DCDCDF
     }
 
     .transaction__header {

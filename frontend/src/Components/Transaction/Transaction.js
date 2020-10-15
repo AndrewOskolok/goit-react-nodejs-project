@@ -40,6 +40,34 @@ const Transaction = () => {
           <span className={styles.transaction__list_item_value}>6 900.00</span>
         </li>
       </ul>
+      <ul className={styles.transaction__list}>
+        <li className={styles.transaction__list_item}>
+          <span className={styles.transaction__list_item_key}>Дата</span>
+          <span className={styles.transaction__list_item_value}>04.01.19</span>
+        </li>
+        <li className={styles.transaction__list_item}>
+          <span className={styles.transaction__list_item_key}>Тип</span>
+          <span className={styles.transaction__list_item_value}>-</span>
+        </li>
+        <li className={styles.transaction__list_item}>
+          <span className={styles.transaction__list_item_key}>Категория</span>
+          <span className={styles.transaction__list_item_value}>Разное</span>
+        </li>
+        <li className={styles.transaction__list_item}>
+          <span className={styles.transaction__list_item_key}>Комментарий</span>
+          <span className={styles.transaction__list_item_value}>
+            Подарок жене
+          </span>
+        </li>
+        <li className={styles.transaction__list_item}>
+          <span className={styles.transaction__list_item_key}>Сумма</span>
+          <span className={styles.transaction__list_item_value}>300.00</span>
+        </li>
+        <li className={styles.transaction__list_item}>
+          <span className={styles.transaction__list_item_key}>Баланс</span>
+          <span className={styles.transaction__list_item_value}>6 900.00</span>
+        </li>
+      </ul>
     </>
   );
 };
