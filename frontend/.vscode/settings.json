@@ -1,7 +1,0 @@
-{
-    "css.validate": false,
-    "less.validate": false,
-    "scss.validate": false,
-    "emmet.triggerExpansionOnTab": true,
-    "terminal.integrated.automationShell.windows": "C:\\Program Files\\Git\\bin\\bash.exe",
-}
