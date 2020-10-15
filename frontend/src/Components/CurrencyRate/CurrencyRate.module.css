@@ -49,7 +49,7 @@
   }
 }
 
-@media (min-width: 800px) {
+@media (min-width: 1280px) {
   .currency_rate {
     width: 348px;
     height: 347px;
