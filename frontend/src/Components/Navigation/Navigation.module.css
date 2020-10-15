@@ -9,6 +9,7 @@
   height: 38px;
   border: none;
   background-repeat: no-repeat;
+  outline: none;
 }
 
 .main__btn:hover,
@@ -30,9 +31,11 @@
 
 @media (min-width: 768px) {
   .main__buttons_wrapper {
-    margin-left: 43px;
-    justify-content: start;
-    display: block;
+    flex-direction: column;
+    justify-content: center;
+    width: 334px;
+    height: 80px;
+    padding-left: 4px;
   }
 
   .main__btn {
@@ -41,7 +44,7 @@
   }
 
   .main__btn_home {
-    background-image: url(../../images/icons/navigation/homeDesktop.svg);
+    background-size: cover;
     margin-bottom: 19px;
     position: relative;
   }
@@ -49,25 +52,36 @@
   .main__btn_home::after {
     display: block;
     position: absolute;
-    bottom: 0;
+    bottom: -2px;
     left: 38px;
     content: "Главная";
     font-size: 18px;
     font-family: "Montserrat";
   }
 
+  .main__btn_home:hover::after,
+  .main__btn_home:focus::after {
+    color: #4a56e2;
+  }
+
   .main__btn_statistic {
-    background-image: url(../../images/icons/navigation/statisticDesktop.svg);
+    background-size: cover;
+    position: relative;
   }
 
   .main__btn_statistic::after {
     display: block;
     position: absolute;
-    top: 116px;
-    left: 80px;
+    bottom: -2px;
+    left: 38px;
     content: "Статистика";
     font-size: 18px;
     font-family: "Montserrat";
+  }
+
+  .main__btn_statistic:hover::after,
+  .main__btn_statistic:focus::after {
+    color: #4a56e2;
   }
 
   .main__btn_course {

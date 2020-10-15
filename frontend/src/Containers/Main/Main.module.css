@@ -17,7 +17,7 @@
     background-repeat: no-repeat;
   }
 
-  .main__wrapper::after {
+  .main::after {
     display: block;
     position: absolute;
     top: 0;
@@ -31,6 +31,8 @@
   .main__wrapper {
     width: 688px;
     height: calc(100% - 80px);
+    position: relative;
+    z-index: 2;
   }
 }
 
