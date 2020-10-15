@@ -12,6 +12,7 @@
 }
 
 .login__logo {
+    padding-left: 50px;
     font-family: "Montserrat";
     font-size: 23px;
     font-weight: 700;
@@ -26,8 +27,8 @@
     height: 30px;
     width: 30px;
     position: absolute;
-    top: 50%;
-    left: 27%;
+    top: 12px;
+    left: 98px;
     transform: translate(-50%, -50%);
     background-image: url(../../images/icons/authForm/icon/logo.svg); 
     background-repeat: no-repeat; 
@@ -80,7 +81,7 @@
     height: 24px;
 }
 
-.login__input {
+.login__submit_btn {
     font-family: "Montserrat";
     font-size:18px;
     font-weight: 400;
@@ -88,7 +89,7 @@
     width: 280px;
     height: 50px;
     background: #24CCA7;
-    border: 1px solid #24CCA7;
+    border: none;
     border-radius: 20px;
     font-size: 18px;
     margin-bottom: 20px;
@@ -96,13 +97,14 @@
     transition: all 0.2s linear;
 }
 
-.login__input:hover,
-.login__input:focus{
+.login__submit_btn:hover,
+.login__submit_btn:focus{
     background:  #fff;
     color:black;
+    border: 1px solid #24CCA7;
 }
 
-.login__register {
+.login__registration_btn {
     font-family: "Montserrat";
     font-size:18px;
     font-weight: 400;
@@ -116,8 +118,8 @@
     transition: all 0.2s linear;
 }
 
-.login__register:hover,
-.login__register:focus{
+.login__registration_btn:hover,
+.login__registration_btn:focus{
     background: #4A56E2;
     color:white;
 }
@@ -187,11 +189,11 @@
         align-items: center;
     }
 
-    .login__input {
+    .login__submit_btn {
         width: 300px;
     }
 
-    .login__register{
+    .login__registration_btn{
         width: 300px;
     }
 }
