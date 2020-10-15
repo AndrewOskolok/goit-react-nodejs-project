@@ -3,19 +3,20 @@
     border-radius: 5px;
     border-left: 5px solid #FF6596;
     margin-bottom: 10px;
-    transition: transform 250ms linear;
+    transition: transform,padding 250ms linear;
      position: relative;
      overflow: hidden;
 }
 
 .transaction__list:hover {
     background-color: #FFFFFF;
+    padding-right: 90px;
 }
 
 .transaction__list:hover .transaction__list_item{
     /* filter: blur(2px); */
     cursor: default;
-    transform: translateX(-70px);
+    /* transform: translateX(-70px); */
 }
 
 .transaction__list::before{
@@ -26,7 +27,7 @@
     top: 50%;
     right: -50px;
     transform: translate(-50%,-50%);
-    background-image: url('./icons/edit_icon-icons.com_52382.ico');
+    background-image: url('../../images/icons/edit.ico');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -43,7 +44,7 @@
     top: 50%;
     right: -50px;
     transform: translate(-50%, -50%);
-    background-image: url('./icons/1486504830-delete-dustbin-empty-recycle-recycling-remove-trash_81361.ico');
+    background-image: url('../../images/icons/delete.ico');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -171,7 +172,7 @@ right: 8px;
         border-radius: 0;
         margin: 0;
         background-color: transparent;
-
+        height: 58px;
         padding: 0 20px;
     }
 
