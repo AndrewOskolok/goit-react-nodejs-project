@@ -14,7 +14,7 @@
     height: 38px;
     position: absolute;
     transform: translate(-50%,-50%);
-    background-image: url('../../images/icons/edit.png');
+    background-image: url('../../images/icons/transaction/edit.png');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -29,7 +29,7 @@
     height: 38px;
     position: absolute;
     transform: translate(-50%, -50%);
-    background-image: url('../../images/icons/delete.png');
+    background-image: url('../../images/icons/transaction/delete.png');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
