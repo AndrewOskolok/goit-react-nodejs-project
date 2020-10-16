@@ -6,10 +6,10 @@
 
 .select__head {
   width: 100%;
-
   background-color: transparent;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
   border: 1px solid #000000;
+
   border-radius: 30px;
   padding: 14px 20px;
   height: 50px;
@@ -21,6 +21,13 @@
   line-height: 24px;
   color: #000000;
   position: relative;
+}
+.select__head_open {
+  border-radius: 0;
+  border-top-right-radius: 30px;
+  border-top-left-radius: 30px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  background-color: #fff;
 }
 
 .select__head::after {
@@ -52,16 +59,17 @@
   left: 50%;
   font-family: Montserrat;
   transform: translateX(-50%);
-  background: #fff;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
-  border-bottom-right-radius: 10px;
-  border-bottom-left-radius: 10px;
+  background: rgba(231, 234, 242);
+  border: 1px solid #000;
+  border-bottom-right-radius: 30px;
+  border-bottom-left-radius: 30px;
+  border-top: none;
   margin-top: 5px;
   max-height: 205px;
   overflow-x: hidden;
   overflow-y: auto;
   z-index: 100;
-  width: 85%;
+  width: 100%;
   margin: 0;
   padding: 0;
   font-size: 14px;
@@ -91,7 +99,7 @@
 }
 
 .select__list .select__item:hover {
-  background-color: rgba(224, 229, 231, 0.5);
+  background-color: #fff;
 }
 @media (max-width: 767px) {
   .select:not(:last-child) {
@@ -102,8 +110,5 @@
 @media (min-width: 768px) {
   .select {
     max-width: 166px;
-  }
-  .select__list {
-    width: 74%;
   }
 }
