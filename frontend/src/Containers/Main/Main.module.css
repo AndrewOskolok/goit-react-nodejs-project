@@ -10,7 +10,7 @@
 }
 
 .main__currency_wrapper {
-  display: none;
+  /* display: none; */
 }
 
 @media (min-width: 768px) {
@@ -28,7 +28,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    content: "";
+    content: '';
     backdrop-filter: blur(50px);
   }
 
@@ -73,7 +73,7 @@
     width: 380px;
     height: 100%;
     margin-bottom: 0;
-    border-right: 1px solid #E7E5F2;
+    border-right: 1px solid #e7e5f2;
   }
 
   .content__wrapper {

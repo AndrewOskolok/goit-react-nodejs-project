@@ -1,8 +1,5 @@
 .currency_rate {
-  display: flex;
-  flex-wrap: wrap;
   width: 280px;
-  height: 174px;
   background: url('../../images/icons/currency_header.svg'),
     url('../../images/icons/wave.svg'), #4a56e2;
   background-repeat: no-repeat;
@@ -12,26 +9,47 @@
   text-align: center;
   font-family: 'Montserrat', sans-serif;
 }
-.transaction__types {
+.currency__rate_header {
+  width: 100%;
+  padding: 11px 0 12px;
   display: flex;
-  flex-wrap: wrap;
-  padding: 12px 8px;
-  justify-content: space-between;
-  width: 280px;
+  height: 50px;
+  justify-content: center;
 }
-.transaction__types_title {
+.currency__rate_header_list {
+  display: flex;
+  justify-content: space-between;
+  width: 240px;
+}
+.currency__rate_header_list_item {
   font-style: normal;
   font-weight: bold;
-  font-size: 18px;
-}
-.transaction__types_item {
-  font-style: normal;
-  font-weight: normal;
   font-size: 16px;
-  height: 16px;
+  line-height: 20px;
 }
-.transaction__types_item:last-child {
-  padding-bottom: 22px;
+.currency__rate_content {
+  width: 100%;
+  padding: 10px 0 22px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: space-between;
+  height: 124px;
+}
+
+.currency__rate_content_list {
+  display: flex;
+  justify-content: space-between;
+  width: 240px;
+}
+
+.currency__rate_content_list_item {
+  font-size: 16px;
+}
+
+.currency__rate_content_list_item:nth-child(2) {
+  text-align: center;
+  width: 50px;
 }
 
 @media (min-width: 768px) {
@@ -43,24 +61,41 @@
     background-position: top 0 left 0, bottom left 0;
   }
 
-  .transaction__types {
-    width: 334px;
-    padding: 10px 20px;
+  .currency__rate_header_list {
+    width: 294px;
+  }
+  .currency__rate_content_list {
+    width: 294px;
   }
 }
 
 @media (min-width: 1280px) {
   .currency_rate {
     width: 348px;
-    height: 347px;
     background: url('../../images/icons/currency_header1280.svg'),
       url('../../images/icons/wave1280.svg'), #4a56e2;
     background-repeat: no-repeat;
     background-position: top 0 left 0, bottom left 0;
-    padding-bottom: 150px;
   }
-  .transaction__types {
-    width: 334px;
-    padding: 16px 20px;
+  .currency__rate_header {
+    padding: 17px 0 16px;
+    height: 60px;
+  }
+  .currency__rate_header_list {
+    width: 287px;
+  }
+  .currency__rate_header_list_item {
+    line-height: 27px;
+  }
+  .currency__rate_content {
+    align-content: flex-start;
+    height: 287px;
+    padding: 20px 0;
+  }
+  .currency__rate_content_list {
+    width: 287px;
+  }
+  .currency__rate_content_list:not(:last-child) {
+    margin-bottom: 23px;
   }
 } ;
