@@ -4,6 +4,7 @@ import Balance from "../../Components/Balance/Balance";
 import Navigation from "../../Components/Navigation/Navigation";
 import CurrencyRate from "../../Components/CurrencyRate/CurrencyRate";
 import Transaction from "../../Components/Transaction/Transaction";
+import AddTransaction from "../../Components/addTransaction/AddTransaction";
 import css from "./Main.module.css";
 
 const Main = () => {
@@ -22,6 +23,7 @@ const Main = () => {
           <Transaction/>
         </div>
       </div>
+      <AddTransaction/>
     </div>
   );
 };
