@@ -238,6 +238,10 @@
           "404": {
             "description": "Invalid user / Invalid session",
             "content": {}
+          },
+          "400": {
+            "description": "No token provided",
+            "content": {}
           }
         }
       }

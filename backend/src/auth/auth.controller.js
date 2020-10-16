@@ -65,11 +65,11 @@ async function login(req, res) {
   if (!user) {
     return res
       .status(403)
-      .json({ message: `User with ${email} email doesn't exist` });
+      .send({ message: `User with ${email} email doesn't exist` });
   }
   const isPasswordCorrect = await bcrypt.compare(password, user.passwordHash);
   if (!isPasswordCorrect) {
-    return res.status(403).json({ message: "Password is wrong" });
+    return res.status(403).send({ message: "Password is wrong" });
   }
   const newSession = await SessionModel.create({
     uid: user._id,
@@ -130,7 +130,7 @@ async function authorize(req, res, next) {
     req.user = user;
     req.session = session;
     next();
-  } else return res.status(400).json({ message: "No token provided" });
+  } else return res.status(400).send({ message: "No token provided" });
 }
 
 async function refreshTokens(req, res) {
@@ -171,6 +171,7 @@ async function refreshTokens(req, res) {
     );
     return res.status(200).send({ accessToken, refreshToken });
   }
+  return res.status(400).send({ message: "No token provided" });
 }
 
 async function logout(req, res) {
