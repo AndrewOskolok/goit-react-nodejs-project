@@ -2,7 +2,7 @@ const { Router } = require("express");
 const Joi = require("Joi");
 const { validate } = require("../helpers/validate");
 const { tryCatchWrapper } = require("../helpers/try-catch-wrapper");
-const { addCategory } = require("./categories.controller");
+const { addCategory, getCategories } = require("./categories.controller");
 
 const router = Router();
 
@@ -12,5 +12,6 @@ const createCategorySchema = Joi.object({
 });
 
 router.post("/", validate(createCategorySchema), tryCatchWrapper(addCategory));
+router.get("/", tryCatchWrapper(getCategories));
 
 exports.categoryRouter = router;

@@ -9,6 +9,12 @@ async function addCategory(req, res) {
   return res.status(400).send({ message: "Invalid service password" });
 }
 
+async function getCategories(_, res) {
+  const categoriesList = await CategoryModel.find();
+  return res.status(200).send(categoriesList);
+}
+
 module.exports = {
   addCategory,
+  getCategories,
 };
