@@ -3,6 +3,7 @@ require("dotenv").config({ path: path.join(__dirname, "../.env") });
 const swaggerUi = require("swagger-ui-express");
 const { transactionRouter } = require("./transactions/transactions.router");
 const { authRouter } = require("./auth/auth.router");
+const { categoryRouter } = require("./categories/categories.router");
 const swaggerDocument = require("../swagger.json");
 
 const cors = require("cors");
@@ -59,6 +60,7 @@ exports.Server = class Server {
     );
     this.app.use("/transactions", transactionRouter);
     this.app.use("/auth", authRouter);
+    this.app.use("/categories", categoryRouter);
   }
 
   initErrorHandling() {
