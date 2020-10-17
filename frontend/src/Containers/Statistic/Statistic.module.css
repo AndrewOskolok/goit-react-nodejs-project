@@ -19,8 +19,6 @@
 .statistic__chart_wrapper {
   width: 280px;
   height: 280px;
-  border-radius: 50%;
-  background: #fed057;
   margin-bottom: 30px;
 }
 .statistic__info_select {
@@ -103,8 +101,6 @@
   .statistic__chart_wrapper {
     width: 320px;
     height: 320px;
-    border-radius: 50%;
-    background: #fed057;
     margin-bottom: 0;
   }
   .statistic__group {

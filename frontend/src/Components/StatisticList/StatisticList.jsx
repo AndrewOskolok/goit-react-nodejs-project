@@ -16,13 +16,17 @@ const example = [
   { category: 'Продукты', spending: '3 800.74', id: 8 },
   { category: 'Товары для дома', spending: '3 800.74', id: 9 },
 ];
-const StatisticList = () => {
+const StatisticList = ({ arrayOfStat }) => {
   return (
     <ul className={css.statistic_group__list}>
-      {example.map(el => (
-        <li className={css.statistic_group__list_item} key={el.id}>
+      {arrayOfStat.map(el => (
+        <li className={css.statistic_group__list_item} key={el.category}>
+          <span
+            style={{ backgroundColor: el.color }}
+            className={css.statistic_group__list_item_square}
+          ></span>
           <p className={css.statistic_group__list_item_info}>{el.category}</p>
-          <p className={css.statistic_group__list_item_info}>{el.spending}</p>
+          <p className={css.statistic_group__list_item_info}>{el.total}</p>
         </li>
       ))}
     </ul>
