@@ -60,7 +60,9 @@ const Registration = () => {
 
 {/* ------------------------ password confirm status------------------------*/}
 
-        <div className={css.registration__password_confirm_status}></div>
+        <div className={css.registration__password_confirm_status}>
+          <span></span>
+        </div>
 
  {/* ----------------------- name user input ------------------------------ */}       
 
