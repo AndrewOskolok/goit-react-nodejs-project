@@ -14,34 +14,37 @@ const CurrencyRate = () => {
         if (item.ccy === 'RUR') {
           item.ccy = 'RUB';
         }
-        parseFloat(item.buy).toFixed(2);
-        parseFloat(item.sale).toFixed(2);
         return item;
       });
       setRateList(data);
     };
     fetchData();
   }, []);
-
   return (
-    <ul className={css['currency_rate']}>
-      <li className={css['currency__rate_item']}>
-        <ul className={css['transaction__types']}>
-          <li className={css['transaction__types_title']}>Валюта</li>
-          <li className={css['transaction__types_title']}>Покупка</li>
-          <li className={css['transaction__types_title']}>Продажа</li>
+    <div className={css['currency_rate']}>
+      <div className={css['currency__rate_header']}>
+        <ul className={css['currency__rate_header_list']}>
+          <li className={css['currency__rate_header_list_item']}>Валюта</li>
+          <li className={css['currency__rate_header_list_item']}>Покупка</li>
+          <li className={css['currency__rate_header_list_item']}>Продажа</li>
         </ul>
-      </li>
-      {rateList.map(item => (
-        <li className={css['currency__rate_item']} key={item.ccy}>
-          <ul className={css['transaction__types']}>
-            <li className={css['transaction__types_item']}>{item.ccy}</li>
-            <li className={css['transaction__types_item']}>{item.buy}</li>
-            <li className={css['transaction__types_item']}>{item.sale}</li>
+      </div>
+      <div className={css['currency__rate_content']}>
+        {rateList.map(item => (
+          <ul className={css['currency__rate_content_list']} key={item.ccy}>
+            <li className={css['currency__rate_content_list_item']}>
+              {item.ccy}
+            </li>
+            <li className={css['currency__rate_content_list_item']}>
+              {parseFloat(item.buy).toFixed(2)}
+            </li>
+            <li className={css['currency__rate_content_list_item']}>
+              {parseFloat(item.sale).toFixed(2)}
+            </li>
           </ul>
-        </li>
-      ))}
-    </ul>
+        ))}
+      </div>
+    </div>
   );
 };
 
