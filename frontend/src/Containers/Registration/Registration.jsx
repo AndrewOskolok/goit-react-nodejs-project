@@ -1,7 +1,17 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import css from "./Registration.module.css";
 
 const Registration = () => {
+  const [email, setEmail] = useState('');
+  console.log('email :>> ', email);
+
+  const handleInputEmail = e => {
+    e.preventDefault();
+    setEmail(e.target.value);
+    console.log('object :>> ', setEmail);
+  };
+  
   return <div className={css.registration}>   
   <div className={css.registration__wrapper}>
     <form onSubmit
@@ -20,7 +30,8 @@ const Registration = () => {
             type="email"
             placeholder="E-mail"
             name="email"
-            onChange
+            value={email}
+            onChange={handleInputEmail}
             required
             autoFocus
           />
@@ -64,7 +75,7 @@ const Registration = () => {
           <span></span>
         </div>
 
- {/* ----------------------- name user input ------------------------------ */}       
+ {/* ----------------------- name user input ------------------------------        */}
 
         <label className={css.registration__avatar_icon}>
           <input
