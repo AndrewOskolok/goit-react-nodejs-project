@@ -10,11 +10,16 @@
   border: none;
   background-repeat: no-repeat;
   outline: none;
+  color: black;
 }
 
-.main__btn:hover,
+/* .main__btn:hover,
 .main__btn:focus {
   fill: #4a56e2;
+} */
+
+.main__btn_active {
+  font-weight: bold;
 }
 
 .main__btn_home {

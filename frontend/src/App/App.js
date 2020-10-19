@@ -19,8 +19,11 @@ function App() {
         {!authorise && <Route path="/registration" component={Registration} />}
         {!authorise && <Redirect to="/login" />}
 
-        {authorise && <Route path="/" component={Main} />}
+        {authorise && <Route exact path="/" component={Main} />}
         {authorise && <Route path="/statistic" component={Statistic} />}
+        {window.innerWidth < 768 && authorise && (
+          <Route path="/currency" component={Statistic} />
+        )}
         {authorise && <Redirect to="/" />}
       </Switch>
     </div>
