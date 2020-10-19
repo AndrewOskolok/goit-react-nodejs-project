@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "../../Components/Header/Header";
 import Balance from "../../Components/Balance/Balance";
 import Navigation from "../../Components/Navigation/Navigation";
@@ -8,6 +8,12 @@ import AddTransaction from "../../Components/addTransaction/AddTransaction";
 import css from "./Main.module.css";
 
 const Main = () => {
+  const [modalWindow, setModalWindow] = useState(false);
+
+  const openModalHandler = () => {
+  setModalWindow(state => !state)
+}
+
   return (
     <div className={css.main}>
       <Header />
@@ -23,7 +29,7 @@ const Main = () => {
           <Transaction/>
         </div>
       </div>
-      <AddTransaction/>
+      <AddTransaction modalHandler={openModalHandler}/>
     </div>
   );
 };

@@ -8,20 +8,28 @@
   font-family: "Montserrat";
   color: #fff;
   position: fixed;
-  left: 256px;
-  bottom: 20px;
+  right: 30px;
+  bottom: 30px;
+  outline: none;
+}
+
+.add__transaction_btn:hover,
+.add__transaction_btn:focus {
+  border: 1px solid #24cca7;
+  color: #24cca7;
+  background-color: #fff;
 }
 
 @media (min-width: 768px) {
-    .add__transaction_btn {
-        bottom: 40px;
-        z-index: 10;
-        left: 684px;
-    }
+  .add__transaction_btn {
+    bottom: 40px;
+    z-index: 10;
+    right: 40px;
+  }
 }
 
 @media (min-width: 1280px) {
-    .add__transaction_btn {
-        left: 1151px;
-    }
+  .add__transaction_btn {
+    right: 85px;
+  }
 }

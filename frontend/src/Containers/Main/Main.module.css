@@ -35,9 +35,9 @@
   .main__wrapper {
     width: 688px;
     height: calc(100% - 80px);
-    position: relative;
     z-index: 2;
     padding: 20px 0;
+    position: relative;
   }
 
   .main__aside {
@@ -73,7 +73,7 @@
     width: 380px;
     height: 100%;
     margin-bottom: 0;
-    border-right: 1px solid #E7E5F2;
+    border-right: 1px solid #e7e5f2;
   }
 
   .content__wrapper {
