@@ -6,6 +6,8 @@ import Main from "../Containers/Main/Main";
 import Statistic from "../Containers/Statistic/Statistic";
 import css from "./App.module.css";
 
+import TransactionForm from "../Components/transactionForm/transactionForm.js"
+
 function App() {
   // This state for convenient development of your components
   // Set whether the user is authorized
@@ -13,7 +15,8 @@ function App() {
   const [authorise] = useState(false);
 
   return (
-    <div className={css.app}>
+    <div className={css.app}>     
+      <TransactionForm/>
       <Switch>
         {!authorise && <Route path="/login" component={Login} />}
         {!authorise && <Route path="/registration" component={Registration} />}

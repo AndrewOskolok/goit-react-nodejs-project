@@ -1,0 +1,67 @@
+.select {
+  width: 280px;
+  transition: all 0.5s;
+  outline: none;
+  margin-bottom: 40px; 
+}
+
+.select .selectprefix__indicator-separator {
+  display: none;
+}
+
+.select .selectprefix__control {
+  display: flex;
+  justify-content: space-between;
+  border: none;
+  border-bottom: 1px solid rgb(224, 224, 224);
+  cursor: pointer;
+}
+
+.select .selectprefix__control:hover,
+.select .selectprefix__control:focus { 
+  border-color:  rgb(224, 224, 224);
+  box-shadow: none;
+}
+
+.select .selectprefix__placeholder {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 18px;
+  color: rgb(189, 189, 189);
+}
+
+.select .selectprefix__menu {
+  position: absolute;
+  width: 280px;
+  background-color: rgba(255, 255, 255, 0.7);
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(50px);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.select .selectprefix__option {
+  color: #000000;
+  font-family: "Montserrat", san-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 44px;
+  cursor: pointer;
+}
+
+.select .selectprefix__option:hover,
+.select .selectprefix__option:focus {
+  background-color: rgb(255, 255, 255);
+  color: rgb(255, 101, 150);
+}
+
+@media (min-width: 768px) {
+  .select {
+    width: 410px;
+  }
+
+  .select .selectprefix__menu {
+    width: 410px;
+  }
+}
