@@ -4,17 +4,66 @@ import css from "./Registration.module.css";
 
 const Registration = () => {
   const [email, setEmail] = useState('');
-  console.log('email :>> ', email);
+  const [password, setPassword] = useState('');
+  const [passwordConfirm, setPasswordConfirm] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [typeRegister, setTypeRegister] = useState(false);
+
+  // const dispatch = useDispatch();
 
   const handleInputEmail = e => {
     e.preventDefault();
     setEmail(e.target.value);
-    console.log('object :>> ', setEmail);
   };
+
+  const handleInputPassword = e => {
+    e.preventDefault();
+    setPassword(e.target.value);
+  };
+
+  const handleInputPasswordConfirm = e => {
+    e.preventDefault();
+    setPasswordConfirm(e.target.value);
+  };
+
+  const handleInputFirstName = e => {
+    e.preventDefault();
+    setFirstName(e.target.value);
+  };
+
+  const handleTypeRegister = () => {
+    setTypeRegister(currentState => {
+      if (currentState) {
+        return false;
+      } else {
+        return true;
+      }
+    });
+  };
+
+  // const handleSubmit = e => {
+  //   e.preventDefault();
+  //   if (typeRegister) {
+  //     const setRegParams = (email, password, passwordConfirm, firstName) => ({
+  //         email: email,
+  //         password: password,
+  //         passwordConfirm: passwordConfirm,
+  //         firstName: firstName
+  //   });
+  //     dispatch(register(setRegParams(email, password, passwordConfirm, firstName)));
+  //   } else {
+  //     // const setLoginParams = (email, password) => ({
+  //     //   email: email,
+  //     //   password: password,
+  //     });
+  //     dispatch(login(setLoginParams(email, password)));
+  //   }
+  // };
   
   return <div className={css.registration}>   
   <div className={css.registration__wrapper}>
-    <form onSubmit
+    <form
+    // onSubmit={handleSubmit}
       className={css.registration__form_wrapper}>
       <p className={css.registration__logo}>
          Wallet
@@ -46,8 +95,9 @@ const Registration = () => {
             id="password"
             type="password"
             name="password"
-            onChange
-            minLength="6"
+            value={password}
+            onChange={handleInputPassword}
+            minLength="4"
             maxLength="15"
             required
           />
@@ -62,8 +112,9 @@ const Registration = () => {
             id="password"
             type="password"
             name="password"
-            onChange
-            minLength="6"
+            value={passwordConfirm}
+            onChange={handleInputPasswordConfirm}
+            minLength="4"
             maxLength="15"
             required
           />
@@ -81,10 +132,11 @@ const Registration = () => {
           <input
             className={css.registration__name_input}
             placeholder="Ваше имя"
-            id="password"
+            id="name"
             type="text"
-            name="password"
-            onChange
+            name="firstName"
+            value={firstName}
+            onChange={handleInputFirstName}
             minLength="2"
             maxLength="15"
             required
@@ -98,13 +150,14 @@ const Registration = () => {
       <div className={css.registration__button}>
         <button type="submit"
           className={css.registration__submit_btn}>
-          Вход
+          Регистрация
         </button>
 
         <button
           type="button"  className={css.registration__registration_btn}
+          // onClick={handleTypeRegister}
         >
-          Регистрация
+          Вход
         </button>
       </div>
    </form>
