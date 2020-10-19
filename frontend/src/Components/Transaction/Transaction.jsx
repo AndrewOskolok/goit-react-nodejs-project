@@ -13,7 +13,6 @@ const Transaction = () => {
         <span className={styles.transaction__header_item}>Баланс</span>
       </div>
       <div className={styles.transaction__list}>
-        <button className={styles.transaction__list_close}></button>
         <p className={styles.transaction__list_item}>
           <span className={styles.transaction__list_item_key}>Дата</span>
           <span className={styles.transaction__list_item_value}>04.01.19</span>
