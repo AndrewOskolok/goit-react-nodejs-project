@@ -4,6 +4,7 @@ const swaggerUi = require("swagger-ui-express");
 const { transactionRouter } = require("./transactions/transactions.router");
 const { authRouter } = require("./auth/auth.router");
 const { categoryRouter } = require("./categories/categories.router");
+const { userRouter } = require("./users/user.router");
 const swaggerDocument = require("../swagger.json");
 
 const cors = require("cors");
@@ -61,6 +62,7 @@ exports.Server = class Server {
     this.app.use("/transactions", transactionRouter);
     this.app.use("/auth", authRouter);
     this.app.use("/categories", categoryRouter);
+    this.app.use("/users", userRouter);
   }
 
   initErrorHandling() {
