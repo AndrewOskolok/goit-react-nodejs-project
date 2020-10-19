@@ -127,6 +127,10 @@
 
 @media(max-width:767px) {
 
+    .transaction__filter {
+        width: 100%;
+    }
+
     .transaction__list:hover .transaction__list_item {
         opacity: 0;
     }
