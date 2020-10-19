@@ -4,6 +4,7 @@ const {
   createTransaction,
   deleteTransaction,
   updateTransaction,
+  getTransactions,
 } = require("./transactions.controller");
 const { authorize } = require("../auth/auth.controller");
 const { tryCatchWrapper } = require("../helpers/try-catch-wrapper");
@@ -65,6 +66,10 @@ const updateTransactionScheme = Joi.object({
   category: Joi.string(),
 }).min(1);
 
+const getTransactionsScheme = Joi.object({
+  filter: Joi.string().valid("income", "expense"),
+});
+
 router.post(
   "/",
   authorize,
@@ -77,6 +82,12 @@ router.patch(
   authorize,
   validate(updateTransactionScheme),
   tryCatchWrapper(updateTransaction)
+);
+router.get(
+  "/",
+  authorize,
+  validate(getTransactionsScheme, "query"),
+  tryCatchWrapper(getTransactions)
 );
 
 exports.transactionRouter = router;
