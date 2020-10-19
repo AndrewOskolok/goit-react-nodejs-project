@@ -10,13 +10,19 @@ const Statistic = () => {
     income: 22000,
     expense: 18000,
   };
+  const balance = 24000;
+
   return (
     <section className={css.statistic}>
       <h2 className={css.statistic__title}>Статистика</h2>
       <div className={css.statistic__wrapper}>
-        <div className={css.statistic__chart_wrapper}>
-          <StatisticChart arrayOfStat={arrayOfStat} />
-        </div>
+        {arrayOfStat.length > 0 && (
+          <div className={css.statistic__chart_wrapper}>
+            <StatisticChart arrayOfStat={arrayOfStat} />
+            <p className={css.statistic__chart_balance}>$ {balance}</p>
+          </div>
+        )}
+
         <div className={css.statistic__info_wrapper}>
           <div className={css.statistic__info_select}>
             <StatisticCustomSelectors startValue={'Месяц'} />
