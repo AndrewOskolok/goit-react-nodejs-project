@@ -26,7 +26,7 @@ const Main = () => {
           </div>
         </aside>
         <div className={css.content__wrapper}>
-          <Transaction/>
+          <Transaction />
         </div>
       </div>
       <AddTransaction modalHandler={openModalHandler}/>

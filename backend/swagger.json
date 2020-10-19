@@ -14,7 +14,19 @@
   "tags": [
     {
       "name": "Transactions",
-      "description": "Transaction operations"
+      "description": "Transaction endpoints"
+    },
+    {
+      "name": "Auth",
+      "description": "Auth endpoints"
+    },
+    {
+      "name": "Categories",
+      "description": "Categories endpoints"
+    },
+    {
+      "name": "Service",
+      "description": "Service endpoints"
     }
   ],
   "schemes": ["http"],
@@ -35,6 +47,7 @@
           },
           {
             "name": "JWT token",
+            "description": "Access token",
             "in": "header",
             "schema": {
               "type": "string"
@@ -50,17 +63,21 @@
             }
           },
           "400": {
-            "description": "Bad request",
+            "description": "Bad request / No token provided",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized (invalid access token)",
             "content": {}
           },
           "404": {
-            "description": "Unauthorized",
+            "description": "Unauthorized (user not found) / Invalid user / Invalid session",
             "content": {}
           }
         }
       }
     },
-    "/{transactionId}": {
+    "/transactions/{transactionId}": {
       "delete": {
         "tags": ["Transactions"],
         "summary": "Delete transaction",
@@ -74,6 +91,7 @@
           },
           {
             "name": "JWT token",
+            "description": "Access token",
             "in": "header",
             "schema": {
               "type": "string"
@@ -86,8 +104,16 @@
             "description": "Successful operation",
             "content": {}
           },
+          "400": {
+            "description": "Bad request / No token provided",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized (invalid access token)",
+            "content": {}
+          },
           "404": {
-            "description": "Unauthorized",
+            "description": "Unauthorized (user not found) / Invalid user / Invalid session",
             "content": {}
           }
         }
@@ -112,6 +138,7 @@
           },
           {
             "name": "JWT token",
+            "description": "Access token",
             "in": "header",
             "schema": {
               "type": "string"
@@ -124,8 +151,203 @@
             "description": "Successful operation",
             "schema": { "$ref": "#/components/schemas/ReturnedTransaction" }
           },
+          "400": {
+            "description": "Bad request / No token provided",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized (invalid access token)",
+            "content": {}
+          },
           "404": {
-            "description": "Unauthorized",
+            "description": "Unauthorized (user not found) / Invalid user / Invalid session",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/auth/register": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Register user",
+        "parameters": [
+          {
+            "name": "Request body",
+            "in": "body",
+            "description": "Registration request body",
+            "required": true,
+            "schema": { "$ref": "#/components/schemas/Register" }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/components/schemas/AfterRegistration"
+            }
+          },
+          "409": {
+            "description": "Requested email already exists",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Login",
+        "parameters": [
+          {
+            "name": "Request body",
+            "in": "body",
+            "description": "Registration request body",
+            "required": true,
+            "schema": { "$ref": "#/components/schemas/Login" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/components/schemas/AfterLogin"
+            }
+          },
+          "403": {
+            "description": "User with provided email doesn't exist / Password is wrong",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/auth/refresh": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "Get new pair of tokens",
+        "parameters": [
+          {
+            "name": "JWT Token",
+            "in": "header",
+            "description": "Refresh token",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/components/schemas/RefreshTokens"
+            }
+          },
+          "401": {
+            "description": "Unauthorized (invalid refresh token)",
+            "content": {}
+          },
+          "404": {
+            "description": "Invalid user / Invalid session",
+            "content": {}
+          },
+          "400": {
+            "description": "No token provided",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Logout",
+        "parameters": [
+          {
+            "name": "JWT Token",
+            "in": "header",
+            "description": "Access token",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad request / No token provided",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized (invalid access token)",
+            "content": {}
+          },
+          "404": {
+            "description": "Unauthorized (user not found) / Invalid user / Invalid session",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/categories/": {
+      "get": {
+        "tags": ["Categories"],
+        "summary": "Get a list of default categories",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "_id": {
+                    "description": "MongoDB ID",
+                    "type": "string"
+                  },
+                  "name": {
+                    "description": "Name of a category",
+                    "type": "string"
+                  },
+                  "__v": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Service"],
+        "summary": "Add an item to the list of default categories",
+        "parameters": [
+          {
+            "name": "Request body",
+            "in": "body",
+            "description": "request",
+            "required": true,
+            "schema": { "$ref": "#/components/schemas/CategoryPost" }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "description": "MongoDB ID",
+                  "type": "string"
+                },
+                "name": {
+                  "description": "Name of a category",
+                  "type": "string"
+                },
+                "__v": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid service password",
             "content": {}
           }
         }
@@ -308,6 +530,133 @@
           "balanceAfter": {
             "type": "integer",
             "description": "User's balance after provided transaction"
+          }
+        }
+      },
+      "Register": {
+        "required": ["email", "password", "username"],
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password"
+          },
+          "username": {
+            "type": "string",
+            "description": "User's name"
+          }
+        }
+      },
+      "AfterRegistration": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Registered user MongoDB ID"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "Registered user email"
+          },
+          "username": {
+            "type": "string",
+            "description": "Registered user username"
+          },
+          "avatarUrl": {
+            "type": "string",
+            "description": "Registered user avatar URL (always empty string after registration)"
+          },
+          "currentBalance": {
+            "type": "integer",
+            "description": "Registered user balance (always zero after registration)"
+          },
+          "transactions": {
+            "type": "array",
+            "items": {},
+            "description": "Registered user transactions (always empty array after registration)"
+          },
+          "customCategories": {
+            "type": "array",
+            "items": {},
+            "description": "Registered user custom categories (always empty array after registration)"
+          }
+        }
+      },
+      "Login": {
+        "required": ["email", "password"],
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password"
+          }
+        }
+      },
+      "AfterLogin": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Registered user MongoDB ID"
+          },
+          "username": {
+            "type": "string",
+            "description": "Registered user username"
+          },
+          "currentBalance": {
+            "type": "integer",
+            "description": "Registered user balance"
+          },
+          "transactions": {
+            "type": "array",
+            "items": {},
+            "description": "Registered user transactions"
+          },
+          "accessToken": {
+            "type": "string",
+            "description": "Access token for authorization header"
+          },
+          "refreshToken": {
+            "type": "string",
+            "description": "Refresh token to get 2 new tokens, if access one has expired"
+          }
+        }
+      },
+      "RefreshTokens": {
+        "type": "object",
+        "properties": {
+          "accessToken": {
+            "type": "string",
+            "description": "Access token"
+          },
+          "refreshToken": {
+            "type": "string",
+            "description": "Refresh token"
+          }
+        }
+      },
+      "CategoryPost": {
+        "required": ["name", "password"],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of a category you want to add"
+          },
+          "password": {
+            "type": "string",
+            "description": "Service password"
           }
         }
       }

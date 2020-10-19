@@ -1,7 +1,9 @@
 const path = require("path");
 require("dotenv").config({ path: path.join(__dirname, "../.env") });
-const { transactionRouter } = require("./transactions/transactions.router");
 const swaggerUi = require("swagger-ui-express");
+const { transactionRouter } = require("./transactions/transactions.router");
+const { authRouter } = require("./auth/auth.router");
+const { categoryRouter } = require("./categories/categories.router");
 const swaggerDocument = require("../swagger.json");
 
 const cors = require("cors");
@@ -30,6 +32,7 @@ exports.Server = class Server {
   initMiddlewares() {
     this.app.use(express.json());
     this.app.use(cors({ origin: process.env.ALLOWED_ORIGIN }));
+    this.app.use(express.static("public"));
   }
 
   async initDbConnection() {
@@ -50,8 +53,14 @@ exports.Server = class Server {
   }
 
   initRoutes() {
-    this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+    this.app.use(
+      "/api-docs",
+      swaggerUi.serve,
+      swaggerUi.setup(swaggerDocument)
+    );
     this.app.use("/transactions", transactionRouter);
+    this.app.use("/auth", authRouter);
+    this.app.use("/categories", categoryRouter);
   }
 
   initErrorHandling() {
@@ -62,7 +71,7 @@ exports.Server = class Server {
   }
 
   startListening() {
-    this.app.listen(process.env.PORT = 3000, () => {
+    this.app.listen((process.env.PORT = 3000), () => {
       console.log("Started listening on port", process.env.PORT);
     });
   }
