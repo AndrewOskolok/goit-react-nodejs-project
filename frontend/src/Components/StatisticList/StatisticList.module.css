@@ -13,8 +13,7 @@
   border-bottom: 1px solid #dcdcdf;
   justify-content: space-between;
 }
-.statistic_group__list_item::before {
-  content: '';
+.statistic_group__list_item_square {
   display: inline-block;
   width: 24px;
   height: 24px;
@@ -33,7 +32,7 @@
   width: 120px;
 }
 
-.statistic_group__list_item_info:nth-child(2) {
+.statistic_group__list_item_info:nth-child(3) {
   text-align: right;
   width: 80px;
 }
@@ -46,7 +45,7 @@
     width: 170px;
   }
 
-  .statistic_group__list_item_info:nth-child(2) {
+  .statistic_group__list_item_info:nth-child(3) {
     width: 90px;
   }
 }
