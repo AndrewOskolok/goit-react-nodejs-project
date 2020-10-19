@@ -1,6 +1,9 @@
 const { v4: uuidv4 } = require("uuid");
 const { UserModel } = require("../users/user.model");
-
+const {
+  findUniqueCategory,
+  countSumByType,
+} = require("../helpers/getUniqueCategory");
 async function createTransaction(req, res) {
   const transactionId = uuidv4();
   await UserModel.findByIdAndUpdate(req.user._id, {
@@ -45,9 +48,25 @@ async function getTransactions(req, res) {
   return res.status(200).send(filteredTransactions);
 }
 
+async function filteredStatisticsByDate(req, res) {
+  const { year, month } = req.query;
+  const { user } = req;
+
+  const yearNumber = Number(year);
+  const correctStatsByDate = user.transactions.filter((el) => {
+    return el.year === yearNumber && el.month === month;
+  });
+  const sumType = countSumByType(correctStatsByDate);
+  const categories = findUniqueCategory(correctStatsByDate);
+  const result = { sumType, categories, currentBalance: user.currentBalance };
+
+  res.status(200).json(result);
+}
+
 module.exports = {
   createTransaction,
   deleteTransaction,
   updateTransaction,
   getTransactions,
+  filteredStatisticsByDate,
 };

@@ -5,10 +5,8 @@ const {
   deleteTransaction,
   updateTransaction,
   getTransactions,
+  filteredStatisticsByDate,
 } = require("./transactions.controller");
-const { authorize } = require("../auth/auth.controller");
-const { tryCatchWrapper } = require("../helpers/try-catch-wrapper");
-const { validate } = require("../helpers/validate");
 
 const router = new Router();
 
@@ -70,6 +68,26 @@ const getTransactionsScheme = Joi.object({
   filter: Joi.string().valid("income", "expense"),
 });
 
+const validateStatics = Joi.object({
+  month: Joi.string()
+    .valid(
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    )
+    .required(),
+  year: Joi.number().min(0).max(new Date().getTime()).required(),
+});
+
 router.post(
   "/",
   authorize,
@@ -82,6 +100,13 @@ router.patch(
   authorize,
   validate(updateTransactionScheme),
   tryCatchWrapper(updateTransaction)
+);
+
+router.get(
+  "/statistic",
+  authorize,
+  validate(validateStatics, "query"),
+  tryCatchWrapper(filteredStatisticsByDate)
 );
 router.get(
   "/",
