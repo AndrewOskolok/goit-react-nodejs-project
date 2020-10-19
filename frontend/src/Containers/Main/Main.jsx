@@ -8,6 +8,7 @@ import css from './Main.module.css';
 
 const Main = () => {
   return (
+    <>
     <div className={css.main}>
       <Header />
       <div className={css.main__wrapper}>
@@ -22,7 +23,9 @@ const Main = () => {
           <Transaction />
         </div>
       </div>
-    </div>
+      </div>
+      
+    </>
   );
 };
 

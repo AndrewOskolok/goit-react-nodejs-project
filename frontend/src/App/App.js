@@ -22,7 +22,7 @@ function App() {
         {authorise && <Route exact path="/" component={Main} />}
         {authorise && <Route path="/statistic" component={Statistic} />}
         {window.innerWidth < 768 && authorise && (
-          <Route path="/currency" component={Statistic} />
+          <Route path="/currency" component={Main} />
         )}
         {authorise && <Redirect to="/" />}
       </Switch>
