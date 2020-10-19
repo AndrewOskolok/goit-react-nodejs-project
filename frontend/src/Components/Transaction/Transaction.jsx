@@ -12,35 +12,34 @@ const Transaction = () => {
         <span className={styles.transaction__header_item}>Сумма</span>
         <span className={styles.transaction__header_item}>Баланс</span>
       </div>
-      <div className={styles.transaction__list}>
-        <button className={styles.transaction__list_close}></button>
-        <div className={styles.transaction__list_item}>
+      <ul className={styles.transaction__list}>
+        <li className={styles.transaction__list_item}>
           <span className={styles.transaction__list_item_key}>Дата</span>
           <span className={styles.transaction__list_item_value}>04.01.19</span>
-        </div>
-        <div className={styles.transaction__list_item}>
+        </li>
+        <li className={styles.transaction__list_item}>
           <span className={styles.transaction__list_item_key}>Тип</span>
           <span className={styles.transaction__list_item_value}>-</span>
-        </div>
-        <div className={styles.transaction__list_item}>
+        </li>
+        <li className={styles.transaction__list_item}>
           <span className={styles.transaction__list_item_key}>Категория</span>
           <span className={styles.transaction__list_item_value}>Разное</span>
-        </div>
-        <div className={styles.transaction__list_item}>
+        </li>
+        <li className={styles.transaction__list_item}>
           <span className={styles.transaction__list_item_key}>Комментарий</span>
           <span className={styles.transaction__list_item_value}>
             Подарок жене
           </span>
-        </div>
-        <div className={styles.transaction__list_item}>
+        </li>
+        <li className={styles.transaction__list_item}>
           <span className={styles.transaction__list_item_key}>Сумма</span>
           <span className={styles.transaction__list_item_value}>300.00</span>
-        </div>
-        <div className={styles.transaction__list_item}>
+        </li>
+        <li className={styles.transaction__list_item}>
           <span className={styles.transaction__list_item_key}>Баланс</span>
           <span className={styles.transaction__list_item_value}>6 900.00</span>
-        </div>
-      </div>
+        </li>
+      </ul>
     </>
   );
 };
