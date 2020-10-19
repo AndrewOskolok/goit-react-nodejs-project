@@ -6,6 +6,7 @@ const {
   updateTransaction,
   getTransactions,
   filteredStatisticsByDate,
+  getMonthsAndYears,
 } = require("./transactions.controller");
 const { authorize } = require("../auth/auth.controller");
 const { validate } = require("../helpers/validate");
@@ -117,5 +118,6 @@ router.get(
   validate(getTransactionsScheme, "query"),
   tryCatchWrapper(getTransactions)
 );
+router.get("/time", authorize, tryCatchWrapper(getMonthsAndYears));
 
 exports.transactionRouter = router;

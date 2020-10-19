@@ -1,5 +1,5 @@
 const { v4: uuidv4 } = require("uuid");
-const { UserModel } = require("../users/user.model");
+const { UserModel } = require("../users/users.model");
 const {
   findUniqueCategory,
   countSumByType,
@@ -63,10 +63,24 @@ async function filteredStatisticsByDate(req, res) {
   res.status(200).json(result);
 }
 
+async function getMonthsAndYears(req, res) {
+  const loggedUser = req.user;
+  const transactionsMonths = loggedUser.transactions.map(
+    (transaction) => transaction.month
+  );
+  const transactionsYears = loggedUser.transactions.map(
+    (transaction) => transaction.year
+  );
+  return res
+    .status(200)
+    .send({ months: transactionsMonths, years: transactionsYears });
+}
+
 module.exports = {
   createTransaction,
   deleteTransaction,
   updateTransaction,
   getTransactions,
   filteredStatisticsByDate,
+  getMonthsAndYears,
 };
