@@ -1,3 +1,7 @@
+.transaction__list_wrapper{
+    position: relative;
+}
+
 .transaction__list {
     background-color: #FFFFFF;
     border-radius: 5px;
@@ -8,8 +12,7 @@
     overflow: hidden;
 }
 
-.transaction__list::before {
-    content: "";
+.transaction__list_edit {
     width: 38px;
     height: 38px;
     position: absolute;
@@ -19,12 +22,13 @@
     background-position: center;
     background-size: cover;
     border-radius: 5px;
+    border: none;
+    outline: none;
     cursor: pointer;
     transition: all 250ms linear;
 }
 
-.transaction__list::after {
-    content: "";
+.transaction__list_delete {
     width: 38px;
     height: 38px;
     position: absolute;
@@ -34,8 +38,15 @@
     background-position: center;
     background-size: cover;
     border-radius: 5px;
+    border: none;
+    outline: none;
     cursor: pointer;
     transition: all 250ms linear;
+}
+
+.transaction__list_close{
+   display: none;
+   opacity: 0;
 }
 
 .transaction__list_item {
@@ -81,26 +92,42 @@
         opacity: 0;
     }
 
-    .transaction__list::before {
+    .transaction__list_edit {
         top: 50%;
         left: 100px;
         z-index: -1;
         opacity: 0;
     }
 
-    .transaction__list::after {
+    .transaction__list_delete {
         top: 50%;
         right: 60px;
         z-index: -1;
         opacity: 0;
     }
+    
+    .transaction__list:hover .transaction__list_close{
+        display: block;
+         width: 38px;
+         height: 38px;
+         background-image: url('../../images/icons/transaction/close.png');
+         background-repeat: no-repeat;
+         background-size: contain;
+         border: none;
+         outline: none;
+         border-radius: 5px;
+         position: absolute;
+         top: 10px;
+         right: 10px;
+         opacity: 1;
+    }
 
-    .transaction__list:hover::before {
+    .transaction__list:hover .transaction__list_edit {
         z-index: 1;
         opacity: 1;
     }
 
-    .transaction__list:hover::after {
+    .transaction__list:hover .transaction__list_delete {
         z-index: 1;
         opacity: 1;
     }
@@ -192,25 +219,25 @@
         border-top: 1px solid #DCDCDF
     }
 
-    .transaction__list::before {
+    .transaction__list_edit {
         width: 18px;
         height: 18px;
         top: 50%;
         right: -50px;
     }
 
-    .transaction__list::after {
+    .transaction__list_delete {
         width: 18px;
         height: 18px;
         top: 50%;
         right: -50px;
     }
 
-    .transaction__list:hover::before {
+    .transaction__list:hover .transaction__list_edit {
         right: 34px;
     }
 
-    .transaction__list:hover::after {
+    .transaction__list:hover .transaction__list_delete {
         right: 8px;
     }
 
