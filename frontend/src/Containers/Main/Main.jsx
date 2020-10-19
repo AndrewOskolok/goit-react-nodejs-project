@@ -11,8 +11,8 @@ const Main = () => {
   const [modalWindow, setModalWindow] = useState(false);
 
   const openModalHandler = () => {
-  setModalWindow(state => !state)
-}
+    setModalWindow((state) => !state);
+  };
 
   return (
     <div className={css.main}>
@@ -29,12 +29,8 @@ const Main = () => {
           <Transaction />
         </div>
       </div>
-<<<<<<< HEAD
-    </div>  
-=======
-      <AddTransaction modalHandler={openModalHandler}/>
+      <AddTransaction modalHandler={openModalHandler} />
     </div>
->>>>>>> 0d1bb0e23856f60e8b83226df1e5d4eeb9ff0231
   );
 };
 
