@@ -1,13 +1,14 @@
-const { Router } = require("express");
-const Joi = require("Joi");
+const { Router } = require('express');
+const Joi = require('Joi');
 const {
   createTransaction,
   deleteTransaction,
   updateTransaction,
-} = require("./transactions.controller");
-const { authorize } = require("../auth/auth.controller");
-const { tryCatchWrapper } = require("../helpers/try-catch-wrapper");
-const { validate } = require("../helpers/validate");
+  filteredStatisticsByDate,
+} = require('./transactions.controller');
+const { authorize } = require('../auth/auth.controller');
+const { tryCatchWrapper } = require('../helpers/try-catch-wrapper');
+const { validate } = require('../helpers/validate');
 
 const router = new Router();
 
@@ -15,18 +16,18 @@ const createTransactionScheme = Joi.object({
   date: Joi.number().min(0).max(new Date().getTime()).required(),
   month: Joi.string()
     .valid(
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December"
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
     )
     .required(),
   year: Joi.number()
@@ -34,7 +35,7 @@ const createTransactionScheme = Joi.object({
     .min(1970)
     .max(new Date().getFullYear())
     .required(),
-  type: Joi.string().valid("income", "expense").required(),
+  type: Joi.string().valid('income', 'expense').required(),
   description: Joi.string().required(),
   amount: Joi.number().required(),
   balanceAfter: Joi.number().required(),
@@ -44,21 +45,21 @@ const createTransactionScheme = Joi.object({
 const updateTransactionScheme = Joi.object({
   date: Joi.number().min(0).max(new Date().getTime()),
   month: Joi.string().valid(
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December"
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
   ),
   year: Joi.number().integer().min(1970).max(new Date().getFullYear()),
-  type: Joi.string().valid("income", "expense"),
+  type: Joi.string().valid('income', 'expense'),
   description: Joi.string(),
   amount: Joi.number(),
   balanceAfter: Joi.number(),
@@ -66,17 +67,44 @@ const updateTransactionScheme = Joi.object({
 }).min(1);
 
 router.post(
-  "/",
+  '/',
   authorize,
   validate(createTransactionScheme),
-  tryCatchWrapper(createTransaction)
+  tryCatchWrapper(createTransaction),
 );
-router.delete("/:transactionId", authorize, tryCatchWrapper(deleteTransaction));
+router.delete('/:transactionId', authorize, tryCatchWrapper(deleteTransaction));
 router.patch(
-  "/:transactionId",
+  '/:transactionId',
   authorize,
   validate(updateTransactionScheme),
-  tryCatchWrapper(updateTransaction)
+  tryCatchWrapper(updateTransaction),
+);
+
+const validateStatics = Joi.object({
+  month: Joi.string()
+    .valid(
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    )
+    .required(),
+  year: Joi.number().min(0).max(new Date().getTime()).required(),
+});
+
+router.get(
+  '/statistic',
+  authorize,
+  validate(validateStatics, 'query'),
+  tryCatchWrapper(filteredStatisticsByDate),
 );
 
 exports.transactionRouter = router;
