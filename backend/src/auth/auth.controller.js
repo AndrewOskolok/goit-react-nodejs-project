@@ -121,11 +121,11 @@ async function authorize(req, res, next) {
     if (!session) {
       return res.status(404).send({ message: "Invalid session" });
     }
-    // if (user.verificationToken) {
-    //   return res
-    //     .status(401)
-    //     .send({ message: "You haven't verified your email address." });
-    // }
+    if (user.verificationToken) {
+      return res
+        .status(401)
+        .send({ message: "You haven't verified your email address." });
+    }
     // gmail не парсит ссылку, после изменения на heroku вернуть этот блок
     req.user = user;
     req.session = session;
