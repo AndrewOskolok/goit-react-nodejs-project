@@ -1,35 +1,48 @@
 import React, { useState, useRef, useEffect } from 'react';
 import queryString from 'query-string';
+import axios from 'axios';
 import { useHistory, useLocation } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
-import { useDispatch } from 'react-redux';
-import getFilteredStatistic from '../../redux/opertions/statisticOperation';
 import css from './StatisticCustomSelectors.module.css';
 import animate from './slide.module.css';
-
+const token =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZjhiNmEwMmNhZTMyNTE0N2ZmODhmODUiLCJzaWQiOiI1ZjhmMTJiOWI1OTk3MjAwMTc2YjNjMzciLCJpYXQiOjE2MDMyMTE5NjEsImV4cCI6MTYwMzIxMzc2MX0.pd6sI-fdFYPDkIBJFubXS-FjafbTCWlej6JofdGUqjE';
 const StatisticCustomSelectors = () => {
   const history = useHistory();
   const location = useLocation();
-  const dispatch = useDispatch();
-  const months = ['December', 'November', 'September', 'June', 'July'];
-  const years = [2019, 2020];
+
+  const [months, setMonths] = useState([]);
+  const [years, setYears] = useState([]);
   const [valueSelectorMonth, setValueSelectorMonth] = useState(null);
   const [valueSelectorYear, setValueSelectorYear] = useState(null);
+  const requestForTimes = async () => {
+    axios.defaults.baseURL = 'https://goit-react-nodejs-project.herokuapp.com/';
+    const result = await axios.get(`time`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const { years, months } = result.data;
+
+    const uniqueYears = [...new Set(years)];
+    const uniqueMonths = [...new Set(months)];
+
+    setMonths(uniqueMonths);
+    setYears(uniqueYears);
+  };
   useEffect(() => {
-    let year = null;
-    let month = null;
+    requestForTimes();
+  }, []);
+  useEffect(() => {
     if (location.search) {
-      year = queryString.parse(location.search).year;
-      month = queryString.parse(location.search).month;
+      const { year, month } = queryString.parse(location.search);
+      if (year && month) {
+        setValueSelectorYear(year);
+        setValueSelectorMonth(month);
+        return;
+      }
     }
 
-    if (year) {
-      setValueSelectorYear(year);
-    }
-    if (month) {
-      setValueSelectorMonth(month);
-      return;
-    }
     setValueSelectorMonth(months[months.length - 1]);
     setValueSelectorYear(years[years.length - 1]);
   }, []);
@@ -39,12 +52,6 @@ const StatisticCustomSelectors = () => {
         ...location,
         search: `month=${valueSelectorMonth}&year=${valueSelectorYear}`,
       });
-      dispatch(
-        getFilteredStatistic({
-          month: valueSelectorMonth,
-          year: valueSelectorYear,
-        }),
-      );
     }
   }, [valueSelectorMonth, valueSelectorYear]);
   const [isOpen, setIsOpenMonth] = useState(false);
