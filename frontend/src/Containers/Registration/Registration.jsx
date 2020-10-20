@@ -159,18 +159,18 @@ const Registration = () => {
           Регистрация
         </button>
 
-        <button
-          type="button"  className={css.registration__registration_btn}
-          onClick={handleTypeRegister}
-        ><Link
+        <Link
         to={{
           pathname: '/login',
           state: { from: location },
-        }}
-         >
+        }}>
+        <button
+          type="button"  className={css.registration__registration_btn}
+          onClick={handleTypeRegister}
+        >
            Вход
-         </Link>
         </button>
+         </Link>
       </div>
    </form>
   </div>

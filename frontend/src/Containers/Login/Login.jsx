@@ -55,17 +55,17 @@ return <div className={css.login}>
                 Вход
               </button>
 
-              <button
-                type="button"  className={css.login__registration_btn}
-              ><Link
+              <Link
               to={{
                 pathname: '/registration',
                 state: { from: location },
-              }}
-               >
+              }}>
+              <button
+                type="button"  className={css.login__registration_btn}
+                >
                 Регистрация
-               </Link>
               </button>
+               </Link>
             </div>
          </form>
         </div>
