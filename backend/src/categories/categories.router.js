@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const Joi = require("Joi");
+const Joi = require("joi");
 const { validate } = require("../helpers/validate");
 const { tryCatchWrapper } = require("../helpers/try-catch-wrapper");
 const { addCategory, getCategories } = require("./categories.controller");
