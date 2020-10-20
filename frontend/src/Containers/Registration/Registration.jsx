@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import css from "./Registration.module.css";
 import { useDispatch } from 'react-redux';
+import { Link, useLocation } from 'react-router-dom';
 
 const Registration = () => {
 
@@ -12,6 +13,7 @@ const Registration = () => {
   const [typeRegister, setTypeRegister] = useState(false);
 
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const handleInputEmail = e => {
     e.preventDefault();
@@ -64,7 +66,7 @@ const Registration = () => {
  
   return <div className={css.registration}>   
   <div className={css.registration__wrapper}>
-    <form
+    <form form action=""
     // onSubmit={handleSubmit}
       className={css.registration__form_wrapper}>
       <p className={css.registration__logo}>
@@ -101,7 +103,7 @@ const Registration = () => {
             value={password}
             onChange={handleInputPassword}
             minLength="4"
-            maxLength="15"
+            maxLength="20"
             required
           />
         </label>
@@ -119,7 +121,7 @@ const Registration = () => {
             value={passwordConfirm}
             onChange={handleInputPasswordConfirm}
             minLength="4"
-            maxLength="15"
+            maxLength="20"
             required
           />
         </label>
@@ -142,7 +144,7 @@ const Registration = () => {
             value={firstName}
             onChange={handleInputFirstName}
             minLength="2"
-            maxLength="15"
+            maxLength="20"
             required
           />
         </label>
@@ -160,8 +162,14 @@ const Registration = () => {
         <button
           type="button"  className={css.registration__registration_btn}
           onClick={handleTypeRegister}
-        >
-          Вход
+        ><Link
+        to={{
+          pathname: '/login',
+          state: { from: location },
+        }}
+         >
+           Вход
+         </Link>
         </button>
       </div>
    </form>
