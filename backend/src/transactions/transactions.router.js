@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const Joi = require("Joi");
+const Joi = require("joi");
 const {
   createTransaction,
   deleteTransaction,
