@@ -24,9 +24,13 @@ const signInSchema = Joi.object({
   password: Joi.string().required(),
 });
 
+const refreshSchema = Joi.object({
+  sid: Joi.string().required(),
+});
+
 router.post("/register", validate(signUpSchema), tryCatchWrapper(register));
 router.post("/login", validate(signInSchema), tryCatchWrapper(login));
-router.get("/refresh", tryCatchWrapper(refreshTokens));
+router.get("/refresh", validate(refreshSchema), tryCatchWrapper(refreshTokens));
 router.post("/logout", authorize, tryCatchWrapper(logout));
 router.get("/verify/:verificationToken", tryCatchWrapper(verifyEmail));
 
