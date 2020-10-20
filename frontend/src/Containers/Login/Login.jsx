@@ -68,7 +68,8 @@ return <div className={css.login}>
               </button>
 
               <Link to='/registration' className={css.login__registration_btn}>
-                <p className={css.login__registration_btn_text}>Регистрация</p>
+                {/* <p className={css.login__registration_btn_text}>Регистрация</p> */}
+                Регистрация
               </Link>
             </div>
          </form>

@@ -148,7 +148,7 @@ const Registration = ({location}) => {
         </button>
 
         <Link to='/login' className={css.registration__registration_btn}>
-          <p className={css.registration__registration_btn_text}>Вход</p>
+          Вход
         </Link>
       </div>
    </form>

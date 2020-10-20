@@ -165,6 +165,10 @@
 }
 
 .registration__registration_btn {
+    color: black;
+    font-family: "Montserrat";
+    font-size:18px;
+    font-weight: 400;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -183,13 +187,6 @@
 .registration__registration_btn:focus{
     background: #4A56E2;
     color:white;
-}
-
-.registration__registration_btn_text {
-    color: black;
-    font-family: "Montserrat";
-    font-size:18px;
-    font-weight: 400;
 }
 
 /* --------------------------- tablet --------------------------- */

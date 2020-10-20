@@ -106,6 +106,9 @@
 }
 
 .login__registration_btn {
+    font-family: "Montserrat";
+    font-size:18px;
+    font-weight: 400;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -125,12 +128,6 @@
     color:white;
 }
 
-.login__registration_btn_text {
-    color: #000;
-    font-family: "Montserrat";
-    font-size:18px;
-    font-weight: 400;
-}
 
 /* --------------------------- tablet --------------------------- */
 
