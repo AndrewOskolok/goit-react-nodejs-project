@@ -194,7 +194,7 @@ async function sendVerificationEmail(email, verificationToken) {
     to: email,
     from: process.env.NODEMAILER_EMAIL,
     subject: "Please, verify your account",
-    html: `<a href="${verificationLink}">Click here to verify your email</a>`,
+    html: `<a href="${verificationLink}" style="display:block;background-color:darkorange;width:220px;height:26px;line-height:26px;text-align:center;color:white;border-radius:14px;box-shadow:3px 3px 5px 0px rgba(0,0,0,0.75);">Click here to verify your email</a>`,
   });
 }
 
