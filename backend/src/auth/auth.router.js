@@ -28,6 +28,6 @@ router.post("/register", validate(signUpSchema), tryCatchWrapper(register));
 router.post("/login", validate(signInSchema), tryCatchWrapper(login));
 router.get("/refresh", tryCatchWrapper(refreshTokens));
 router.post("/logout", authorize, tryCatchWrapper(logout));
-router.get("/verify", tryCatchWrapper(verifyEmail));
+router.get("/verify/:verificationToken", tryCatchWrapper(verifyEmail));
 
 exports.authRouter = router;
