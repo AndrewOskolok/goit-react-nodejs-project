@@ -45,7 +45,7 @@
           {
             "name": "Query parameter",
             "in": "query",
-            "description": "Query parameter - transaction type: 'income' or 'expense' are valid types. If no query parameter provided - all transactions would be returned",
+            "description": "Query parameter 'filter' - transaction type: 'income' or 'expense' are valid types. If no query parameter provided - all transactions would be returned",
             "type": "string"
           },
           {
