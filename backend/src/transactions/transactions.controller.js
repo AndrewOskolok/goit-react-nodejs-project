@@ -4,6 +4,22 @@ const {
   findUniqueCategory,
   countSumByType,
 } = require("../helpers/getUniqueCategory");
+
+const monthNames = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
 async function createTransaction(req, res) {
   const transactionId = uuidv4();
   await UserModel.findByIdAndUpdate(req.user._id, {
@@ -64,15 +80,27 @@ async function filteredStatisticsByDate(req, res) {
 
 async function getMonthsAndYears(req, res) {
   const loggedUser = req.user;
-  const transactionsMonths = loggedUser.transactions.map(
-    (transaction) => transaction.month
-  );
-  const transactionsYears = loggedUser.transactions.map(
-    (transaction) => transaction.year
-  );
+  const transactionsMonths = [
+    ...new Set(loggedUser.transactions.map((transaction) => transaction.month)),
+  ];
+  const transactionsYears = [
+    ...new Set(loggedUser.transactions.map((transaction) => transaction.year)),
+  ];
   return res
     .status(200)
     .send({ months: transactionsMonths, years: transactionsYears });
+}
+
+async function getCurrentMonth(req, res) {
+  const userTransactions = req.user.transactions;
+
+  const d = new Date();
+  const currentMonth = monthNames[d.getMonth()];
+  const currentMonthTransactions = userTransactions.filter(
+    (transaction) => transaction.month === currentMonth
+  );
+
+  return res.status(200).send(currentMonthTransactions);
 }
 
 module.exports = {
@@ -82,4 +110,5 @@ module.exports = {
   getTransactions,
   filteredStatisticsByDate,
   getMonthsAndYears,
+  getCurrentMonth,
 };

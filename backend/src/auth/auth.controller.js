@@ -67,6 +67,11 @@ async function login(req, res) {
       .status(403)
       .send({ message: `User with ${email} email doesn't exist` });
   }
+  if (user.verificationToken) {
+    return res
+      .status(401)
+      .send({ message: "You haven't verified your email address." });
+  }
   const isPasswordCorrect = await bcrypt.compare(password, user.passwordHash);
   if (!isPasswordCorrect) {
     return res.status(403).send({ message: "Password is wrong" });
@@ -95,6 +100,7 @@ async function login(req, res) {
   );
   return res.status(200).send({
     id: user._id,
+    sid: newSession._id,
     username: user.username,
     currentBalance: user.currentBalance,
     transactions: currentMonthTransactions,
@@ -121,12 +127,11 @@ async function authorize(req, res, next) {
     if (!session) {
       return res.status(404).send({ message: "Invalid session" });
     }
-    // if (user.verificationToken) {
-    //   return res
-    //     .status(401)
-    //     .send({ message: "You haven't verified your email address." });
-    // }
-    // gmail не парсит ссылку, после изменения на heroku вернуть этот блок
+    if (user.verificationToken) {
+      return res
+        .status(401)
+        .send({ message: "You haven't verified your email address." });
+    }
     req.user = user;
     req.session = session;
     next();
@@ -141,6 +146,7 @@ async function refreshTokens(req, res) {
     try {
       payload = jwt.verify(reqRefreshToken, process.env.JWT_SECRET);
     } catch (err) {
+      await SessionModel.findByIdAndDelete(req.body.sid);
       return res.status(401).send({ message: "Unauthorized" });
     }
     const user = await UserModel.findById(payload.uid);
@@ -192,10 +198,24 @@ async function sendVerificationEmail(email, verificationToken) {
   });
 }
 
+async function verifyEmail(req, res) {
+  const { verificationToken } = req.params;
+  const user = await UserModel.findOne({ verificationToken });
+  if (!user) {
+    return res.status(404).send("Already verified");
+  }
+  await UserModel.findOneAndUpdate(
+    { verificationToken },
+    { $unset: { verificationToken } }
+  );
+  return res.status(200).send("User successfully verified");
+}
+
 module.exports = {
   register,
   login,
   refreshTokens,
   authorize,
   logout,
+  verifyEmail,
 };
