@@ -95,6 +95,7 @@
     margin-bottom: 20px;
     outline: none;
     transition: all 0.2s linear;
+    cursor: pointer;
 }
 
 .login__submit_btn:hover,
@@ -105,23 +106,30 @@
 }
 
 .login__registration_btn {
-    font-family: "Montserrat";
-    font-size:18px;
-    font-weight: 400;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 280px;
     height: 50px;
     background: #FFFFFF;
     border: 1px solid #4A56E2;
-    box-sizing: border-box;
     border-radius: 20px;
     outline: none;
     transition: all 0.2s linear;
+    cursor: pointer;
 }
 
 .login__registration_btn:hover,
 .login__registration_btn:focus{
     background: #4A56E2;
     color:white;
+}
+
+.login__registration_btn_text {
+    color: #000;
+    font-family: "Montserrat";
+    font-size:18px;
+    font-weight: 400;
 }
 
 /* --------------------------- tablet --------------------------- */

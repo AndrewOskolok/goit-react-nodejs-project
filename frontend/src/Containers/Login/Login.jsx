@@ -1,10 +1,23 @@
 import React from "react";
+import { useState } from "react";
 import css from "./Login.module.css";
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-const Login = () => {
+const initialState = {
+  email: '',
+  password: ''
+}
 
-  const location = useLocation();
+// console.log('object :>> ', initialState);
+
+const Login = ({location}) => {
+  const [form, setForm] = useState(initialState);
+  const handleFormInput =({target}) => {
+  const {name, value} = target
+  setForm(state => ({state, [name]: value }))
+  }
+
+  const {email, password} = form
 
 return <div className={css.login}>   
         <div className={css.login__wrapper}>
@@ -20,11 +33,11 @@ return <div className={css.login}>
               <label className={css.login__email_icon}>
                 <input
                   className={css.login__email}
-                  id="email"
-                  type="email"
                   placeholder="E-mail"
+                  type="email"
                   name="email"
-                  onChange
+                  value={email}
+                  onChange={handleFormInput}
                   required
                   autoFocus
                 />
@@ -36,12 +49,11 @@ return <div className={css.login}>
                 <input
                   className={css.login__password}
                   placeholder="Пароль"
-                  id="password"
                   type="password"
                   name="password"
-                  onChange
-                  minLength="6"
-                  maxLength="15"
+                  value={password}
+                  onChange={handleFormInput}
+                  minLength="4"
                   required
                 />
               </label>
@@ -55,17 +67,9 @@ return <div className={css.login}>
                 Вход
               </button>
 
-              <Link
-              to={{
-                pathname: '/registration',
-                state: { from: location },
-              }}>
-              <button
-                type="button"  className={css.login__registration_btn}
-                >
-                Регистрация
-              </button>
-               </Link>
+              <Link to='/registration' className={css.login__registration_btn}>
+                <p className={css.login__registration_btn_text}>Регистрация</p>
+              </Link>
             </div>
          </form>
         </div>

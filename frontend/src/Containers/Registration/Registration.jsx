@@ -1,49 +1,39 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import css from "./Registration.module.css";
-import { useDispatch } from 'react-redux';
-import { Link, useLocation } from 'react-router-dom';
+// import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-const Registration = () => {
+const initialState = {
+  email: '',
+  password: '',
+  passwordConfirm: '',
+  firstName: ''
+}
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordConfirm, setPasswordConfirm] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [typeRegister, setTypeRegister] = useState(false);
+// console.log('initialState :>> ', initialState);
 
-  const dispatch = useDispatch();
-  const location = useLocation();
+const Registration = ({location}) => {
+  const [form, setForm] = useState(initialState);
+  const handleFormInput =({target}) => {
+  const {name, value} = target
+  setForm(state => ({state, [name]: value }))
+  }
+  const {email, password, passwordConfirm, firstName} = form
+  
+  // const [typeRegister, setTypeRegister] = useState(false);
 
-  const handleInputEmail = e => {
-    e.preventDefault();
-    setEmail(e.target.value);
-  };
+  // const dispatch = useDispatch();
 
-  const handleInputPassword = e => {
-    e.preventDefault();
-    setPassword(e.target.value);
-  };
-
-  const handleInputPasswordConfirm = e => {
-    e.preventDefault();
-    setPasswordConfirm(e.target.value);
-  };
-
-  const handleInputFirstName = e => {
-    e.preventDefault();
-    setFirstName(e.target.value);
-  };
-
-  const handleTypeRegister = () => {
-    setTypeRegister(currentState => {
-      if (currentState) {
-        return false;
-      } else {
-        return true;
-      }
-    });
-  };
+  // const handleTypeRegister = () => {
+  //   setTypeRegister(currentState => {
+  //     if (currentState) {
+  //       return false;
+  //     } else {
+  //       return true;
+  //     }
+  //   });
+  // };
 
   // const handleSubmit = e => {
   //   e.preventDefault();
@@ -66,7 +56,7 @@ const Registration = () => {
  
   return <div className={css.registration}>   
   <div className={css.registration__wrapper}>
-    <form form action=""
+    <form action=""
     // onSubmit={handleSubmit}
       className={css.registration__form_wrapper}>
       <p className={css.registration__logo}>
@@ -84,7 +74,7 @@ const Registration = () => {
             placeholder="E-mail"
             name="email"
             value={email}
-            onChange={handleInputEmail}
+            onChange={handleFormInput}
             required
             autoFocus
           />
@@ -97,11 +87,10 @@ const Registration = () => {
             className={css.registration__password}
             placeholder="Пароль"
             pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$"
-            id="password"
             type="password"
             name="password"
             value={password}
-            onChange={handleInputPassword}
+            onChange={handleFormInput}
             minLength="4"
             maxLength="20"
             required
@@ -115,11 +104,10 @@ const Registration = () => {
             className={css.registration__password_confirm}
             placeholder="Подтвердите пароль"
             pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$"
-            id="password"
             type="password"
             name="password"
             value={passwordConfirm}
-            onChange={handleInputPasswordConfirm}
+            onChange={handleFormInput}
             minLength="4"
             maxLength="20"
             required
@@ -142,7 +130,7 @@ const Registration = () => {
             type="text"
             name="firstName"
             value={firstName}
-            onChange={handleInputFirstName}
+            onChange={handleFormInput}
             minLength="2"
             maxLength="20"
             required
@@ -159,18 +147,9 @@ const Registration = () => {
           Регистрация
         </button>
 
-        <Link
-        to={{
-          pathname: '/login',
-          state: { from: location },
-        }}>
-        <button
-          type="button"  className={css.registration__registration_btn}
-          onClick={handleTypeRegister}
-        >
-           Вход
-        </button>
-         </Link>
+        <Link to='/login' className={css.registration__registration_btn}>
+          <p className={css.registration__registration_btn_text}>Вход</p>
+        </Link>
       </div>
    </form>
   </div>

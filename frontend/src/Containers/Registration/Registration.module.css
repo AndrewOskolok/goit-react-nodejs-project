@@ -2,12 +2,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .registration__wrapper {
+    padding: 10px 0;
     width: 280px;
-    height: 350px;
     margin: 0 auto;
 }
 
@@ -154,6 +154,7 @@
     margin-bottom: 20px;
     outline: none;
     transition: all 0.2s linear;
+    cursor: pointer;
 }
 
 .registration__submit_btn:hover,
@@ -164,9 +165,9 @@
 }
 
 .registration__registration_btn {
-    font-family: "Montserrat";
-    font-size:18px;
-    font-weight: 400;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 280px;
     height: 50px;
     background: #FFFFFF;
@@ -175,13 +176,20 @@
     border-radius: 20px;
     outline: none;
     transition: all 0.2s linear;
-    margin-bottom: 30px;
+    cursor: pointer;
 }
 
 .registration__registration_btn:hover,
 .registration__registration_btn:focus{
     background: #4A56E2;
     color:white;
+}
+
+.registration__registration_btn_text {
+    color: black;
+    font-family: "Montserrat";
+    font-size:18px;
+    font-weight: 400;
 }
 
 /* --------------------------- tablet --------------------------- */
@@ -201,10 +209,14 @@
     }
 
     .registration__wrapper {
+        display: flex;
+        align-items: flex-end;
         width: 540px;
+        height: 100vh;
     }
 
     .registration__form_wrapper {
+        transform: translateY(-20px);
         width: 540px;
         height: 670px;
         background-color: #fff;
