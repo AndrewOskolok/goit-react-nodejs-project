@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const nodemailer = require("nodemailer");
 const uuid = require("uuid").v4;
 const { SessionModel } = require("../sessions/session.model");
-const { UserModel } = require("../users/user.model");
+const { UserModel } = require("../users/users.model");
 
 const monthNames = [
   "January",
