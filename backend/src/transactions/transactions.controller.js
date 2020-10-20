@@ -48,7 +48,6 @@ async function updateTransaction(req, res) {
 async function filteredStatisticsByDate(req, res) {
   const { year, month } = req.query;
   const { user } = req;
-
   const yearNumber = Number(year);
   const correctStatsByDate = user.transactions.filter(el => {
     return el.year === yearNumber && el.month === month;

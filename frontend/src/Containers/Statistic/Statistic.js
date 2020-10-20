@@ -1,32 +1,34 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import StatisticCustomSelectors from '../../Components/StatisticCustomSelectors/StatisticCustomSelectors';
 import StatisticList from '../../Components/StatisticList/StatisticList';
 import StatisticChart from '../../Components/StatisticChart/StatisticChart';
+import getFilteredStatistic from '../../redux/opertions/statisticOperation';
 import css from './Statistic.module.css';
 
 const Statistic = () => {
-  const arrayOfStat = [];
-  const economic = {
-    income: 22000,
-    expense: 18000,
-  };
-  const balance = 24000;
+  const dispatch = useDispatch();
+  const arrayOfStat = useSelector(state => state.statistics.items);
+  const { typeOfAmount } = useSelector(state => state.statistics);
+  const { balance } = useSelector(state => state.statistics);
+  const { loader } = useSelector(state => state);
+
+  // useEffect(() => {
+  //   dispatch(getFilteredStatistic());
+  // }, []);
 
   return (
     <section className={css.statistic}>
       <h2 className={css.statistic__title}>Статистика</h2>
       <div className={css.statistic__wrapper}>
-        {arrayOfStat.length > 0 && (
-          <div className={css.statistic__chart_wrapper}>
-            <StatisticChart arrayOfStat={arrayOfStat} />
-            <p className={css.statistic__chart_balance}>$ {balance}</p>
-          </div>
-        )}
+        <div className={css.statistic__chart_wrapper}>
+          <StatisticChart arrayOfStat={arrayOfStat} />
+          <p className={css.statistic__chart_balance}>$ {balance}</p>
+        </div>
 
         <div className={css.statistic__info_wrapper}>
           <div className={css.statistic__info_select}>
-            <StatisticCustomSelectors startValue={'Месяц'} />
-            <StatisticCustomSelectors startValue={'Год'} />
+            <StatisticCustomSelectors />
           </div>
 
           <div className={css.statistic__group}>
@@ -41,7 +43,7 @@ const Statistic = () => {
                   Расходы:
                 </p>
                 <p className={css.statistic__group_result_expense_info}>
-                  {economic.expense}
+                  {typeOfAmount.expense}
                 </p>
               </div>
               <div className={css.statistic__group_result_income}>
@@ -49,7 +51,7 @@ const Statistic = () => {
                   Доходы:
                 </p>
                 <p className={css.statistic__group_result_income_info}>
-                  {economic.income}
+                  {typeOfAmount.income}
                 </p>
               </div>
             </div>

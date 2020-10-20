@@ -1,6 +1,6 @@
 import React from 'react';
 import { Doughnut } from 'react-chartjs-2';
-
+import { useSelector } from 'react-redux';
 const configData = arrayOfStat => {
   const categories = arrayOfStat.map(el => el.category);
   const values = arrayOfStat.map(el => el.total);
@@ -11,17 +11,7 @@ const configData = arrayOfStat => {
       {
         data: values,
         backgroundColor: colors,
-        hoverBackgroundColor: [
-          '#FED057',
-          '#FFD8D0',
-          '#FD9498',
-          '#C5BAFF',
-          '#6E78E8',
-          '#4A56E2',
-          '#81E1FF',
-          '#24CCA7',
-          '#00AD84',
-        ],
+        hoverBackgroundColor: colors,
         borderWidth: 0,
       },
     ],
@@ -29,7 +19,8 @@ const configData = arrayOfStat => {
   return data;
 };
 
-const StatisticChart = ({ arrayOfStat }) => {
+const StatisticChart = () => {
+  const arrayOfStat = useSelector(state => state.statistics.items);
   return (
     <Doughnut
       data={configData(arrayOfStat)}

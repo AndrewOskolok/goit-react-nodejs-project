@@ -3,13 +3,11 @@
   display: block;
   width: 280px;
 }
-
-.select__head {
+.select__head_tmp {
   width: 100%;
   background-color: transparent;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
   border: 1px solid #000000;
-
   border-radius: 30px;
   padding: 14px 20px;
   height: 50px;
@@ -22,7 +20,20 @@
   color: #000000;
   position: relative;
 }
+.select__head {
+  composes: select__head_tmp;
+}
+.select__head_year {
+  composes: select__head_tmp;
+}
 .select__head_open {
+  border-radius: 0;
+  border-top-right-radius: 30px;
+  border-top-left-radius: 30px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  background-color: #fff;
+}
+.select__head_open_year {
   border-radius: 0;
   border-top-right-radius: 30px;
   border-top-left-radius: 30px;
@@ -44,16 +55,31 @@
   display: block;
   transition: all 0.2s ease-in;
 }
-
+.select__head_year::after {
+  width: 18px;
+  height: 9px;
+  background-image: url('../../images/icons/downArrow.svg');
+  transform: translateY(50%);
+  background-repeat: no-repeat;
+  background-size: contain;
+  position: absolute;
+  right: 20px;
+  bottom: 50%;
+  content: '';
+  display: block;
+  transition: all 0.2s ease-in;
+}
 .select__head.open::after {
+  transform: translateY(50%) rotate(180deg);
+}
+.select__head_year.open::after {
   transform: translateY(50%) rotate(180deg);
 }
 .item {
   height: 100px;
   width: 200px;
 }
-
-.select__list {
+.list {
   position: absolute;
   top: 100%;
   left: 50%;
@@ -76,6 +102,12 @@
   scrollbar-color: dark;
   scrollbar-width: thin;
   overscroll-behavior: contain;
+}
+.select__list {
+  composes: list;
+}
+.select__list_year {
+  composes: list;
 }
 
 .select__list::-webkit-scrollbar {
