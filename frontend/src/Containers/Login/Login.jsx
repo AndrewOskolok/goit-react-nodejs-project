@@ -1,7 +1,11 @@
 import React from "react";
 import css from "./Login.module.css";
+import { Link, useLocation } from 'react-router-dom';
 
 const Login = () => {
+
+  const location = useLocation();
+
 return <div className={css.login}>   
         <div className={css.login__wrapper}>
           <form onSubmit
@@ -53,8 +57,14 @@ return <div className={css.login}>
 
               <button
                 type="button"  className={css.login__registration_btn}
-              >
+              ><Link
+              to={{
+                pathname: '/registration',
+                state: { from: location },
+              }}
+               >
                 Регистрация
+               </Link>
               </button>
             </div>
          </form>
