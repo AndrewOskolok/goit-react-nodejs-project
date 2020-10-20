@@ -81,12 +81,12 @@ async function filteredStatisticsByDate(req, res) {
 
 async function getMonthsAndYears(req, res) {
   const loggedUser = req.user;
-  const transactionsMonths = loggedUser.transactions.map(
-    (transaction) => transaction.month
-  );
-  const transactionsYears = loggedUser.transactions.map(
-    (transaction) => transaction.year
-  );
+  const transactionsMonths = [
+    ...new Set(loggedUser.transactions.map((transaction) => transaction.month)),
+  ];
+  const transactionsYears = [
+    ...new Set(loggedUser.transactions.map((transaction) => transaction.year)),
+  ];
   return res
     .status(200)
     .send({ months: transactionsMonths, years: transactionsYears });

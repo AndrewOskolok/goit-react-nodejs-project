@@ -106,7 +106,6 @@ router.patch(
   validate(updateTransactionScheme),
   tryCatchWrapper(updateTransaction)
 );
-
 router.get(
   "/statistic",
   authorize,
@@ -120,7 +119,6 @@ router.get(
   tryCatchWrapper(getTransactions)
 );
 router.get("/time", authorize, tryCatchWrapper(getMonthsAndYears));
-
 router.get("/current-month", authorize, tryCatchWrapper(getCurrentMonth));
 
 exports.transactionRouter = router;
