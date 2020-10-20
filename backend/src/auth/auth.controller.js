@@ -111,6 +111,7 @@ async function authorize(req, res, next) {
     try {
       payload = jwt.verify(accessToken, process.env.JWT_SECRET);
     } catch (err) {
+      // await SessionModel.findByIdAndDelete(payload.sid);
       return res.status(401).send({ message: "Unauthorized" });
     }
     const user = await UserModel.findById(payload.uid);
@@ -121,12 +122,11 @@ async function authorize(req, res, next) {
     if (!session) {
       return res.status(404).send({ message: "Invalid session" });
     }
-    // if (user.verificationToken) {
-    //   return res
-    //     .status(401)
-    //     .send({ message: "You haven't verified your email address." });
-    // }
-    // gmail не парсит ссылку, после изменения на heroku вернуть этот блок
+    if (user.verificationToken) {
+      return res
+        .status(401)
+        .send({ message: "You haven't verified your email address." });
+    }
     req.user = user;
     req.session = session;
     next();
@@ -141,6 +141,7 @@ async function refreshTokens(req, res) {
     try {
       payload = jwt.verify(reqRefreshToken, process.env.JWT_SECRET);
     } catch (err) {
+      // await SessionModel.findByIdAndDelete(req.session._id);
       return res.status(401).send({ message: "Unauthorized" });
     }
     const user = await UserModel.findById(payload.uid);
@@ -192,10 +193,24 @@ async function sendVerificationEmail(email, verificationToken) {
   });
 }
 
+async function verifyEmail(req, res) {
+  const { verificationToken } = req.params;
+  const user = await UserModel.findOne({ verificationToken });
+  if (!user) {
+    return res.status(404).send("User not found");
+  }
+  await UserModel.findOneAndUpdate(
+    { verificationToken },
+    { $unset: { verificationToken } }
+  );
+  return res.status(200).send("User successfully verified");
+}
+
 module.exports = {
   register,
   login,
   refreshTokens,
   authorize,
   logout,
+  verifyEmail,
 };
