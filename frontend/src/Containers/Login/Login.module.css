@@ -101,7 +101,7 @@
 .login__submit_btn:hover,
 .login__submit_btn:focus{
     background:  #fff;
-    color:black;
+    color: #24CCA7;
     border: 1px solid #24CCA7;
 }
 
@@ -109,6 +109,7 @@
     font-family: "Montserrat";
     font-size:18px;
     font-weight: 400;
+    color:  #4A56E2;
     display: flex;
     justify-content: center;
     align-items: center;

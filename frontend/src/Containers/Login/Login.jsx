@@ -12,10 +12,12 @@ const initialState = {
 
 const Login = ({location}) => {
   const [form, setForm] = useState(initialState);
+
   const handleFormInput =({target}) => {
   const {name, value} = target
-  setForm(state => ({state, [name]: value }))
+  setForm(state => ({...state, [name]: value }))
   }
+
 
   const {email, password} = form
 
@@ -68,7 +70,6 @@ return <div className={css.login}>
               </button>
 
               <Link to='/registration' className={css.login__registration_btn}>
-                {/* <p className={css.login__registration_btn_text}>Регистрация</p> */}
                 Регистрация
               </Link>
             </div>

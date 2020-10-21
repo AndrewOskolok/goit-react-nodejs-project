@@ -104,18 +104,27 @@
     height: 24px;
 }
 
-.registration__password_confirm_status {
+.registration__password_reliability_1 {
     height: 4px;
     width: 100%;
     margin-bottom: 30px;
-}
-.registration__password_confirm_status > span {
-    display: block;
-    height: 100%;
     background: linear-gradient(to right,#ff0000 33%, #E5F1EF 34%);
-    /* background: linear-gradient(to right,rgb(255, 238, 0) 63%, #E5F1EF 34%); */
-    /* background: #24CCA7; */
 }
+
+.registration__password_reliability_2 {
+    height: 4px;
+    width: 100%;
+    margin-bottom: 30px;
+    background: linear-gradient(to right,rgb(255, 238, 0) 63%, #E5F1EF 34%);
+}
+
+.registration__password_reliability_3 {
+    height: 4px;
+    width: 100%;
+    margin-bottom: 30px;
+    background-color: #24CCA7;
+}
+
 
 .registration__name_input {
     font-family: "Montserrat";
@@ -127,7 +136,7 @@
     border: none;
     border-bottom: 1px solid #E0E0E0;
     margin-bottom: 40px;
-    padding-left: 40px;
+    padding-left: 55px;
 }
 
 .registration__avatar_icon::before {
@@ -160,12 +169,12 @@
 .registration__submit_btn:hover,
 .registration__submit_btn:focus{
     background:  #fff;
-    color:black;
+    color: #24CCA7;
     border: 1px solid #24CCA7;
 }
 
 .registration__registration_btn {
-    color: black;
+    color: #4A56E2;
     font-family: "Montserrat";
     font-size:18px;
     font-weight: 400;
@@ -256,8 +265,8 @@
         margin-bottom: 10px;
     }
 
-    .registration__password_confirm_status {
-        width: 76%;
+    .registration__password_reliability_1 {
+        width: 410px;
     }
 
     .registration__name_input {

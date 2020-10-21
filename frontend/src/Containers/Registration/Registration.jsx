@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import css from "./Registration.module.css";
 // import { useDispatch } from 'react-redux';
@@ -15,11 +15,28 @@ const initialState = {
 
 const Registration = ({location}) => {
   const [form, setForm] = useState(initialState);
-  const handleFormInput =({target}) => {
+  const [reliability, setReliability] = useState(null)
+
+  const handleFormInput = ({target}) => {
   const {name, value} = target
-  setForm(state => ({state, [name]: value }))
+  setForm(state => ({...state, [name]: value }))
   }
+
+  useEffect(() => {
+    if (form.password.length === 0) {
+      setReliability(null)
+    } else if (form.password.length > 0 && form.password.length < 8) {
+      setReliability(1)
+    } else if (form.password.length >= 8) {
+      setReliability(2)
+    }
+    // else if (form.password.length >= 8 &) {
+    //   setForm(2)
+    // }
+  }, [form])
+
   const {email, password, passwordConfirm, firstName} = form
+  console.log('form :>> ', form);
   
   // const [typeRegister, setTypeRegister] = useState(false);
 
@@ -56,7 +73,7 @@ const Registration = ({location}) => {
  
   return <div className={css.registration}>   
   <div className={css.registration__wrapper}>
-    <form action=""
+    <form action="" method="POST"
     // onSubmit={handleSubmit}
       className={css.registration__form_wrapper}>
       <p className={css.registration__logo}>
@@ -91,11 +108,20 @@ const Registration = ({location}) => {
             name="password"
             value={password}
             onChange={handleFormInput}
-            minLength="4"
+            minLength="8"
             maxLength="20"
             required
           />
         </label>
+      
+
+{/* ------------------------ password confirm status------------------------*/}
+
+       {reliability && <div>
+        {reliability === 1 && <div className={css.registration__password_reliability_1}></div>}
+        {reliability === 2 && <div className={css.registration__password_reliability_2}></div>}
+        {reliability === 3 && <div className={css.registration__password_reliability_3}></div>}
+        </div>}
 
 {/* ------------------------ password confirm input ------------------------ */}
 
@@ -103,9 +129,8 @@ const Registration = ({location}) => {
           <input
             className={css.registration__password_confirm}
             placeholder="Подтвердите пароль"
-            pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$"
             type="password"
-            name="password"
+            name="passwordConfirm"
             value={passwordConfirm}
             onChange={handleFormInput}
             minLength="4"
@@ -114,11 +139,8 @@ const Registration = ({location}) => {
           />
         </label>
 
-{/* ------------------------ password confirm status------------------------*/}
+         { password !== passwordConfirm && <p>Пароль не совпадает</p>}
 
-        <div className={css.registration__password_confirm_status}>
-          <span></span>
-        </div>
 
  {/* ----------------------- name user input ------------------------------        */}
 
