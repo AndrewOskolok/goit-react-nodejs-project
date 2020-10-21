@@ -8,8 +8,7 @@
   top: 60px;
   height: 100%;
   width: 100vw;
-  background-color: #fff;
-  /* transition: 0.3s; */
+  background-color: rgb(255, 255, 255);
 }
 
 .form::after {
@@ -166,6 +165,10 @@
   font-size: 18px;
   /* line-height: 27px; */
   color: #000000;
+}
+
+.form__calendar:focus {
+  outline: none;
 }
 
 .form__description {

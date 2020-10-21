@@ -7,3 +7,7 @@
 .react-datepicker__input-container:focus {
   outline: none;
 }
+
+.react-datepicker-wrapper {
+  display: block;
+}

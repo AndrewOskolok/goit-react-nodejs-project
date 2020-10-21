@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import Select from "react-select";
-// import makeAnimated from "react-select/animated";
 import DatePicker from "react-datepicker";
+import moment from "moment";
+import "react-datepicker/dist/react-datepicker.css";
 
 import transactionOperations from "../../redux/opertions/transactionOperations.js";
 
@@ -11,15 +12,18 @@ import "./select.css";
 import "./datepickerStyles.css";
 
 const initialState = {
-  date: "",
-  month: "",
-  year: "",
-  type: "income", // string (income | consumption)
+  date: moment(new Date()).format('D'),
+  month: moment(new Date()).format('MMMM'),
+  year: moment(new Date()).format('YYYY'),
+  type: "income",
   category: "",
   description: "",
   amount: "",
   balance: 0,
+  balanceAfter: 0,
 };
+
+
 
 const options = [
   { value: "chocolate", label: "Chocolate" },
@@ -40,12 +44,12 @@ const options = [
 
 const TransactionForm = ({ addTransaction }) => {
   const [transactionItem, setTransactionItem] = useState(initialState);
-  const [startDate, setStartDate] = useState(new Date());
-  // const [errors, setErrors] = useState({});
+  const [startDate, setStartDate] = useState(new Date()); 
+  const [errors, setErrors] = useState({}); 
 
   const closeForm = (event) => {
-
-  }
+    event.preventDefault();
+  };
 
   const handleInput = ({ target }) => {
     const { name, value } = target;
@@ -55,46 +59,89 @@ const TransactionForm = ({ addTransaction }) => {
     }));
   };
 
+  const handleInputAmount = ({ target }) => {
+    const { name, value } = target;
+    if (Number(value) || value.length === 0) {      
+      setTransactionItem((state) => ({
+        ...state,
+        [name]: value,
+      }));
+    }
+  };
+
+  const handleSelect = (option) => {
+    setTransactionItem((state) => ({
+      ...state,
+      category: option,
+    }));
+  };
+
   const handleCheckboxChange = ({ target }) => {
     const typeValue = target.checked ? "consumption" : "income";
     setTransactionItem((state) => ({ ...state, type: typeValue }));
   };
 
-  const validate = (amount, category) => {};
+  const validate = (amount, category, type) => {
+    const errors = {};
+
+    if (amount.length === 0) {
+      console.log(amount);
+      console.log("Введите число.");
+      errors.amount = "Введите число!";
+    }
+
+    if (type === "consumption") {
+      console.log(category.value);
+    }
+
+    setErrors(errors);
+
+    return !!Object.keys(errors).length;
+  };  
+ 
+  const handleDate = (date) => {
+    setStartDate(date);   
+    const formatedDate = moment(date).format("DD/MMMM/yyyy");
+    console.log(formatedDate);  
+    const dateD = moment(formatedDate).date();   
+    const month  = moment(formatedDate).format('MMMM'); 
+    const year = moment(formatedDate).year();
+    setTransactionItem((state) => ({
+      ...state,
+      date: dateD,
+      month: month,
+      year: year,
+    }));   
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const {
-      type,
-      amount,
-      date,
-      month,
-      year,
+    const {    
+      amount,     
       category,
-      description,
+      // description,
     } = transactionItem;
-
-    const transaction = {
-      type,
-      amount,
-      date,
-      month,
-      year,
-      category,
-      description,
-    };
 
     const validateResult = validate(amount, category);
 
     if (!validateResult) {
-      addTransaction(transaction);
+      transactionItem.category = transactionItem.category.value;
+      addTransaction(transactionItem);
       setTransactionItem(initialState);
-      closeForm();
+      console.log("transactionValidate", transactionItem);
+
+      const typeValue = event.target[1].checked ? "consumption" : "income";
+      setTransactionItem((state) => ({ ...state, type: typeValue }));
+
+      // closeForm();
     }
+    return validateResult;
   };
 
-  console.log(transactionItem);
+  console.log("setStartDate", startDate);
+
+  console.log("transactionItem", transactionItem);
 
   return (
     <>
@@ -106,7 +153,7 @@ const TransactionForm = ({ addTransaction }) => {
       >
         <h2 className={formStyle.form__title}>Добавить транзакцию</h2>
 
-        <button className={formStyle.form__closeBtn} onClick={closeForm}/>
+        <button className={formStyle.form__closeBtn} onClick={closeForm} />
 
         <div className={formStyle.form__checkbox_wrapper}>
           <label className={formStyle.form__checkbox_label}>
@@ -137,7 +184,10 @@ const TransactionForm = ({ addTransaction }) => {
             noOptionsMessage={() => "Категория не найдена"}
             placeholder="Выберите категорию"
             // menuIsOpen={true}
-            isSearchable
+            isSearchable={true}
+            name="category"
+            value={transactionItem.category}
+            onChange={handleSelect}
           />
         )}
         <div className={formStyle.form__acBox}>
@@ -147,13 +197,15 @@ const TransactionForm = ({ addTransaction }) => {
             placeholder="0.00"
             name="amount"
             value={transactionItem.amount}
-            onChange={handleInput}
+            onChange={handleInputAmount}
+            required
           />
           <DatePicker
             id="select"
             className={formStyle.form__calendar}
             selected={startDate}
-            onChange={(date) => setStartDate(date)}
+            onChange={handleDate}
+            dateFormat="dd.MM.yyyy"
           />
         </div>
         <textarea
@@ -165,7 +217,9 @@ const TransactionForm = ({ addTransaction }) => {
           onChange={handleInput}
         />
         <button className={formStyle.form__add_btn}>Добавить</button>
-        <button className={formStyle.form__cancel_btn} onClick={closeForm}>Отмена</button>
+        <button className={formStyle.form__cancel_btn} onClick={closeForm}>
+          Отмена
+        </button>
       </form>
       <div className={formStyle.overlay} onClick={closeForm}></div>
     </>
