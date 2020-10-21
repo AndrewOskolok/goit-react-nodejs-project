@@ -20,7 +20,7 @@ function App() {
         {!authorise && <Redirect to="/login" />}
 
         {authorise && <Route path="/" exact component={Main} />}
-        {authorise && <Route path="/statistic" component={Statistic} />}
+        
         {authorise && <Redirect to="/" />}
       </Switch>
     </div>

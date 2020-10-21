@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Switch, Route, Redirect } from "react-router-dom";
+import Statistic from "../../Containers/Statistic/Statistic";
 import Header from "../../Components/Header/Header";
 import Balance from "../../Components/Balance/Balance";
 import Navigation from "../../Components/Navigation/Navigation";
@@ -15,6 +17,7 @@ const Main = () => {
   };
 
   return (
+    <>
     <div className={css.main}>
       <Header />
       <div className={css.main__wrapper}>
@@ -26,11 +29,18 @@ const Main = () => {
           </div>
         </aside>
         <div className={css.content__wrapper}>
-          <Transaction />
+    <Switch>
+      <Route path='/transactions' component={Transaction} />
+      <Route path="/statistic" component={Statistic} />
+      <Redirect to="/" />
+            </Switch>
+            
         </div>
       </div>
       <AddTransaction modalHandler={openModalHandler} />
     </div>
+
+    </>
   );
 };
 
