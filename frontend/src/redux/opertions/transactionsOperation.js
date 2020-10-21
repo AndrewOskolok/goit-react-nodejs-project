@@ -52,21 +52,30 @@ export const getCurrentTransactions = (token) => async (dispatch) => {
 };
 
 export const getFilteredTransactions = (filter, token) => async (dispatch) => {
-  console.log(filter);
   try {
     dispatch(loaderToggle());
-    const { data } = await axios({
-      method: "get",
-      url: "/transactions",
-      headers: {
-        Authorization: token,
-      },
-      params: {
-        filter,
-      },
-    });
+    let transactions;
 
-    const newData = data.map((item) => {
+    if (filter === "") {
+      transactions = await axios({
+        method: "get",
+        url: "/transactions",
+        headers: {
+          Authorization: token,
+        },
+      });
+    } else {
+      transactions = await axios({
+        method: "get",
+        url: "/transactions",
+        headers: {
+          Authorization: token,
+        },
+        params: { filter },
+      });
+    }
+
+    const newData = transactions.data.map((item) => {
       const monthNumber = monthNames.indexOf(item.month) + 1;
       const newYear = Number(String(item.year).slice(-2));
       if (item.type === "income") {
