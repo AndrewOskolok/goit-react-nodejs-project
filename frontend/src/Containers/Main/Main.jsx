@@ -5,7 +5,9 @@ import Navigation from "../../Components/Navigation/Navigation";
 import CurrencyRate from "../../Components/CurrencyRate/CurrencyRate";
 import Transaction from "../../Components/Transaction/Transaction";
 import AddTransaction from "../../Components/addTransaction/AddTransaction";
+import TransactionForm from "../../Components/transactionForm/TransactionForm.jsx";
 import css from "./Main.module.css";
+import { useEffect } from "react";
 
 const Main = () => {
   const [modalWindow, setModalWindow] = useState(false);
@@ -30,6 +32,9 @@ const Main = () => {
         </div>
       </div>
       <AddTransaction modalHandler={openModalHandler} />
+      {modalWindow && (
+        <TransactionForm modalHandler={openModalHandler} status={modalWindow} />
+      )}
     </div>
   );
 };
