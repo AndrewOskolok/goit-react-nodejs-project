@@ -1,5 +1,11 @@
 const path = require("path");
 require("dotenv").config({ path: path.join(__dirname, "../.env") });
+const swaggerUi = require("swagger-ui-express");
+const { transactionRouter } = require("./transactions/transactions.router");
+const { authRouter } = require("./auth/auth.router");
+const { categoryRouter } = require("./categories/categories.router");
+const { usersRouter } = require("./users/users.router");
+const swaggerDocument = require("../swagger.json");
 
 const cors = require("cors");
 const morgan = require("morgan");
@@ -27,6 +33,7 @@ exports.Server = class Server {
   initMiddlewares() {
     this.app.use(express.json());
     this.app.use(cors({ origin: process.env.ALLOWED_ORIGIN }));
+    this.app.use(express.static("public"));
   }
 
   async initDbConnection() {
@@ -47,7 +54,15 @@ exports.Server = class Server {
   }
 
   initRoutes() {
-    // this.app.use("/auth", morgan("tiny"), ROUTER_NAME);
+    this.app.use(
+      "/api-docs",
+      swaggerUi.serve,
+      swaggerUi.setup(swaggerDocument)
+    );
+    this.app.use("/transactions", transactionRouter);
+    this.app.use("/auth", authRouter);
+    this.app.use("/categories", categoryRouter);
+    this.app.use("/users", usersRouter);
   }
 
   initErrorHandling() {
