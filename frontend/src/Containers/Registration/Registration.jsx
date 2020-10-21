@@ -25,7 +25,7 @@ const Registration = ({location}) => {
   useEffect(() => {
     if (form.password.length === 0) {
       setReliability(null)
-    } else if (form.password.length > 0 && form.password.length < 8) {
+    } else if (form.password.length > 0 && form.password.length < 21) {
       setReliability(1)
     } else if (form.password.length >= 8) {
       setReliability(2)
@@ -117,7 +117,7 @@ const Registration = ({location}) => {
 
 {/* ------------------------ password confirm status------------------------*/}
 
-       {reliability && <div>
+       {reliability && <div className={css.registration__password_reliability}>
         {reliability === 1 && <div className={css.registration__password_reliability_1}></div>}
         {reliability === 2 && <div className={css.registration__password_reliability_2}></div>}
         {reliability === 3 && <div className={css.registration__password_reliability_3}></div>}
@@ -139,7 +139,7 @@ const Registration = ({location}) => {
           />
         </label>
 
-         { password !== passwordConfirm && <p>Пароль не совпадает</p>}
+         { password !== passwordConfirm && <p className={css.registration__password_reliability_text}>* Пароль не совпадает</p>}
 
 
  {/* ----------------------- name user input ------------------------------        */}

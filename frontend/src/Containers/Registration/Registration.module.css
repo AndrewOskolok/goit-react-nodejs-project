@@ -44,14 +44,14 @@
     outline: none;
     border: none;
     border-bottom: 1px solid #E0E0E0;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
     padding-left: 55px;
 }
 
 .registration__email_icon::before {
     position: absolute;
     transform: translate(12px, 10px);
-    display: block;
+    display: block; 
     content: '';
     background-image: url(../../images/icons/authForm/icon/email.svg);
     width: 24px;
@@ -67,7 +67,7 @@
     outline: none;
     border: none;
     border-bottom: 1px solid #E0E0E0;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
     padding-left: 55px;
 }
 
@@ -90,7 +90,7 @@
     outline: none;
     border: none;
     border-bottom: 1px solid #E0E0E0;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
     padding-left: 55px;
 }
 
@@ -104,25 +104,53 @@
     height: 24px;
 }
 
+/* .registration__password_reliability{
+    color: red;
+    position: absolute;
+    display: block;
+    transform: translate(1px, -25px);
+
+} */
+
 .registration__password_reliability_1 {
+    position: absolute;
+    display: block;
+    transform: translate(0, -20px);
+    width: 280px;
+    
     height: 4px;
-    width: 100%;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     background: linear-gradient(to right,#ff0000 33%, #E5F1EF 34%);
 }
 
 .registration__password_reliability_2 {
+    position: absolute;
+    display: block;
+    transform: translate(0, -20px);
+    width: 280px;
+
     height: 4px;
-    width: 100%;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     background: linear-gradient(to right,rgb(255, 238, 0) 63%, #E5F1EF 34%);
 }
 
 .registration__password_reliability_3 {
+    position: absolute;
+    display: block;
+    transform: translate(0, -20px);
+    width: 280px;
+
     height: 4px;
-    width: 100%;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     background-color: #24CCA7;
+}
+
+.registration__password_reliability_text{
+    font-family: "Montserrat";
+    color: red;
+    position: absolute;
+    display: block;
+    transform: translate(45px, -25px);
 }
 
 
@@ -260,13 +288,28 @@
         margin-bottom: 40px;
     }
 
-    .registration__password_confirm {
+    .registration__password_reliability_1 {
+        transform: translate(-205px, -25px);
         width: 410px;
-        margin-bottom: 10px;
     }
 
-    .registration__password_reliability_1 {
+    .registration__password_reliability_2 {
+        transform: translate(-205px, -25px);
         width: 410px;
+    }
+
+    .registration__password_reliability_3 {
+        transform: translate(-205px, -25px);
+        width: 410px;
+    }
+
+    .registration__password_confirm {
+        width: 410px;
+        margin-bottom: 40px;
+    }
+
+    .registration__password_reliability_text{
+        transform: translate(-65px, 220px);
     }
 
     .registration__name_input {
