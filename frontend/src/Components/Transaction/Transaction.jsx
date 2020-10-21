@@ -1,28 +1,49 @@
 import React, { useEffect } from "react";
 import styles from "./Transaction.module.css";
-import getCurrentTransactions from "../../redux/opertions/transactionsOperation";
+import {
+  getCurrentTransactions,
+  getFilteredTransactions,
+} from "../../redux/opertions/transactionsOperation";
 import { useDispatch, useSelector } from "react-redux";
 
 const Transaction = () => {
   const dispatch = useDispatch();
   // const userToken = useSelector((state) => state.auth.token);
+  const userToken =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZjhmMmEwNjZjYmU4NDAwMTcwYzc3M2MiLCJzaWQiOiI1ZjkwMGEzMmQ2NTY4YTAwMTcwMjk2MjUiLCJpYXQiOjE2MDMyNzUzMTQsImV4cCI6MTYwMzI3NzExNH0.K-ekWyj42iExnNoint8-ZdGTumtHOxN1cfFqwFAaIPo";
   const transactions = useSelector((state) => state.transactions);
 
   useEffect(() => {
-    dispatch(
-      getCurrentTransactions(
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZjhmMmEwNjZjYmU4NDAwMTcwYzc3M2MiLCJzaWQiOiI1ZjhmZWM0N2Q2NTY4YTAwMTcwMjk2MjEiLCJpYXQiOjE2MDMyNjc2NTUsImV4cCI6MTYwMzI2OTQ1NX0.aQuaKp3pnvry-6HBH6A7Dm4a_dTE3O4-QVnrq464xzk"
-        // userToken
-      )
-    );
+    dispatch(getCurrentTransactions(userToken));
   }, []);
+
+  const transactionFilter = ({ target: { value } }) => {
+    dispatch(getFilteredTransactions(value, userToken));
+  };
 
   return (
     <>
       <div className={styles.transaction__filter}>
-        <button className={styles.transaction__filter_button}>Всі</button>
-        <button className={styles.transaction__filter_button}>Доходи</button>
-        <button className={styles.transaction__filter_button}>Витрати</button>
+        <button
+          onClick={transactionFilter}
+          className={styles.transaction__filter_button}
+        >
+          Всі
+        </button>
+        <button
+          onClick={transactionFilter}
+          className={styles.transaction__filter_button}
+          value="income"
+        >
+          Доходи
+        </button>
+        <button
+          onClick={transactionFilter}
+          className={styles.transaction__filter_button}
+          value="expense"
+        >
+          Витрати
+        </button>
       </div>
       <ul className={styles.transaction__header}>
         <li className={styles.transaction__header_item}>Дата</li>

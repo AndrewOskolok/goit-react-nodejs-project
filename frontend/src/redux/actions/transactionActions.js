@@ -1,10 +1,8 @@
-import {createAction} from "@reduxjs/toolkit";
-import transactionConstants from "../constants/transactionConstants.js";
+import { createAction } from "@reduxjs/toolkit";
+import {
+  GET_CURRENT_MONTH,
+  GET_FILTERED_TRANSACTIONS,
+} from "../constants/transactionConstants";
 
-const addTransaction = createAction(transactionConstants.ADD_TRANSACTION);
-const getCategories = createAction(transactionConstants.GET_CATEGORIES);
-
-export default {
-  addTransaction,
-  getCategories
-}
+export const currentMonth = createAction(GET_CURRENT_MONTH);
+export const filteredTransaction = createAction(GET_FILTERED_TRANSACTIONS);
