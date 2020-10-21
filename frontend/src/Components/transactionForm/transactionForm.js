@@ -8,8 +8,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import transactionOperations from "../../redux/opertions/transactionOperations.js";
 
 import formStyle from "./transactionForm.module.css";
-import "./select.css";
-import "./datepickerStyles.css";
+import "./transactionFormSelect.css";
+import "./transactionFormDatepicker.css";
 
 const initialState = {
   date: moment(new Date()).format('D'),
@@ -28,7 +28,7 @@ const initialState = {
 const options = [
   { value: "chocolate", label: "Chocolate" },
   { value: "strawberry", label: "Strawberry" },
-  { value: "vanilla", label: "Vanilla" },
+  { value: "vasya", label: "Vasya" },
   { value: "vanilla", label: "Vanilla" },
   { value: "vanilla", label: "Vanilla" },
   { value: "vanilla", label: "Vanilla" },
@@ -51,14 +51,6 @@ const TransactionForm = ({ addTransaction }) => {
     event.preventDefault();
   };
 
-  const handleInput = ({ target }) => {
-    const { name, value } = target;
-    setTransactionItem((state) => ({
-      ...state,
-      [name]: value,
-    }));
-  };
-
   const handleInputAmount = ({ target }) => {
     const { name, value } = target;
     if (Number(value) || value.length === 0) {      
@@ -69,7 +61,15 @@ const TransactionForm = ({ addTransaction }) => {
     }
   };
 
-  const handleSelect = (option) => {
+  const handleInput = ({ target }) => {
+    const { name, value } = target;
+    setTransactionItem((state) => ({
+      ...state,
+      [name]: value,
+    }));
+  };
+
+   const handleSelect = (option) => {
     setTransactionItem((state) => ({
       ...state,
       category: option,
@@ -92,7 +92,7 @@ const TransactionForm = ({ addTransaction }) => {
 
     if (type === "consumption") {
       console.log(category.value);
-    }
+    }   
 
     setErrors(errors);
 
@@ -137,9 +137,7 @@ const TransactionForm = ({ addTransaction }) => {
       // closeForm();
     }
     return validateResult;
-  };
-
-  console.log("setStartDate", startDate);
+  };  
 
   console.log("transactionItem", transactionItem);
 
@@ -147,12 +145,11 @@ const TransactionForm = ({ addTransaction }) => {
     <>
       <form
         className={formStyle.form}
-        noValidate
         autoComplete="off"
         onSubmit={handleSubmit}
       >
         <h2 className={formStyle.form__title}>Добавить транзакцию</h2>
-
+        
         <button className={formStyle.form__closeBtn} onClick={closeForm} />
 
         <div className={formStyle.form__checkbox_wrapper}>
@@ -208,7 +205,7 @@ const TransactionForm = ({ addTransaction }) => {
             dateFormat="dd.MM.yyyy"
           />
         </div>
-        <textarea
+        <input
           type="text"
           className={formStyle.form__description}
           placeholder="Комментарий"

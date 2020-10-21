@@ -1,6 +1,6 @@
 .react-datepicker__input-container::after {
   position: absolute;
-  content: url("./icons/calendar.png");
+  content: url("../../images/icons/transactionForm/calendar.png");
   transform: translateX(-40px);
 }
 

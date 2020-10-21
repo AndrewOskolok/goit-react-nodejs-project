@@ -32,6 +32,14 @@
   font-size: 18px;
   line-height: 18px;
   color: rgb(189, 189, 189);
+  padding-left: 10px;
+}
+
+.select .selectprefix__single-value {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  padding-left: 10px;
 }
 
 .select .selectprefix__menu {
@@ -59,10 +67,18 @@
   cursor: pointer;
 }
 
-.select .selectprefix__option:hover,
-.select .selectprefix__option:focus {
-  background-color: rgb(255, 255, 255);
+.select .selectprefix__option--is-selected {
   color: rgb(255, 101, 150);
+} 
+
+.select .selectprefix__option--is-focused,
+.select .selectprefix__option--is-selected{
+  background-color: transparent;
+}
+
+.select .selectprefix__option:hover {
+  background-color: rgb(255, 255, 255);
+  color: #24CCA7;  
 }
 
 @media (min-width: 768px) {
