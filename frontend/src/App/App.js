@@ -13,7 +13,7 @@ function App() {
   const [authorise] = useState(true);
 
   return (
-    <div className={css.app}>
+    <div className={css.app}>   
       <Switch>
         {!authorise && <Route path="/login" component={Login} />}
         {!authorise && <Route path="/registration" component={Registration} />}

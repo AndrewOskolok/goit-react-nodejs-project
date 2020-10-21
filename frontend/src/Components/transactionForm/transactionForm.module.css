@@ -1,0 +1,315 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  padding-top: 20px;
+  padding-bottom: 40px;
+  top: 60px;
+  height: 100%;
+  width: 100vw;
+  background-color: rgb(255, 255, 255);
+}
+
+.form::after {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.form__title {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 24px;
+  text-align: center;
+  color: #000000;
+  margin-bottom: 40px;
+}
+
+.form__closeBtn {
+  display: none;
+}
+
+.form__checkbox_wrapper {
+  margin-bottom: 40px;
+}
+
+.form__checkbox_label {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 80px;
+  height: 40px;
+  margin: 0 24px 0 24px;
+}
+
+.form__checkbox_input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.form__checkbox_span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 30px;
+}
+
+.form__checkbox_span::before {
+  position: absolute;
+  content: url("../../images/icons/transactionForm/+plusIcon.png");
+  width: 44px;
+  height: 44px;
+  background-color: #24cca7;
+  border-radius: 50%;
+  top: 50%;
+  left: 20px;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  transition-property: transform, background-color;
+  transition-duration: 0.3s;
+  color: rgb(255, 255, 255);
+  text-align: center;
+  line-height: 54px;
+}
+
+.form__checkbox_input:checked + .form__checkbox_span::before {
+  content: url("../../images/icons/transactionForm/-minusIcon.png");
+  transform: translate(20px, -50%);
+  background-color: #ff6596;
+  line-height: 38px;
+}
+
+.form__checkbox_input:checked + .form__checkbox_span:hover::before,
+.form__checkbox_input:checked + .form__checkbox_span:focus::before {
+  box-shadow: 0px 6px 15px rgba(255, 101, 150, 0.5);
+}
+
+.form__checkbox_span:hover::before,
+.form__checkbox_span:focus::before {
+  box-shadow: 0px 6px 15px rgba(36, 204, 167, 0.5);
+}
+
+.form__checkbox_income,
+.form__checkbox_consumption {
+  position: absolute;
+  display: block;
+  font-family: "Montserrat", sans-serif;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.form__checkbox_income {
+  color: rgb(36, 204, 167);
+  right: 100px;
+}
+
+.form__checkbox_consumption {
+  color: rgb(224, 224, 224);
+  left: 100px;
+}
+
+.form__checkbox_input:checked ~ .form__checkbox_income {
+  color: rgb(224, 224, 224);
+}
+
+.form__checkbox_input:checked ~ .form__checkbox_consumption {
+  color: rgb(255, 101, 150);
+}
+
+.form__amount {
+  width: 280px;
+  border: none;
+  border-bottom: 1px solid rgb(224, 224, 224);
+  margin-bottom: 40px;
+  padding: 0 20px 10px 20px;
+}
+
+.form__amount:focus,
+.form__description:focus {
+  outline: none;
+}
+
+.form__amount::placeholder {
+  font-family: "Montserrat", sans-serif;
+  font-weight: bold;
+  font-size: 18px;
+  color: rgb(189, 189, 189);
+}
+
+.form__amount:focus::placeholder {
+  opacity: 0;
+}
+
+.form__calendar {
+  position: relative;
+  padding: 0 20px 10px 20px;
+  margin-bottom: 40px;
+  width: 280px;
+  border: none;
+  border-bottom: 1px solid #e0e0e0;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  color: #000000;
+}
+
+.form__calendar:focus {
+  outline: none;
+}
+
+.form__description,
+.form__description::placeholder {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+}
+
+.form__description {
+  height: 31px;
+  margin-bottom: 40px;
+  width: 280px;
+  border: none;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 0 20px 10px;
+}
+
+.form__description::placeholder {
+  color: #bdbdbd;
+}
+
+.form__amount,
+.form__description,
+.form__calendar {
+  cursor: pointer;
+}
+
+.form__add_btn,
+.form__cancel_btn {
+  width: 300px;
+  height: 50px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  text-align: center;
+  border-radius: 20px;
+  text-transform: uppercase;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.form__add_btn {
+  background-color: #24cca7;
+  border: none;
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+
+.form__cancel_btn {
+  background-color: #ffffff;
+  border: 1px solid #4a56e2;
+  color: #4a56e2;
+}
+
+.form__add_btn,
+.form__cancel_btn:focus {
+  outline: none;
+}
+
+.form__add_btn:hover {
+  border: 1px solid  #24cca7;
+  background-color: #fff;
+  color: #24cca7; 
+}
+
+.form__cancel_btn:hover {
+  background-color: #4a56e2;
+  color: #fff;
+}
+
+@media (min-width: 768px) {
+  .form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: auto;
+    width: 540px;
+    padding-bottom: 60px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 20px;
+  }
+
+  .form__closeBtn {
+    background-image: url("../../images/icons/transactionForm/close.png");
+    background-repeat: no-repeat;
+    border: none;
+    background-color: rgb(255, 255, 255);
+    background-position: center;
+    display: block;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    transition: all 0.2s linear;
+  }
+
+  .form__closeBtn:hover {
+    transform: rotate(180deg);
+  }
+
+  .form__closeBtn:focus {
+    outline: none;
+  }
+
+  .form__amount {
+    text-align: center;
+  }
+
+  .form__acBox {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .form__description,
+  .form__acBox {
+    width: 410px;
+  }
+
+  .form__calendar,
+  .form__amount {
+    width: 190px;
+  }
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    background: rgba(0, 0, 0, 0.25);
+  }
+}
+
+@media (min-width: 1200px) {
+  .form {
+    display: flex;
+    position: absolute;
+    background-color: #fff;
+  }
+}
