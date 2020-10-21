@@ -6,6 +6,7 @@ import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
 
 import transactionOperations from '../../redux/opertions/formOperations.js';
+import formSelectors from "../../redux/selectors/selectors"
 
 import formStyle from './TransactionForm.module.css';
 import './transactionFormSelect.css';
@@ -22,43 +23,37 @@ const initialState = {
   balanceAfter: 0,
 };
 
-const options = [
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vasya', label: 'Vasya' },
-  { value: 'vanilla', label: 'Vanilla' },
-  { value: 'vanilla', label: 'Vanilla' },
-  { value: 'vanilla', label: 'Vanilla' },
-  { value: 'vanilla', label: 'Vanilla' },
-  { value: 'vanilla', label: 'Vanilla' },
-  { value: 'vanilla', label: 'Vanilla' },
-  { value: 'vanilla', label: 'Vanilla' },
-  { value: 'vanilla', label: 'Vanilla' },
-  { value: 'vanilla', label: 'Vanilla' },
-  { value: 'vanilla', label: 'Vanilla' },
-  { value: 'vanilla', label: 'Vanilla' },
-];
-
 const TransactionForm = ({
   addTransaction,
   getCategories,
   modalHandler,
-  status,
+  categoriesList,
 }) => {
   const [transactionItem, setTransactionItem] = useState(initialState);
   const [startDate, setStartDate] = useState(new Date());
   const [errors, setErrors] = useState({});
 
-  // console.log("status", status);
+  let options = [
 
-  useEffect(() => {
-    // console.log("WindowStatus");
+  ];
+
+  const getCategoriesNames = (list) => {    
+    list.reduce((acc, item) => {
+      acc.push(...item.name);
+      return acc;
+    }, []);
+  };
+
+  console.log("List", getCategoriesNames(categoriesList));
+
+  console.log("categoriesList", categoriesList);
+
+  useEffect(() => {    
     addListener();
     getCategories();
   }, []);
 
   const closeForm = () => {
-    // console.log("Hi!");
     removeListener();
     modalHandler();
   };
@@ -71,13 +66,11 @@ const TransactionForm = ({
   };
 
   const addListener = () => {
-    // console.log("hello add");
-    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
   };
 
   const removeListener = () => {
-    // console.log("hello remove");
-    window.removeEventListener('keydown', handleKeyDown);
+    window.removeEventListener("keydown", handleKeyDown);
   };
 
   const handleInputAmount = ({ target }) => {
@@ -261,9 +254,9 @@ const TransactionForm = ({
   );
 };
 
-const mapStateToProps = state => ({
-  // totalBalance:
-  // categoriesList:
+const mapStateToProps = (state) => ({
+  // totalBalance: ,
+  categoriesList: formSelectors.categoriesSelector(state),
 });
 
 const mapDispatchToProps = {
