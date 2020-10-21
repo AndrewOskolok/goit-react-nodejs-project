@@ -19,7 +19,7 @@ const monthNames = [
   "December",
 ];
 
-const getCurrentTransactions = (token) => async (dispatch) => {
+export const getCurrentTransactions = (token) => async (dispatch) => {
   try {
     dispatch(loaderToggle());
     const { data } = await axios({
@@ -48,4 +48,36 @@ const getCurrentTransactions = (token) => async (dispatch) => {
   }
 };
 
-export default getCurrentTransactions;
+export const getFilteredTransactions = (filter, token) => async (dispatch) => {
+  console.log(filter);
+  try {
+    dispatch(loaderToggle());
+    const { data } = await axios({
+      method: "get",
+      url: "/transactions",
+      headers: {
+        Authorization: token,
+      },
+      params: {
+        filter,
+      },
+    });
+
+    const newData = data.map((item) => {
+      const monthNumber = monthNames.indexOf(item.month) + 1;
+      const newYear = Number(String(item.year).slice(-2));
+      if (item.type === "income") {
+        item.type = "+";
+      }
+      if (item.type === "expense") {
+        item.type = "-";
+      }
+      return { ...item, month: monthNumber, year: newYear };
+    });
+    dispatch(currentMonth(newData));
+  } catch (error) {
+    console.log(error);
+  } finally {
+    dispatch(loaderToggle());
+  }
+};
