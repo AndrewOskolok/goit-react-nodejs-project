@@ -1,6 +1,9 @@
 import axios from "axios";
 import { loaderToggle } from "../actions/loaderAction";
-import { currentMonth } from "../actions/transactionAction";
+import {
+  currentMonth,
+  filteredTransaction,
+} from "../actions/transactionActions";
 
 axios.defaults.baseURL = "https://goit-react-nodejs-project.herokuapp.com";
 
@@ -74,7 +77,7 @@ export const getFilteredTransactions = (filter, token) => async (dispatch) => {
       }
       return { ...item, month: monthNumber, year: newYear };
     });
-    dispatch(currentMonth(newData));
+    dispatch(filteredTransaction(newData));
   } catch (error) {
     console.log(error);
   } finally {

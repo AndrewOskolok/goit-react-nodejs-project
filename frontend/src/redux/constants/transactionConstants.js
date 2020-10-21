@@ -1,7 +1,2 @@
-const ADD_TRANSACTION = "@transactions/addTransaction";
-const GET_CATEGORIES = "@transactions/getCategories";
-
-export default {
-  ADD_TRANSACTION,
-  GET_CATEGORIES
-}
+export const GET_CURRENT_MONTH = "@transactions/getCurrentMonth";
+export const GET_FILTERED_TRANSACTIONS = "@transactions/getFiltered";
