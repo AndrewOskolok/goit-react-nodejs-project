@@ -6,7 +6,7 @@ import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
 
 import transactionOperations from '../../redux/opertions/formOperations.js';
-import formSelectors from "../../redux/selectors/formSelectors"
+import formSelectors from "../../redux/selectors/selectors"
 
 import formStyle from './TransactionForm.module.css';
 import './transactionFormSelect.css';
@@ -22,23 +22,6 @@ const initialState = {
   amount: '',
   balanceAfter: 0,
 };
-
-const options = [
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vasya', label: 'Vasya' },
-  { value: 'vanilla', label: 'Vanilla' },
-  { value: 'vanilla', label: 'Vanilla' },
-  { value: 'vanilla', label: 'Vanilla' },
-  { value: 'vanilla', label: 'Vanilla' },
-  { value: 'vanilla', label: 'Vanilla' },
-  { value: 'vanilla', label: 'Vanilla' },
-  { value: 'vanilla', label: 'Vanilla' },
-  { value: 'vanilla', label: 'Vanilla' },
-  { value: 'vanilla', label: 'Vanilla' },
-  { value: 'vanilla', label: 'Vanilla' },
-  { value: 'vanilla', label: 'Vanilla' },
-];
 
 const TransactionForm = ({
   addTransaction,
