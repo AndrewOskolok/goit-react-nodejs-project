@@ -7,32 +7,11 @@ import css from './StatisticCustomSelectors.module.css';
 import animate from './slide.module.css';
 const token =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZjhiNmEwMmNhZTMyNTE0N2ZmODhmODUiLCJzaWQiOiI1ZjhmMTJiOWI1OTk3MjAwMTc2YjNjMzciLCJpYXQiOjE2MDMyMTE5NjEsImV4cCI6MTYwMzIxMzc2MX0.pd6sI-fdFYPDkIBJFubXS-FjafbTCWlej6JofdGUqjE';
-const StatisticCustomSelectors = () => {
+const StatisticCustomSelectors = ({ months, years }) => {
   const history = useHistory();
   const location = useLocation();
-
-  const [months, setMonths] = useState([]);
-  const [years, setYears] = useState([]);
   const [valueSelectorMonth, setValueSelectorMonth] = useState(null);
   const [valueSelectorYear, setValueSelectorYear] = useState(null);
-  const requestForTimes = async () => {
-    axios.defaults.baseURL = 'https://goit-react-nodejs-project.herokuapp.com/';
-    const result = await axios.get(`time`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    const { years, months } = result.data;
-
-    const uniqueYears = [...new Set(years)];
-    const uniqueMonths = [...new Set(months)];
-
-    setMonths(uniqueMonths);
-    setYears(uniqueYears);
-  };
-  useEffect(() => {
-    requestForTimes();
-  }, []);
   useEffect(() => {
     if (location.search) {
       const { year, month } = queryString.parse(location.search);
@@ -69,7 +48,6 @@ const StatisticCustomSelectors = () => {
     setOpen(state => !state);
     ref.current.classList.toggle(`${css.select__head_open}`);
     ref.current.classList.toggle(css.open);
-    console.log(valueSelectorMonth, valueSelectorYear);
   };
 
   return (

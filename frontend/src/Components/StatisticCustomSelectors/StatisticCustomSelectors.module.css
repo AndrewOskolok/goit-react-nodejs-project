@@ -23,17 +23,8 @@
 .select__head {
   composes: select__head_tmp;
 }
-.select__head_year {
-  composes: select__head_tmp;
-}
+
 .select__head_open {
-  border-radius: 0;
-  border-top-right-radius: 30px;
-  border-top-left-radius: 30px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-  background-color: #fff;
-}
-.select__head_open_year {
   border-radius: 0;
   border-top-right-radius: 30px;
   border-top-left-radius: 30px;
@@ -55,20 +46,7 @@
   display: block;
   transition: all 0.2s ease-in;
 }
-.select__head_year::after {
-  width: 18px;
-  height: 9px;
-  background-image: url('../../images/icons/downArrow.svg');
-  transform: translateY(50%);
-  background-repeat: no-repeat;
-  background-size: contain;
-  position: absolute;
-  right: 20px;
-  bottom: 50%;
-  content: '';
-  display: block;
-  transition: all 0.2s ease-in;
-}
+
 .select__head.open::after {
   transform: translateY(50%) rotate(180deg);
 }
@@ -106,18 +84,18 @@
 .select__list {
   composes: list;
 }
-.select__list_year {
-  composes: list;
-}
 
 .select__list::-webkit-scrollbar {
   width: 7px;
   background-color: #f8f9fa;
   padding: 5px;
 }
+.select__list::-webkit-scrollbar-track {
+  border-radius: 30px;
+}
 
 .select__list::-webkit-scrollbar-thumb {
-  border-radius: 10px;
+  border-radius: 30px;
   background-color: #d9d9d9;
 }
 
