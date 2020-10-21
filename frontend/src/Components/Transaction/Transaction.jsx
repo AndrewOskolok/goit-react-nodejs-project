@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import styles from "./Transaction.module.css";
 import {
+  deteteCurrentTransaction,
   getCurrentTransactions,
   getFilteredTransactions,
 } from "../../redux/opertions/transactionsOperation";
@@ -10,7 +11,7 @@ const Transaction = () => {
   const dispatch = useDispatch();
   // const userToken = useSelector((state) => state.auth.token);
   const userToken =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZjhmMmEwNjZjYmU4NDAwMTcwYzc3M2MiLCJzaWQiOiI1ZjkwMWU4N2Q2NTY4YTAwMTcwMjk2MjkiLCJpYXQiOjE2MDMyODA1MTksImV4cCI6MTYwMzI4MjMxOX0.uELDndEECjDagEjoGSscsb3aJOK1gazulWeSdkogjuY";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZjhmMmEwNjZjYmU4NDAwMTcwYzc3M2MiLCJzaWQiOiI1ZjkwNTg2MWQ2NTY4YTAwMTcwMjk2MzQiLCJpYXQiOjE2MDMyOTUzMjksImV4cCI6MTYwMzI5NzEyOX0.cEVKoatNa0-pWRQ3qZRO-bPC4ABqOrXNdMU2709gIx4";
   const transactions = useSelector((state) => state.transactions);
 
   useEffect(() => {
@@ -21,6 +22,10 @@ const Transaction = () => {
     dispatch(getFilteredTransactions(value, userToken));
   };
 
+  const deleteTransaction = ({ target: { value } }) => {
+    dispatch(deteteCurrentTransaction(value, userToken, transactions));
+  };
+
   return (
     <>
       <div className={styles.transaction__filter}>
@@ -28,21 +33,21 @@ const Transaction = () => {
           onClick={transactionFilter}
           className={styles.transaction__filter_button}
         >
-          Всі
+          Все
         </button>
         <button
           onClick={transactionFilter}
           className={styles.transaction__filter_button}
           value="income"
         >
-          Доходи
+          Доходы
         </button>
         <button
           onClick={transactionFilter}
           className={styles.transaction__filter_button}
           value="expense"
         >
-          Витрати
+          Расходы
         </button>
       </div>
       <ul className={styles.transaction__header}>
@@ -94,7 +99,11 @@ const Transaction = () => {
             </span>
           </p>
           <button className={styles.transaction__list_edit}></button>
-          <button className={styles.transaction__list_delete}></button>
+          <button
+            onClick={deleteTransaction}
+            value={item.id}
+            className={styles.transaction__list_delete}
+          ></button>
         </div>
       ))}
     </>

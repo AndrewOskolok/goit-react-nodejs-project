@@ -2,6 +2,7 @@ import axios from "axios";
 import { loaderToggle } from "../actions/loaderAction";
 import {
   currentMonth,
+  deleteTransaction,
   filteredTransaction,
 } from "../actions/transactionActions";
 
@@ -87,6 +88,33 @@ export const getFilteredTransactions = (filter, token) => async (dispatch) => {
       return { ...item, month: monthNumber, year: newYear };
     });
     dispatch(filteredTransaction(newData));
+  } catch (error) {
+    console.log(error);
+  } finally {
+    dispatch(loaderToggle());
+  }
+};
+
+export const deteteCurrentTransaction = (
+  transactionId,
+  token,
+  transactions
+) => async (dispatch) => {
+  try {
+    dispatch(loaderToggle());
+    const { status } = await axios({
+      method: "delete",
+      url: `/transactions/${transactionId}`,
+      headers: {
+        Authorization: token,
+      },
+    });
+    if (status) {
+      const newTransactionsList = transactions.filter(
+        (item) => item.id !== transactionId
+      );
+      dispatch(deleteTransaction(newTransactionsList));
+    }
   } catch (error) {
     console.log(error);
   } finally {
