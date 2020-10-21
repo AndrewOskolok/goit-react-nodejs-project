@@ -51,20 +51,7 @@ const TransactionForm = ({
   const [errors, setErrors] = useState({});
 
   let options = [
-    // { value: "chocolate", label: "Chocolate" },
-    // { value: "strawberry", label: "Strawberry" },
-    // { value: "vasya", label: "Vasya" },
-    // { value: "vanilla", label: "Vanilla" },
-    // { value: "vanilla", label: "Vanilla" },
-    // { value: "vanilla", label: "Vanilla" },
-    // { value: "vanilla", label: "Vanilla" },
-    // { value: "vanilla", label: "Vanilla" },
-    // { value: "vanilla", label: "Vanilla" },
-    // { value: "vanilla", label: "Vanilla" },
-    // { value: "vanilla", label: "Vanilla" },
-    // { value: "vanilla", label: "Vanilla" },
-    // { value: "vanilla", label: "Vanilla" },
-    // { value: "", label: "" },
+
   ];
 
   const getCategoriesNames = (list) => {    
