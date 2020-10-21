@@ -4,7 +4,7 @@ import axios from 'axios';
 axios.defaults.baseURL =
   'https://goit-react-nodejs-project.herokuapp.com/transactions/';
 const token =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZjhiNmEwMmNhZTMyNTE0N2ZmODhmODUiLCJzaWQiOiI1ZjhmMzY5MzZjYmU4NDAwMTcwYzc3NDAiLCJpYXQiOjE2MDMyMjExNDAsImV4cCI6MTYwMzIyMjk0MH0.hg3wy8WpxH-Qhi6lCWtfXG5ZHUvBOoQ4f7vtS2BYWWU';
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZjhiNmEwMmNhZTMyNTE0N2ZmODhmODUiLCJzaWQiOiI1ZjkwNDlhOWQ2NTY4YTAwMTcwMjk2MzEiLCJpYXQiOjE2MDMyOTE1NjEsImV4cCI6MTYwMzI5MzM2MX0.0VrpLw9xumPlOtmJChU8ezWEvDttl1siVDlJejjGsOA';
 const getFilteredStatistic = params => async dispatch => {
   try {
     // dispatch(loaderToggle());

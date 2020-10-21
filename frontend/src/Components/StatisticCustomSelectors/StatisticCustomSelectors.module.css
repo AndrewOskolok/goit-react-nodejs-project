@@ -65,8 +65,6 @@
   transform: translateX(-50%);
   background: rgba(231, 234, 242);
   border: 1px solid #000;
-  border-bottom-right-radius: 30px;
-  border-bottom-left-radius: 30px;
   border-top: none;
   margin-top: 5px;
   max-height: 205px;
