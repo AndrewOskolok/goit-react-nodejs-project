@@ -3,11 +3,12 @@ import { connect } from "react-redux";
 import Select from "react-select";
 import DatePicker from "react-datepicker";
 import moment from "moment";
-import "react-datepicker/dist/react-datepicker.css";
 
 import transactionOperations from "../../redux/opertions/formOperations.js";
+import formSelectors from "../../redux/selectors/formSelectors";
 
-import formStyle from "./TransactionForm.module.css";
+import "react-datepicker/dist/react-datepicker.css";
+import formStyle from "./transactionForm.module.css";
 import "./transactionFormSelect.css";
 import "./transactionFormDatepicker.css";
 
@@ -39,39 +40,66 @@ const options = [
   { value: "vanilla", label: "Vanilla" },
 ];
 
-const TransactionForm = ({ addTransaction, getCategories, modalHandler, status }) => {
+const TransactionForm = ({
+  addTransaction,
+  getCategories,
+  modalHandler,
+  categoriesList,
+}) => {
   const [transactionItem, setTransactionItem] = useState(initialState);
   const [startDate, setStartDate] = useState(new Date());
-  const [errors, setErrors] = useState({});  
+  const [errors, setErrors] = useState({});
 
-  // console.log("status", status);
+  let options = [
+    // { value: "chocolate", label: "Chocolate" },
+    // { value: "strawberry", label: "Strawberry" },
+    // { value: "vasya", label: "Vasya" },
+    // { value: "vanilla", label: "Vanilla" },
+    // { value: "vanilla", label: "Vanilla" },
+    // { value: "vanilla", label: "Vanilla" },
+    // { value: "vanilla", label: "Vanilla" },
+    // { value: "vanilla", label: "Vanilla" },
+    // { value: "vanilla", label: "Vanilla" },
+    // { value: "vanilla", label: "Vanilla" },
+    // { value: "vanilla", label: "Vanilla" },
+    // { value: "vanilla", label: "Vanilla" },
+    // { value: "vanilla", label: "Vanilla" },
+    // { value: "", label: "" },
+  ];
 
-  useEffect(() => {
-    // console.log("WindowStatus");
-    addListener(); 
+  const getCategoriesNames = (list) => {    
+    list.reduce((acc, item) => {
+      acc.push(...item.name);
+      return acc;
+    }, []);
+  };
+
+  console.log("List", getCategoriesNames(categoriesList));
+
+  console.log("categoriesList", categoriesList);
+
+  useEffect(() => {    
+    addListener();
     getCategories();
   }, []);
 
   const closeForm = () => {
-    // console.log("Hi!");
     removeListener();
-    modalHandler();   
+    modalHandler();
   };
 
-  const handleKeyDown = (event) => {    
+  const handleKeyDown = (event) => {
     if (event.code === "Escape") {
       removeListener();
-      modalHandler();     
-    }   
+      modalHandler();
+    }
   };
 
   const addListener = () => {
-    // console.log("hello add");
     window.addEventListener("keydown", handleKeyDown);
   };
 
   const removeListener = () => {
-    // console.log("hello remove");
     window.removeEventListener("keydown", handleKeyDown);
   };
 
@@ -160,11 +188,11 @@ const TransactionForm = ({ addTransaction, getCategories, modalHandler, status }
     if (!validateResult) {
       if (event.target[1].checked) {
         transactionItem.category = transactionItem.category.value;
-      };
+      }
       event.target[1].checked
-      // totalBalance
-        ? (transactionItem.balanceAfter =- amount)  
-        : (transactionItem.balanceAfter =+ amount);
+        ? // totalBalance
+          (transactionItem.balanceAfter = -amount)
+        : (transactionItem.balanceAfter = +amount);
       transactionItem.amount = Number(transactionItem.amount);
       addTransaction(transactionItem);
       setTransactionItem(initialState);
@@ -257,8 +285,8 @@ const TransactionForm = ({ addTransaction, getCategories, modalHandler, status }
 };
 
 const mapStateToProps = (state) => ({
-  // totalBalance: 
-  // categoriesList:
+  // totalBalance: ,
+  categoriesList: formSelectors.categoriesSelector(state),
 });
 
 const mapDispatchToProps = {
