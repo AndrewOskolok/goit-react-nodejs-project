@@ -5,7 +5,7 @@ import Navigation from "../../Components/Navigation/Navigation";
 import CurrencyRate from "../../Components/CurrencyRate/CurrencyRate";
 import Transaction from "../../Components/Transaction/Transaction";
 import AddTransaction from "../../Components/addTransaction/AddTransaction";
-import TransactionForm from "../../Components/TransactionForm/transactionForm";
+import TransactionForm from "../../Components/TransactionForm/TransactionForm";
 import css from "./Main.module.css";
 import { useEffect } from "react";
 
