@@ -6,8 +6,6 @@ import Main from '../Containers/Main/Main';
 import Statistic from '../Containers/Statistic/Statistic';
 import css from './App.module.css';
 
-
-
 function App() {
   // This state for convenient development of your components
   // Set whether the user is authorized
@@ -16,7 +14,6 @@ function App() {
 
   return (
     <div className={css.app}>   
-    
       <Switch>
         {!authorise && <Route path="/login" component={Login} />}
         {!authorise && <Route path="/registration" component={Registration} />}
