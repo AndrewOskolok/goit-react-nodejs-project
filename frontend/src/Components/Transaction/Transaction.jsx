@@ -7,12 +7,12 @@ const Transaction = () => {
   const dispatch = useDispatch();
   // const userToken = useSelector((state) => state.auth.token);
   const transactions = useSelector((state) => state.transactions);
-  console.log(transactions);
 
   useEffect(() => {
     dispatch(
       getCurrentTransactions(
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZjhmMmEwNjZjYmU4NDAwMTcwYzc3M2MiLCJzaWQiOiI1ZjhmZDU1Y2Q2NTY4YTAwMTcwMjk2MWUiLCJpYXQiOjE2MDMyNjE3ODgsImV4cCI6MTYwMzI2MzU4OH0.5WuUvdZqcBjeZDfyRVmROxqtyo9ethun9EezXOmzxxg"
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZjhmMmEwNjZjYmU4NDAwMTcwYzc3M2MiLCJzaWQiOiI1ZjhmZWM0N2Q2NTY4YTAwMTcwMjk2MjEiLCJpYXQiOjE2MDMyNjc2NTUsImV4cCI6MTYwMzI2OTQ1NX0.aQuaKp3pnvry-6HBH6A7Dm4a_dTE3O4-QVnrq464xzk"
+        // userToken
       )
     );
   }, []);

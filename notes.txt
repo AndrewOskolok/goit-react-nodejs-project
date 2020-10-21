@@ -24,6 +24,8 @@ transaction object: {
 redux structure: {
     auth: {
         token:
+        refreshToket:
+        sesionId:
     }
     loader: 
     errorState:
