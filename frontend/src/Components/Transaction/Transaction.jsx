@@ -12,7 +12,7 @@ const Transaction = () => {
   useEffect(() => {
     dispatch(
       getCurrentTransactions(
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZjhmMmEwNjZjYmU4NDAwMTcwYzc3M2MiLCJzaWQiOiI1ZjhmNzdhZTZjYmU4NDAwMTcwYzc3NDkiLCJpYXQiOjE2MDMyMzc4MDYsImV4cCI6MTYwMzIzOTYwNn0.ukX3bNK8dhKOX6bWxriTCWRbU2DjK95ijFFsIDGbjkA"
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZjhmMmEwNjZjYmU4NDAwMTcwYzc3M2MiLCJzaWQiOiI1ZjhmZDU1Y2Q2NTY4YTAwMTcwMjk2MWUiLCJpYXQiOjE2MDMyNjE3ODgsImV4cCI6MTYwMzI2MzU4OH0.5WuUvdZqcBjeZDfyRVmROxqtyo9ethun9EezXOmzxxg"
       )
     );
   }, []);
