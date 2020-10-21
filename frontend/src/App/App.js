@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import alanBtn from '@alan-ai/alan-sdk-web';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Login from '../Containers/Login/Login';
@@ -12,13 +13,16 @@ function App() {
   // Set whether the user is authorized
   // In the future, the routing system will change
   const [authorise] = useState(true);
+  let history = useHistory();
 
   useEffect(() => {
     alanBtn({
       key: process.env.REACT_APP_ALAN_KEY,
       onCommand: commandData => {
-        if (commandData.command === 'testCommand') {
-          console.log('the code was executed');
+        if (commandData.command === 'statistic') {
+          history.push('/statistic');
+        } else if (commandData.command === 'mainPage') {
+          history.push('/');
         }
       },
     });
