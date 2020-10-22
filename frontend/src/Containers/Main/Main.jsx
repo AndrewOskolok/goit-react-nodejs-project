@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Switch, Route, Redirect, useHistory } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import alanBtn from "@alan-ai/alan-sdk-web";
 import Statistic from "../../Containers/Statistic/Statistic";
 import Header from "../../Components/Header/Header";
@@ -15,9 +15,6 @@ const Main = ({history}) => {
   const openModalHandler = () => {
     setModalWindow(state => !state);
   };
-
-  const openModalHandler = () => {
-    setModalWindow((state) => !state);
 
   useEffect(() => {
     alanBtn({
@@ -44,7 +41,8 @@ const Main = ({history}) => {
       <div className={css.main__wrapper}>
         <aside className={css.main__aside}>
           <Navigation />
-          <Balance />
+            <Balance />
+            <Statistic/>
           <div className={css.main__currency_wrapper}>
             <CurrencyRate />
           </div>
