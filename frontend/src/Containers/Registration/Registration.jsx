@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import css from "./Registration.module.css";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { registerHandler } from '../../redux/opertions/userOperation'
+import  getUserState  from '../../redux/selectors/selectors'
 
 const initialState = {
   email: '',
@@ -27,6 +28,9 @@ const Registration = ({location}) => {
   const {name, value} = target
   setForm(state => ({...state, [name]: value }))
   }
+
+  const userStatus = useSelector((state) => getUserState(state));
+  console.log('userStatus :>> ', userStatus);
 
   useEffect(() => {
     if (form.password.length === 0) {
@@ -116,8 +120,8 @@ const Registration = ({location}) => {
     }
   }
 
+
   const {email, password, passwordConfirm, firstName} = form
-  // console.log('form :>> ', form);
   
   // const [typeRegister, setTypeRegister] = useState(false);
 
