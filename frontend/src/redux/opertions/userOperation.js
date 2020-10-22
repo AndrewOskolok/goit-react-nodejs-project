@@ -1,20 +1,21 @@
-// import axios from "axios";
-// import { example } from "../actions/userAction.js";
+import axios from "axios";
+import { getUser } from "../actions/userAction.js";
 
-// axios.defaults.baseURL = "SET_DEFFAULT_URL";
+axios.defaults.baseURL = "https://goit-react-nodejs-project.herokuapp.com";
 
-const exampleHandler = (params) => async (dispatch) => {
+export const registerHandler = (userObject) => async (dispatch) => {
+  console.log('userObject :>> ', userObject);
     try {
-      //loaderOn
-      // const result = await axios.METHOD("path without default link");
-      // some operation with result, if need
+      // loaderOn
+      const result = await axios.post('/auth/register', userObject);
+      console.log('result :>> ', result);
       // dispatch(example(result));
     } catch (error) {
-      //errorHandler
+      console.log('error :>> ', error);
+      // errorHandler
     } finally {
-      //loaderOff
+      // loaderOff
     }
   };
   
-  export default example;
   

@@ -1,4 +1,4 @@
 import { createAction } from "@reduxjs/toolkit";
-import { USER_TOGGLE } from "../constants/user";
+import { GET_USER } from "../constants/constants";
 
-export const userToggle = createAction(USER_TOGGLE);
+export const getUser = createAction(GET_USER);

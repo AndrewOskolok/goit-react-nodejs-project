@@ -48,6 +48,15 @@
     padding-left: 55px;
 }
 
+.registration__errorEmailLength_p{
+    color: red;
+    /* display: none; */
+}
+
+.registration__errorEmailValidate_p{
+   color: red; 
+}
+
 .registration__email_icon::before {
     position: absolute;
     transform: translate(12px, 10px);
@@ -69,6 +78,14 @@
     border-bottom: 1px solid #E0E0E0;
     margin-bottom: 30px;
     padding-left: 55px;
+}
+
+.registration__errorPasswordLength_p{
+    color: red;
+}
+
+.registration__errorPasswordValidate_p{
+    color: red;
 }
 
 .registration__password_icon::before {
@@ -165,6 +182,10 @@
     border-bottom: 1px solid #E0E0E0;
     margin-bottom: 40px;
     padding-left: 55px;
+}
+
+.registration__errorFirstNameLength_p{
+    color: red;
 }
 
 .registration__avatar_icon::before {

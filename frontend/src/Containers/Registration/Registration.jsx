@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import css from "./Registration.module.css";
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { registerHandler } from '../../redux/opertions/userOperation'
 
 const initialState = {
   email: '',
@@ -16,6 +17,13 @@ const initialState = {
 const Registration = ({location}) => {
   const [form, setForm] = useState(initialState);
   const [reliability, setReliability] = useState(null)
+  const [errorEmailLength, setErrorEmailLength] = useState(false)
+  const [errorEmailValidate, setErrorEmailValidate] = useState(false)
+  const [errorPasswordLength, setErrorPasswordLength] = useState(false)
+  const [errorPasswordValidate, setErrorPasswordValidate] = useState(false)
+  const [errorFirstNameLength, setErrorFirstNameLength] = useState(false)
+
+  const dispatch = useDispatch();
 
   const handleFormInput = ({target}) => {
   const {name, value} = target
@@ -44,8 +52,69 @@ const Registration = ({location}) => {
     // }
   }, [form])
 
+  const validate = async(e) => {
+    //=====================================email=================================//
+    e.preventDefault();
+    const re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    const passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
+    const errors = {}
+    if (form.email.length === 0) {
+      setErrorEmailLength(true)
+      errors.emailLength = true;
+    }
+      else {
+      setErrorEmailLength(false);
+      errors.emailLength = false;
+     }
+    if (!re.test(form.email)) {
+      setErrorEmailValidate(true)
+      errors.emailValidateLength = true;
+
+      // console.log('errorEmail :>>', form.email);
+    }
+      else {
+      setErrorEmailValidate(false);
+      errors.emailValidateLength = false;
+     }
+    //=====================================password===============================//
+    if (form.password.length < 6) {
+      setErrorPasswordLength(true)
+      errors.passwordLength = true;
+    }
+      else {
+      setErrorPasswordLength(false);
+      errors.passwordLength = false;
+      }
+    if (!passw.test(form.password)) {
+      setErrorPasswordValidate(true)
+      errors.passwordValidate = true;
+    }
+      else{
+      setErrorPasswordValidate(false)
+      errors.passwordValidate = false;
+      }
+  
+    //=====================================name=============================//
+
+      if (firstName.length < 2) {
+      setErrorFirstNameLength(true)
+      errors.firstNameLength = true;
+    }
+    else {
+      setErrorFirstNameLength(false);
+      errors.firstNameLength = false;
+      }
+
+    const arr = Object.values(errors)
+    if (!arr.find(error => error === true)) {
+      dispatch(registerHandler({email, password,username: firstName}))
+
+   
+    }
+  }
+
   const {email, password, passwordConfirm, firstName} = form
-  console.log('form :>> ', form);
+  // console.log('form :>> ', form);
   
   // const [typeRegister, setTypeRegister] = useState(false);
 
@@ -82,7 +151,7 @@ const Registration = ({location}) => {
  
   return <div className={css.registration}>   
   <div className={css.registration__wrapper}>
-    <form action="" method="POST"
+    <form 
     // onSubmit={handleSubmit}
       className={css.registration__form_wrapper}>
       <p className={css.registration__logo}>
@@ -106,13 +175,16 @@ const Registration = ({location}) => {
           />
         </label>
 
+        {errorEmailLength &&<p className={css.registration__errorEmailLength_p}>email</p>}
+        {errorEmailValidate &&<p className={css.registration__errorEmailValidate_p}>email111</p>}
+
 {/* ------------------------ password input ------------------------*/}
 
         <label className={css.registration__password_icon}>
           <input
             className={css.registration__password}
             placeholder="Пароль"
-            pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$"
+            // pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$"
             type="password"
             name="password"
             value={password}
@@ -122,8 +194,10 @@ const Registration = ({location}) => {
             required
           />
         </label>
-      
 
+        {errorPasswordLength &&<p className={css.registration__errorPasswordLength_p}>password</p>}
+        {errorPasswordValidate &&<p className={css.registration__errorPasswordValidate_p}>password111</p>}
+      
 {/* ------------------------ password confirm status------------------------*/}
 
        {reliability && <div className={css.registration__password_reliability}>
@@ -162,18 +236,20 @@ const Registration = ({location}) => {
             name="firstName"
             value={firstName}
             onChange={handleFormInput}
-            minLength="2"
-            maxLength="20"
+            // minLength="2"
+            // maxLength="20"
             required
           />
         </label>
+
+        {errorFirstNameLength &&<p className={css.registration__errorFirstNameLength_p}>name</p>}
 
       </div>
 
 {/* ----------------------- buttons login/register ------------------------ */}
 
       <div className={css.registration__button}>
-        <button type="submit"
+        <button onClick={validate}
           className={css.registration__submit_btn}>
           Регистрация
         </button>
