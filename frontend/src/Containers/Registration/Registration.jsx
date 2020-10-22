@@ -25,11 +25,20 @@ const Registration = ({location}) => {
   useEffect(() => {
     if (form.password.length === 0) {
       setReliability(null)
-    } else if (form.password.length > 0 && form.password.length < 21) {
+    } else if (form.password.length > 0 && form.password.length < 8) {
       setReliability(1)
     } else if (form.password.length >= 8) {
       setReliability(2)
     }
+      // else if (form.password.length >= 8) {
+      //   for (let i = 0; i < form.password.length; i++) {
+      //     if (form.password.length === !Number) {
+      //       console.log('111 :>> ');
+      //     }
+      //   }
+      
+      // setReliability(3)
+    // }
     // else if (form.password.length >= 8 &) {
     //   setForm(2)
     // }
