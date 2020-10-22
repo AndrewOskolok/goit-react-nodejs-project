@@ -58,6 +58,14 @@
     height: 24px;  
 }
 
+.login__errorEmailLength_p{
+    color: red;
+}
+
+.login__errorEmailValidate_p{
+    color: red;
+}
+
 .login__password {
     font-family: "Montserrat";
     font-size: 20px;
@@ -79,6 +87,14 @@
     background-image: url(../../images/icons/authForm/icon/password.svg);
     width: 24px;
     height: 24px;
+}
+
+.login__errorPasswordLength_p {
+    color: red;
+}
+
+.login__errorPasswordValidate_p {
+    color: red;
 }
 
 .login__submit_btn {

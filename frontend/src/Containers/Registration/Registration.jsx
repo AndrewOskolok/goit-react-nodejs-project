@@ -12,8 +12,6 @@ const initialState = {
   firstName: ''
 }
 
-// console.log('initialState :>> ', initialState);
-
 const Registration = ({location}) => {
   const [form, setForm] = useState(initialState);
   const [reliability, setReliability] = useState(null)
@@ -62,44 +60,51 @@ const Registration = ({location}) => {
       setErrorEmailLength(true)
       errors.emailLength = true;
     }
+
       else {
       setErrorEmailLength(false);
       errors.emailLength = false;
      }
+
     if (!re.test(form.email)) {
       setErrorEmailValidate(true)
       errors.emailValidateLength = true;
-
-      // console.log('errorEmail :>>', form.email);
     }
+
       else {
       setErrorEmailValidate(false);
       errors.emailValidateLength = false;
      }
+
     //=====================================password===============================//
+
     if (form.password.length < 6) {
       setErrorPasswordLength(true)
       errors.passwordLength = true;
     }
+
       else {
       setErrorPasswordLength(false);
       errors.passwordLength = false;
       }
+
     if (!passw.test(form.password)) {
       setErrorPasswordValidate(true)
       errors.passwordValidate = true;
     }
+
       else{
       setErrorPasswordValidate(false)
       errors.passwordValidate = false;
       }
   
-    //=====================================name=============================//
+    //=====================================name======================================//
 
       if (firstName.length < 2) {
       setErrorFirstNameLength(true)
       errors.firstNameLength = true;
     }
+
     else {
       setErrorFirstNameLength(false);
       errors.firstNameLength = false;
@@ -108,8 +113,6 @@ const Registration = ({location}) => {
     const arr = Object.values(errors)
     if (!arr.find(error => error === true)) {
       dispatch(registerHandler({email, password,username: firstName}))
-
-   
     }
   }
 
@@ -184,12 +187,11 @@ const Registration = ({location}) => {
           <input
             className={css.registration__password}
             placeholder="Пароль"
-            // pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$"
             type="password"
             name="password"
             value={password}
             onChange={handleFormInput}
-            minLength="8"
+            minLength="6"
             maxLength="20"
             required
           />

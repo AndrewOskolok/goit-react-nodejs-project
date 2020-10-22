@@ -2,6 +2,8 @@ import React from "react";
 import { useState } from "react";
 import css from "./Login.module.css";
 import { Link } from 'react-router-dom';
+import { loginHandler } from '../../redux/opertions/userOperation'
+import { useDispatch } from 'react-redux';
 
 const initialState = {
   email: '',
@@ -12,18 +14,80 @@ const initialState = {
 
 const Login = ({location}) => {
   const [form, setForm] = useState(initialState);
+  const [errorEmailLength, setErrorEmailLength] = useState(false)
+  const [errorEmailValidate, setErrorEmailValidate] = useState(false)
+  const [errorPasswordLength, setErrorPasswordLength] = useState(false)
+  const [errorPasswordValidate, setErrorPasswordValidate] = useState(false)
+
+  const dispatch = useDispatch();
 
   const handleFormInput =({target}) => {
   const {name, value} = target
   setForm(state => ({...state, [name]: value }))
   }
 
+  const validate = async(e) => {  
+  e.preventDefault();
+  const re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  const passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
+  const errors = {}
 
-  const {email, password} = form
+  //====================================email==================================//
+
+    if (form.email.length === 0) {
+      setErrorEmailLength(true)
+      errors.emailLength = true;
+    }
+
+      else {
+      setErrorEmailLength(false);
+      errors.emailLength = false;
+    }
+
+    if (!re.test(form.email)) {
+      setErrorEmailValidate(true)
+      errors.emailValidateLength = true;
+    }
+
+      else {
+      setErrorEmailValidate(false);
+      errors.emailValidateLength = false;
+     }
+
+  //=====================================password===========================//
+
+    if (form.password.length < 6) {
+      setErrorPasswordLength(true)
+      errors.passwordLength = true;
+    }
+
+      else {
+      setErrorPasswordLength(false);
+      errors.passwordLength = false;
+      }
+
+    if (!passw.test(form.password)) {
+      setErrorPasswordValidate(true)
+      errors.passwordValidate = true;
+    }
+
+      else{
+      setErrorPasswordValidate(false)
+      errors.passwordValidate = false;
+      }
+
+      const arr = Object.values(errors)
+      if (!arr.find(error => error === true)) {
+        dispatch(loginHandler({email, password}))
+      }
+    
+  }
+
+const {email, password} = form
 
 return <div className={css.login}>   
         <div className={css.login__wrapper}>
-          <form onSubmit
+          <form onSubmit={validate}
             className={css.login__form_wrapper}>
             <p className={css.login__logo}>
                Wallet
@@ -45,6 +109,9 @@ return <div className={css.login}>
                 />
               </label>
 
+              {errorEmailLength &&<p className={css.login__errorEmailLength_p}>email</p>}
+              {errorEmailValidate &&<p className={css.login__errorEmailValidate_p}>email111</p>}
+
 {/* --------- password input --------- */}
 
               <label className={css.login__password_icon}>
@@ -55,16 +122,19 @@ return <div className={css.login}>
                   name="password"
                   value={password}
                   onChange={handleFormInput}
-                  minLength="4"
+                  minLength="6"
                   required
                 />
               </label>
             </div>
 
+            {errorPasswordLength &&<p className={css.login__errorPasswordLength_p}>password</p>}
+            {errorPasswordValidate &&<p className={css.login__errorPasswordValidate_p}>password111</p>}
+
 {/* --------- buttons login/register --------- */}
 
             <div className={css.login__button}>
-              <button type="submit"
+              <button type='submit'
                 className={css.login__submit_btn}>
                 Вход
               </button>
