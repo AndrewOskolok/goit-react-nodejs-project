@@ -11,7 +11,7 @@ const Transaction = () => {
   const dispatch = useDispatch();
   // const userToken = useSelector((state) => state.auth.token);
   const userToken =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZjhmMmEwNjZjYmU4NDAwMTcwYzc3M2MiLCJzaWQiOiI1ZjkxNWFkZmExMzNkZTAwMTc2MWE1NjMiLCJpYXQiOjE2MDMzNjE1MDQsImV4cCI6MTYwMzM2MzMwNH0.0Z9KPCOfd56VpNSiYAA603Uj_cHs3NBbd_hp39UR1Dg";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZjhmMmEwNjZjYmU4NDAwMTcwYzc3M2MiLCJzaWQiOiI1ZjkxNjZjM2ExMzNkZTAwMTc2MWE1NjQiLCJpYXQiOjE2MDMzNjQ1NDcsImV4cCI6MTYwMzM2NjM0N30.a5hFbpYC7RcldxXSN6xPAfh8Sj8yPbVXONXb17mpIJg";
   const transactions = useSelector((state) => state.transactions);
 
   useEffect(() => {
@@ -25,6 +25,12 @@ const Transaction = () => {
   const deleteTransaction = ({ target: { value } }) => {
     dispatch(deteteCurrentTransaction(value, userToken, transactions));
   };
+
+  const changeColor = (e) => {
+    console.log(e);
+  };
+
+  const change = changeColor();
 
   return (
     <>
@@ -59,7 +65,11 @@ const Transaction = () => {
         <li className={styles.transaction__header_item}>Баланс</li>
       </ul>
       {transactions.map((item) => (
-        <div className={styles.transaction__list} key={item.id}>
+        <div
+          onChange={change}
+          className={styles.transaction__list}
+          key={item.id}
+        >
           <p className={styles.transaction__list_item}>
             <span className={styles.transaction__list_item_key}>Дата</span>
             <span className={styles.transaction__list_item_value}>
