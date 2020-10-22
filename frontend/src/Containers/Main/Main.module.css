@@ -1,6 +1,6 @@
 .main {
   background-color: rgba(238, 238, 238, 0.4);
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .main__wrapper {
@@ -28,7 +28,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    content: '';
+    content: "";
     backdrop-filter: blur(50px);
   }
 

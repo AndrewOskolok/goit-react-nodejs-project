@@ -1,11 +1,12 @@
 const { Router } = require("express");
-const Joi = require("Joi");
+const Joi = require("joi");
 const {
   register,
   login,
   refreshTokens,
   logout,
   authorize,
+  verifyEmail,
 } = require("./auth.controller");
 const { validate } = require("../helpers/validate");
 const { tryCatchWrapper } = require("../helpers/try-catch-wrapper");
@@ -23,9 +24,14 @@ const signInSchema = Joi.object({
   password: Joi.string().required(),
 });
 
+const refreshSchema = Joi.object({
+  sid: Joi.string().required(),
+});
+
 router.post("/register", validate(signUpSchema), tryCatchWrapper(register));
 router.post("/login", validate(signInSchema), tryCatchWrapper(login));
-router.get("/refresh", tryCatchWrapper(refreshTokens));
+router.get("/refresh", validate(refreshSchema), tryCatchWrapper(refreshTokens));
 router.post("/logout", authorize, tryCatchWrapper(logout));
+router.get("/verify/:verificationToken", tryCatchWrapper(verifyEmail));
 
 exports.authRouter = router;
