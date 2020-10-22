@@ -46,7 +46,7 @@ const TransactionForm = ({
     setOptionsList(getCategoriesNames(categoriesList));
   }, []);
 
-  const closeForm = () => {  
+  const closeForm = () => {
     removeListener();
     modalHandler();
   };
@@ -97,21 +97,16 @@ const TransactionForm = ({
 
   const validate = (amount, category, type, description) => {
     const errors = {};
-
     if (amount.length === 0) {
       errors.amount = 'Введите число!';
     }
-
     if (type === 'expense' && category === '') {
       errors.category = 'Категория не выбрана!';
     }
-
     if (description.length > 24) {
       errors.description = "Делай описание лаконичнее, пиши короче!!!"
     }
-
     setErrors(errors);
-
     return !!Object.keys(errors).length;
   };
 
@@ -169,9 +164,7 @@ const TransactionForm = ({
         onSubmit={handleSubmit}
       >
         <h2 className={formStyle.form__title}>Добавить транзакцию</h2>
-
         <button className={formStyle.form__closeBtn} onClick={closeForm} />
-
         <div className={formStyle.form__checkbox_wrapper}>
           <label className={formStyle.form__checkbox_label}>
             <input
@@ -181,7 +174,6 @@ const TransactionForm = ({
               onChange={handleCheckboxChange}
             />
             <span className={formStyle.form__checkbox_span}></span>
-
             <label className={formStyle.form__checkbox_income} htmlFor="check">
               Доход
             </label>
@@ -209,7 +201,6 @@ const TransactionForm = ({
             {errors.category && <span className={formStyle.form__categoryError}>{errors.category}</span>}
           </div>
         )}
-
         <div className={formStyle.form__acBox}>
           <div className={formStyle.form__errorsWrapper}>
             <input
