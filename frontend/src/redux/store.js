@@ -13,9 +13,9 @@ import storage from "redux-persist/lib/storage";
 import { rootReducer } from "./reducers";
 
 const persistConfig = {
-  key: "example",
+  key: "user",
   storage,
-  whitelist: ["example"],
+  whitelist: ["user"],
 };
 
 const middleware = getDefaultMiddleware({
