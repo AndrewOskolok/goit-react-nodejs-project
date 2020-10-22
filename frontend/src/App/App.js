@@ -19,7 +19,7 @@ function App() {
         {!authorise && <Route path="/registration" component={Registration} />}
         {!authorise && <Redirect to="/login" />}
 
-        {authorise && <Route path="/" exact component={Main} />}
+        {authorise && <Route path="/" component={Main} />}
         
         {authorise && <Redirect to="/" />}
       </Switch>

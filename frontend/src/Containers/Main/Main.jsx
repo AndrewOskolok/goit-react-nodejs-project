@@ -28,16 +28,18 @@ const Main = () => {
             <CurrencyRate />
           </div>
         </aside>
-        <div className={css.content__wrapper}>
+          <div className={css.content__wrapper}>
+            
     <Switch>
-      <Route path='/transactions' component={Transaction} />
-      <Route path="/statistic" component={Statistic} />
+      <Route exact path="/transactions" component={Transaction} />
+      <Route exact path="/statistic" component={Statistic} />
+      <Route exact path="/currency" component={CurrencyRate} />
       <Redirect to="/" />
-            </Switch>
+    </Switch>
             
         </div>
       </div>
-      <AddTransaction modalHandler={openModalHandler} />
+        <AddTransaction modalHandler={openModalHandler} />
     </div>
 
     </>
