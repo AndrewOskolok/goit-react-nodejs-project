@@ -24,8 +24,8 @@ const Statistic = () => {
   const [years, setYears] = useState([]);
 
   const requestForTimes = async () => {
-    axios.defaults.baseURL =
-      'https://goit-react-nodejs-project.herokuapp.com/transactions/';
+    // axios.defaults.baseURL =
+    //   'https://goit-react-nodejs-project.herokuapp.com/transactions/';
     dispatch(loaderToggle());
     try {
       const result = await axios.get(`time`, {

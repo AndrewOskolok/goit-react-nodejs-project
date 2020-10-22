@@ -1,8 +1,8 @@
 import { getStatistic } from '../actions/statisticAction';
 import { loaderToggle } from '../actions/loaderAction';
 import axios from 'axios';
-axios.defaults.baseURL =
-  'https://goit-react-nodejs-project.herokuapp.com/transactions/';
+// axios.defaults.baseURL =
+//   'https://goit-react-nodejs-project.herokuapp.com/transactions/';
 const token =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZjhiNmEwMmNhZTMyNTE0N2ZmODhmODUiLCJzaWQiOiI1ZjkwNDlhOWQ2NTY4YTAwMTcwMjk2MzEiLCJpYXQiOjE2MDMyOTE1NjEsImV4cCI6MTYwMzI5MzM2MX0.0VrpLw9xumPlOtmJChU8ezWEvDttl1siVDlJejjGsOA';
 const getFilteredStatistic = params => async dispatch => {

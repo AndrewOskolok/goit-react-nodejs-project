@@ -6,14 +6,22 @@ import CurrencyRate from "../../Components/CurrencyRate/CurrencyRate";
 import Transaction from "../../Components/Transaction/Transaction";
 import AddTransaction from "../../Components/addTransaction/AddTransaction";
 import TransactionForm from "../../Components/TransactionForm/TransactionForm";
+import transactionOperations from "../../redux/opertions/formOperations"
+// import { CSSTransition } from "react-transition-group";
+// import formAnimation from "../../Components/TransactionForm/transactionFormAnimation.module.css";
 import css from "./Main.module.css";
 import { useEffect } from "react";
+import { connect } from "react-redux";
 
-const Main = () => {
+const Main = ({ getCategories }) => {
   const [modalWindow, setModalWindow] = useState(false);
 
-  const openModalHandler = () => { 
-    setModalWindow((state) => !state);  
+  useEffect(() => {
+    getCategories();
+  }, [getCategories])
+
+  const openModalHandler = () => {
+    setModalWindow((state) => !state);
   };
 
   return (
@@ -32,11 +40,17 @@ const Main = () => {
         </div>
       </div>
       <AddTransaction modalHandler={openModalHandler} />
-      {modalWindow && (
-        <TransactionForm modalHandler={openModalHandler} status={modalWindow} />
-      )}
+      {/* <CSSTransition in={modalWindow} timeout={250} onEnter={() => { console.log("GO ANIME!!!") }} classNames={formAnimation} mountOnEnter unmountOnExit> */}
+        {modalWindow && (
+          <TransactionForm modalHandler={openModalHandler} status={modalWindow} />
+        )}
+      {/* </CSSTransition> */}
     </div>
   );
 };
 
-export default Main;
+const mapDispatchToProps = {
+  getCategories: transactionOperations.getCategoriesOperation,
+};
+
+export default connect(null, mapDispatchToProps)(Main);
