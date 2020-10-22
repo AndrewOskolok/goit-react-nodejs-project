@@ -12,7 +12,7 @@ import { loaderToggle } from '../../redux/actions/loaderAction';
 import css from './Statistic.module.css';
 
 const token =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZjhiNmEwMmNhZTMyNTE0N2ZmODhmODUiLCJzaWQiOiI1ZjkxMzQ3NGExMzNkZTAwMTc2MWE1NWMiLCJpYXQiOjE2MDMzNTE2NjgsImV4cCI6MTYwMzM1MzQ2OH0.yIvkiydqgqY0dszqO9F_s-JWnkcMaWgbJ7pWi1HtPgE';
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZjhmMmEwNjZjYmU4NDAwMTcwYzc3M2MiLCJzaWQiOiI1ZjkxNGZmZmExMzNkZTAwMTc2MWE1NjEiLCJpYXQiOjE2MDMzNTg3MTksImV4cCI6MTYwMzM2MDUxOX0.mMY1Z_qlv9RcVazcyzHbXV4YXtPCg-2ICeIfHymnumU";
 
 const Statistic = () => {
   const dispatch = useDispatch();
