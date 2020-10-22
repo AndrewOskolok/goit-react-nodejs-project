@@ -16,7 +16,7 @@ const Transaction = () => {
 
   useEffect(() => {
     dispatch(getCurrentTransactions(userToken));
-  }, []);
+  }, [dispatch]);
 
   const transactionFilter = ({ target: { value } }) => {
     dispatch(getFilteredTransactions(value, userToken));

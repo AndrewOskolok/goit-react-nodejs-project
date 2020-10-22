@@ -30,7 +30,7 @@
 .header__title::before {
   position: absolute;
   content: "";
-  background-image: url(../../images/icons/Logotype.svg);
+  background-image: url(../../images/icons/header/Logotype.svg);
   background-size: cover;
   display: block;
   width: 30px;
@@ -50,13 +50,22 @@
   font-family: "Montserrat";
 }
 
+.header__login_avatar {
+  display: block;
+  width: 60px;
+  height: 60px;
+  background-image: url(../../images/icons/header/empty_avatar.svg);
+  background-size: cover;
+  cursor: pointer;
+}
+
 .header__logout_button {
   cursor: pointer;
   background-color: #ffffff;
   background-size: cover;
   border: none;
   outline: none;
-  background-image: url(../../images/icons/Logout.svg);
+  background-image: url(../../images/icons/header/Logout.svg);
   display: block;
   height: 18px;
   width: 18px;

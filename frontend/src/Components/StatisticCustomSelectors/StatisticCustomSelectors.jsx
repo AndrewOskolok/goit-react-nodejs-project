@@ -1,12 +1,11 @@
-import React, { useState, useRef, useEffect } from 'react';
-import queryString from 'query-string';
-import axios from 'axios';
-import { useHistory, useLocation } from 'react-router-dom';
-import { CSSTransition } from 'react-transition-group';
-import css from './StatisticCustomSelectors.module.css';
-import animate from './slide.module.css';
-const token =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZjhiNmEwMmNhZTMyNTE0N2ZmODhmODUiLCJzaWQiOiI1ZjhmMTJiOWI1OTk3MjAwMTc2YjNjMzciLCJpYXQiOjE2MDMyMTE5NjEsImV4cCI6MTYwMzIxMzc2MX0.pd6sI-fdFYPDkIBJFubXS-FjafbTCWlej6JofdGUqjE';
+import React, { useState, useRef, useEffect } from "react";
+import queryString from "query-string";
+
+import { useHistory, useLocation } from "react-router-dom";
+import { CSSTransition } from "react-transition-group";
+import css from "./StatisticCustomSelectors.module.css";
+import animate from "./slide.module.css";
+
 const StatisticCustomSelectors = ({ months, years }) => {
   const history = useHistory();
   const location = useLocation();
@@ -38,14 +37,14 @@ const StatisticCustomSelectors = ({ months, years }) => {
   const ref = useRef(null);
   const refYear = useRef(null);
   const openSelector = (setOpen, ref) => {
-    setOpen(state => !state);
+    setOpen((state) => !state);
     ref.current.classList.toggle(`${css.select__head_open}`);
     ref.current.classList.toggle(css.open);
   };
   const handleChangeSelector = ({ target }, setValue, setOpen, ref) => {
     const selectedOption = target.textContent;
     setValue(selectedOption);
-    setOpen(state => !state);
+    setOpen((state) => !state);
     ref.current.classList.toggle(`${css.select__head_open}`);
     ref.current.classList.toggle(css.open);
   };
@@ -71,16 +70,16 @@ const StatisticCustomSelectors = ({ months, years }) => {
         >
           <ul
             className={css.select__list}
-            onClick={e =>
+            onClick={(e) =>
               handleChangeSelector(
                 e,
                 setValueSelectorMonth,
                 setIsOpenMonth,
-                ref,
+                ref
               )
             }
           >
-            {months.map(el => (
+            {months.map((el) => (
               <li key={el} className={css.select__item}>
                 {el}
               </li>
@@ -108,16 +107,16 @@ const StatisticCustomSelectors = ({ months, years }) => {
         >
           <ul
             className={css.select__list}
-            onClick={e =>
+            onClick={(e) =>
               handleChangeSelector(
                 e,
                 setValueSelectorYear,
                 setIsOpenYear,
-                refYear,
+                refYear
               )
             }
           >
-            {years.map(el => (
+            {years.map((el) => (
               <li key={el} className={css.select__item}>
                 {el}
               </li>

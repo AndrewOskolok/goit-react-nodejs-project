@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
-import Login from '../Containers/Login/Login';
-import Registration from '../Containers/Registration/Registration';
-import Main from '../Containers/Main/Main';
-import css from './App.module.css';
+import React, { useState, useEffect } from "react";
+import { Switch, Route, Redirect } from "react-router-dom";
+import Login from "../Containers/Login/Login";
+import Registration from "../Containers/Registration/Registration";
+import Main from "../Containers/Main/Main";
+import css from "./App.module.css";
 
 function App() {
-  // This state for convenient development of your components
-  // Set whether the user is authorized
-  // In the future, the routing system will change
   const [authorise] = useState(true);
+
+  useEffect(() => {}, []);
 
   return (
     <div className={css.app}>

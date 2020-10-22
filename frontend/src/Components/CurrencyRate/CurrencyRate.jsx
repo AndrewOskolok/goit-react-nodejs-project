@@ -13,9 +13,10 @@ const CurrencyRate = () => {
       try {
         const result = await axios(proxyurl + url, {
           headers: {
-            Origin: "https://api.privatbank.ua/",
+            Origin: "https://cors-anywhere.herokuapp.com/",
           },
         });
+
         const data = result.data.slice(0, 3).map((item) => {
           if (item.ccy === "RUR") {
             item.ccy = "RUB";

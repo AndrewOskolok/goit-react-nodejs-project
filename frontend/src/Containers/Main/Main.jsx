@@ -36,7 +36,7 @@ const Main = ({ history }) => {
         // }
       },
     });
-  }, []);
+  }, [history]);
 
   return (
     <div className={css.main}>
