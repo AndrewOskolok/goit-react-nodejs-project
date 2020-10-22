@@ -1,0 +1,35 @@
+.add__transaction_btn {
+  width: 44px;
+  height: 44px;
+  background-color: #24cca7;
+  border: none;
+  border-radius: 50%;
+  font-size: 30px;
+  font-family: "Montserrat";
+  color: #fff;
+  position: fixed;
+  right: 30px;
+  bottom: 100px;
+  outline: none;
+}
+
+.add__transaction_btn:hover,
+.add__transaction_btn:focus {
+  border: 1px solid #24cca7;
+  color: #24cca7;
+  background-color: #fff;
+}
+
+@media (min-width: 768px) {
+  .add__transaction_btn {
+    bottom: 40px;
+    z-index: 10;
+    right: 40px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .add__transaction_btn {
+    right: 85px;
+  }
+}

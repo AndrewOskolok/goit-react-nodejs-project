@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "1.0.0",
+    "version": "1.1.0",
     "title": "BC20-21 Final Project API docs",
     "description": "",
     "license": {
@@ -9,19 +9,79 @@
       "url": "https://opensource.org/licenses/MIT"
     }
   },
-  "host": "localhost:3000",
-  "basePath": "/",
+  "host": "https://goit-react-nodejs-project.herokuapp.com",
+  "basePath": "",
   "tags": [
     {
       "name": "Transactions",
-      "description": "Transaction operations"
+      "description": "Transaction endpoints"
+    },
+    {
+      "name": "Auth",
+      "description": "Auth endpoints"
+    },
+    {
+      "name": "Categories",
+      "description": "Categories endpoints"
+    },
+    {
+      "name": "Users",
+      "description": "Users endpoints"
+    },
+    {
+      "name": "Service",
+      "description": "Service endpoints"
     }
   ],
-  "schemes": ["http"],
+  "schemes": ["https"],
   "consumes": ["application/json"],
   "produces": ["application/json"],
   "paths": {
     "/transactions": {
+      "get": {
+        "tags": ["Transactions"],
+        "summary": "Get filtered transactions",
+        "parameters": [
+          {
+            "name": "Query parameter",
+            "in": "query",
+            "description": "Query parameter 'filter' - transaction type: 'income' or 'expense' are valid types. If no query parameter provided - all transactions would be returned",
+            "type": "string"
+          },
+          {
+            "name": "JWT token",
+            "description": "Access token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/ReturnedTransaction"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request / No token provided",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized (invalid access token) / Unverified email",
+            "content": {}
+          },
+          "404": {
+            "description": "Invalid user / Invalid session",
+            "content": {}
+          }
+        }
+      },
       "post": {
         "tags": ["Transactions"],
         "summary": "Create a transaction",
@@ -35,6 +95,7 @@
           },
           {
             "name": "JWT token",
+            "description": "Access token",
             "in": "header",
             "schema": {
               "type": "string"
@@ -50,17 +111,68 @@
             }
           },
           "400": {
-            "description": "Bad request",
+            "description": "Bad request / No token provided",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized (invalid access token) / Unverified email",
             "content": {}
           },
           "404": {
-            "description": "Unauthorized",
+            "description": "Invalid user / Invalid session",
             "content": {}
           }
         }
       }
     },
-    "/{transactionId}": {
+    "/transactions/time": {
+      "get": {
+        "tags": ["Transactions"],
+        "summary": "Get user's transactions months and years",
+        "parameters": [
+          {
+            "name": "JWT token",
+            "description": "Access token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "months": {
+                  "type": "array",
+                  "items": "string"
+                },
+                "years": {
+                  "type": "array",
+                  "items": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "No token provided",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized (invalid access token) / Unverified email",
+            "content": {}
+          },
+          "404": {
+            "description": "Invalid user / Invalid session",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/transactions/{transactionId}": {
       "delete": {
         "tags": ["Transactions"],
         "summary": "Delete transaction",
@@ -74,6 +186,7 @@
           },
           {
             "name": "JWT token",
+            "description": "Access token",
             "in": "header",
             "schema": {
               "type": "string"
@@ -86,8 +199,16 @@
             "description": "Successful operation",
             "content": {}
           },
+          "400": {
+            "description": "Bad request / No token provided",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized (invalid access token) / Unverified email",
+            "content": {}
+          },
           "404": {
-            "description": "Unauthorized",
+            "description": "Invalid user / Invalid session",
             "content": {}
           }
         }
@@ -112,6 +233,7 @@
           },
           {
             "name": "JWT token",
+            "description": "Access token",
             "in": "header",
             "schema": {
               "type": "string"
@@ -124,8 +246,366 @@
             "description": "Successful operation",
             "schema": { "$ref": "#/components/schemas/ReturnedTransaction" }
           },
+          "400": {
+            "description": "Bad request / No token provided",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized (invalid access token) / Unverified email",
+            "content": {}
+          },
           "404": {
-            "description": "Unauthorized",
+            "description": "Invalid user / Invalid session",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/transactions/current-month": {
+      "get": {
+        "tags": ["Transactions"],
+        "summary": "Get current month's transactions",
+        "parameters": [
+          {
+            "name": "JWT token",
+            "description": "Access token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/ReturnedTransaction"
+              }
+            }
+          },
+          "400": {
+            "description": "No token provided",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized (invalid access token) / Unverified email",
+            "content": {}
+          },
+          "404": {
+            "description": "Invalid user / Invalid session",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/transactions/statistics": {
+      "get": {
+        "tags": ["Transactions"],
+        "summary": "Get filtered transactions",
+        "parameters": [
+          {
+            "name": "Request body",
+            "in": "body",
+            "required": true,
+            "description": "Request body",
+            "schema": {
+              "$ref": "#/components/schemas/Statistics"
+            }
+          },
+          {
+            "name": "JWT token",
+            "description": "Access token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/components/schemas/StatisticsResponse"
+            }
+          },
+          "400": {
+            "description": "Bad request / No token provided",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized (invalid access token) / Unverified email",
+            "content": {}
+          },
+          "404": {
+            "description": "Invalid user / Invalid session",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/auth/register": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Register user",
+        "parameters": [
+          {
+            "name": "Request body",
+            "in": "body",
+            "description": "Registration request body",
+            "required": true,
+            "schema": { "$ref": "#/components/schemas/Register" }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/components/schemas/AfterRegistration"
+            }
+          },
+          "409": {
+            "description": "Requested email already exists",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Login",
+        "parameters": [
+          {
+            "name": "Request body",
+            "in": "body",
+            "description": "Registration request body",
+            "required": true,
+            "schema": { "$ref": "#/components/schemas/Login" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/components/schemas/AfterLogin"
+            }
+          },
+          "403": {
+            "description": "User with provided email doesn't exist / Password is wrong",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/auth/refresh": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "Get new pair of tokens",
+        "parameters": [
+          {
+            "name": "Request body",
+            "in": "body",
+            "description": "Request body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "sid": {
+                  "type": "string",
+                  "description": "Session ID (which you got after login)"
+                }
+              }
+            }
+          },
+          {
+            "name": "JWT Token",
+            "in": "header",
+            "description": "Refresh token",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/components/schemas/RefreshTokens"
+            }
+          },
+          "401": {
+            "description": "Unauthorized (invalid refresh token) / Unverified email",
+            "content": {}
+          },
+          "404": {
+            "description": "Invalid user / Invalid session",
+            "content": {}
+          },
+          "400": {
+            "description": "No token provided",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Logout",
+        "parameters": [
+          {
+            "name": "JWT Token",
+            "in": "header",
+            "description": "Access token",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "No token provided",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized (invalid access token) / Unverified email",
+            "content": {}
+          },
+          "404": {
+            "description": "Invalid user / Invalid session",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/auth/verify/{verificationToken}": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "Email verification",
+        "parameters": [
+          {
+            "name": "Verification token",
+            "in": "path",
+            "description": "Verification token",
+            "type": "string",
+            "format": "uuid",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "404": {
+            "description": "Already verified",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/categories": {
+      "get": {
+        "tags": ["Categories"],
+        "summary": "Get a list of default categories",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "_id": {
+                    "description": "MongoDB ID",
+                    "type": "string"
+                  },
+                  "name": {
+                    "description": "Name of a category",
+                    "type": "string"
+                  },
+                  "__v": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Service"],
+        "summary": "Add an item to the list of default categories",
+        "parameters": [
+          {
+            "name": "Request body",
+            "in": "body",
+            "description": "request",
+            "required": true,
+            "schema": { "$ref": "#/components/schemas/CategoryPost" }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "description": "MongoDB ID",
+                  "type": "string"
+                },
+                "name": {
+                  "description": "Name of a category",
+                  "type": "string"
+                },
+                "__v": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid service password",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Get current user",
+        "parameters": [
+          {
+            "name": "JWT token",
+            "description": "Access token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/components/schemas/CurrentUser"
+            }
+          },
+          "400": {
+            "description": "No token provided",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized (invalid access token) / Unverified email",
+            "content": {}
+          },
+          "404": {
+            "description": "Invalid user / Invalid session",
             "content": {}
           }
         }
@@ -308,6 +788,259 @@
           "balanceAfter": {
             "type": "integer",
             "description": "User's balance after provided transaction"
+          }
+        }
+      },
+      "Register": {
+        "required": ["email", "password", "username"],
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password"
+          },
+          "username": {
+            "type": "string",
+            "description": "User's name"
+          }
+        }
+      },
+      "AfterRegistration": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Registered user MongoDB ID"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "Registered user email"
+          },
+          "username": {
+            "type": "string",
+            "description": "Registered user username"
+          },
+          "avatarUrl": {
+            "type": "string",
+            "description": "Registered user avatar URL (always empty string after registration)"
+          },
+          "currentBalance": {
+            "type": "integer",
+            "description": "Registered user balance (always zero after registration)"
+          },
+          "transactions": {
+            "type": "array",
+            "items": {},
+            "description": "Registered user transactions (always empty array after registration)"
+          },
+          "customCategories": {
+            "type": "array",
+            "items": {},
+            "description": "Registered user custom categories (always empty array after registration)"
+          }
+        }
+      },
+      "Login": {
+        "required": ["email", "password"],
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password"
+          }
+        }
+      },
+      "AfterLogin": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Registered user MongoDB ID"
+          },
+          "sid": {
+            "type": "string",
+            "description": "Session ID (needed for refresh token)"
+          },
+          "username": {
+            "type": "string",
+            "description": "Registered user username"
+          },
+          "currentBalance": {
+            "type": "integer",
+            "description": "Registered user balance"
+          },
+          "transactions": {
+            "type": "array",
+            "items": {},
+            "description": "Registered user transactions"
+          },
+          "accessToken": {
+            "type": "string",
+            "description": "Access token for authorization header"
+          },
+          "refreshToken": {
+            "type": "string",
+            "description": "Refresh token to get 2 new tokens, if access one has expired"
+          }
+        }
+      },
+      "RefreshTokens": {
+        "type": "object",
+        "properties": {
+          "accessToken": {
+            "type": "string",
+            "description": "Access token"
+          },
+          "refreshToken": {
+            "type": "string",
+            "description": "Refresh token"
+          }
+        }
+      },
+      "CategoryPost": {
+        "required": ["name", "password"],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of a category you want to add"
+          },
+          "password": {
+            "type": "string",
+            "description": "Service password"
+          }
+        }
+      },
+      "CurrentUser": {
+        "type": "object",
+        "properties": {
+          "currentBalance": {
+            "type": "integer",
+            "description": "User's current balance"
+          },
+          "transactions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReturnedTransaction"
+            },
+            "description": "User's transactions"
+          },
+          "customCategories": {
+            "type": "array",
+            "items": "string",
+            "description": "User's custom categories"
+          },
+          "_id": {
+            "type": "string",
+            "description": "User's MongoDB ID"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "User's email"
+          },
+          "passwordHash": {
+            "type": "string",
+            "description": "User's password hash"
+          },
+          "username": {
+            "type": "string",
+            "description": "User's name"
+          },
+          "avatarUrl": {
+            "type": "string",
+            "description": "User's avatar URL"
+          },
+          "__v": {
+            "type": "integer"
+          }
+        }
+      },
+      "Statistics": {
+        "type": "object",
+        "required": ["month", "year"],
+        "properties": {
+          "month": {
+            "type": "string",
+            "description": "Transactions month",
+            "enum": [
+              "January",
+              "February",
+              "March",
+              "April",
+              "May",
+              "June",
+              "July",
+              "August",
+              "September",
+              "October",
+              "November",
+              "December"
+            ]
+          },
+          "year": {
+            "type": "integer",
+            "description": "Transactions year",
+            "minimum": 1970,
+            "maximum": "Current year"
+          }
+        }
+      },
+      "StatisticsResponse": {
+        "type": "object",
+        "properties": {
+          "categories": {
+            "type": "array",
+            "description": "Requested categories info",
+            "items": {
+              "type": "object",
+              "properties": {
+                "category": {
+                  "type": "string",
+                  "description": "Category name"
+                },
+                "color": {
+                  "type": "string",
+                  "format": "hex",
+                  "description": "Category color"
+                },
+                "id": {
+                  "type": "string",
+                  "format": "uuid",
+                  "description": "Category ID"
+                },
+                "total": {
+                  "type": "integer",
+                  "description": "Expenses on this category"
+                }
+              }
+            }
+          },
+          "currentBalance": {
+            "type": "integer",
+            "description": "User's current balance"
+          },
+          "sumType": {
+            "type": "object",
+            "properties": {
+              "income": {
+                "type": "integer"
+              },
+              "expense": {
+                "type": "integer"
+              }
+            }
           }
         }
       }
