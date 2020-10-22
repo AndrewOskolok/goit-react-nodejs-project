@@ -124,6 +124,16 @@
     margin-right: 20px;
 }
 
+.transaction__list_item_value_income {
+    font-family: "Montserrat", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    text-align: right;
+    color: #24cca7;
+
+}
+
 @media(max-width:767px) {
 
     .transaction__filter {
@@ -132,6 +142,11 @@
 
     .transaction__list:hover .transaction__list_item {
         opacity: 0;
+    }
+
+    .transaction__list_item_value_income {
+        margin-right: 20px;
+        width: 60px;
     }
 
     .transaction__list_edit {

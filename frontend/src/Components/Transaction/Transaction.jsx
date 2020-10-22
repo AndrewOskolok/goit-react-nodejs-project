@@ -11,7 +11,7 @@ const Transaction = () => {
   const dispatch = useDispatch();
   // const userToken = useSelector((state) => state.auth.token);
   const userToken =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZjhmMmEwNjZjYmU4NDAwMTcwYzc3M2MiLCJzaWQiOiI1ZjkxNGFiOGExMzNkZTAwMTc2MWE1NjAiLCJpYXQiOjE2MDMzNTczNjgsImV4cCI6MTYwMzM1OTE2OH0.2UeC2dsfJRxDh9dP6nWclEW5F2PDA4yICq5kzsT5Dt4";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZjhmMmEwNjZjYmU4NDAwMTcwYzc3M2MiLCJzaWQiOiI1ZjkxNWFkZmExMzNkZTAwMTc2MWE1NjMiLCJpYXQiOjE2MDMzNjE1MDQsImV4cCI6MTYwMzM2MzMwNH0.0Z9KPCOfd56VpNSiYAA603Uj_cHs3NBbd_hp39UR1Dg";
   const transactions = useSelector((state) => state.transactions);
 
   useEffect(() => {
@@ -88,9 +88,15 @@ const Transaction = () => {
           </p>
           <p className={styles.transaction__list_item}>
             <span className={styles.transaction__list_item_key}>Сумма</span>
-            <span className={styles.transaction__list_item_value}>
-              {item.amount}
-            </span>
+            {item.type === "-" ? (
+              <span className={styles.transaction__list_item_value}>
+                {item.amount}
+              </span>
+            ) : (
+              <span className={styles.transaction__list_item_value_income}>
+                {item.amount}
+              </span>
+            )}
           </p>
           <p className={styles.transaction__list_item}>
             <span className={styles.transaction__list_item_key}>Баланс</span>
