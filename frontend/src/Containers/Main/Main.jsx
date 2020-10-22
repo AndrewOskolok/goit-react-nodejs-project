@@ -48,7 +48,7 @@ const Main = ({ history }) => {
             <CurrencyRate />
           </div>
         </aside>
-        
+
         <div className={css.content__wrapper}>
           <Switch>
             <Route exact path="/" component={Transaction} />
