@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState } from "react";
 import Header from "../../Components/Header/Header";
 import Balance from "../../Components/Balance/Balance";
@@ -7,13 +8,52 @@ import Transaction from "../../Components/Transaction/Transaction";
 import AddTransaction from "../../Components/addTransaction/AddTransaction";
 import TransactionForm from "../../Components/transactionForm/TransactionForm.jsx";
 import css from "./Main.module.css";
+=======
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import alanBtn from '@alan-ai/alan-sdk-web';
+import Header from '../../Components/Header/Header';
+import Balance from '../../Components/Balance/Balance';
+import Navigation from '../../Components/Navigation/Navigation';
+import CurrencyRate from '../../Components/CurrencyRate/CurrencyRate';
+import Transaction from '../../Components/Transaction/Transaction';
+import AddTransaction from '../../Components/addTransaction/AddTransaction';
+import TransactionForm from '../../Components/TransactionForm/TransactionForm';
+import css from './Main.module.css';
+>>>>>>> 0adad7cf87087ccaa5e5501f8cfe779244462ee9
 
-const Main = () => {
+const Main = ({history}) => {
   const [modalWindow, setModalWindow] = useState(false);
+<<<<<<< HEAD
 
   const openModalHandler = () => {
     setModalWindow((state) => !state);
+=======
+  const openModalHandler = () => {
+    setModalWindow(state => !state);
+>>>>>>> 0adad7cf87087ccaa5e5501f8cfe779244462ee9
   };
+
+  const openModalHandler = () => {
+    setModalWindow((state) => !state);
+
+  useEffect(() => {
+    alanBtn({
+      key: 'fae165cb71975b784fc426e228d7d48e2e956eca572e1d8b807a3e2338fdd0dc/stage',
+      onCommand: commandData => {
+        if (commandData.command === 'statistic') {
+          history.push('/statistic');
+        } else if (commandData.command === 'mainPage') {
+          history.push('/');
+        } else if (commandData.command === 'open') {
+          openModalHandler();
+        }
+        // else if (commandData.command === 'setData') {
+        //   dataSetter(commandData.input);
+        // }
+      },
+    });
+  }, []);
 
   return (
     <div className={css.main}>

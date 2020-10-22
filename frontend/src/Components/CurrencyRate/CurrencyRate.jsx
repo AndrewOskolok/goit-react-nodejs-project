@@ -6,17 +6,34 @@ const CurrencyRate = () => {
   const [rateList, setRateList] = useState([]);
 
   useEffect(() => {
+    // const proxyurl = 'https://cors-anywhere.herokuapp.com/';
+    // fetch(proxyurl + url) // https://cors-anywhere.herokuapp.com/https://example.com
+    //   .then(response => response.text())
+    //   .then(contents => console.log(contents))
+    //   .catch(() =>
+    //     console.log('Can’t access ' + url + ' response. Blocked by browser?'),
+    //   );
+
     const fetchData = async () => {
-      const result = await axios(
-        'https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5',
-      );
-      const data = result.data.slice(0, 3).map(item => {
-        if (item.ccy === 'RUR') {
-          item.ccy = 'RUB';
-        }
-        return item;
-      });
-      setRateList(data);
+      const proxyurl = 'https://cors-anywhere.herokuapp.com/';
+      const url =
+        'https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5';
+      try {
+        const result = await axios(proxyurl + url, {
+          headers: {
+            Origin: 'https://api.privatbank.ua/',
+          },
+        });
+        const data = result.data.slice(0, 3).map(item => {
+          if (item.ccy === 'RUR') {
+            item.ccy = 'RUB';
+          }
+          return item;
+        });
+        setRateList(data);
+      } catch {
+        console.log('Can’t access ' + url + ' response. Blocked by browser?');
+      }
     };
     fetchData();
   }, []);
