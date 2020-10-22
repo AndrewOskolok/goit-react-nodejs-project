@@ -49,7 +49,7 @@ const Statistic = () => {
       setYears(years);
       if (months.length === 0 && years.length === 0) {
         setNothingToShow('transactions not found');
-        // goToTransactions();
+        goToTransactions();
       }
     } catch (error) {
     } finally {
