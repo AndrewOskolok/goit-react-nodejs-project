@@ -23,7 +23,7 @@ const StatisticCustomSelectors = ({ months, years }) => {
     }
 
     setValueSelectorMonth(months[months.length - 1]);
-    setValueSelectorYear(years[years.length - 1]);
+    setValueSelectorYear(years[0]);
   }, []);
   useEffect(() => {
     if (valueSelectorMonth && valueSelectorYear) {

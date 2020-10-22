@@ -1,10 +1,13 @@
-/* .statistic {
-  width: 320px;
-  padding: 0 20px;
-  margin: 0 auto;
-  background: #e7eaf2;
-} */
-
+.show__content {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 36px;
+  text-align: center;
+  color: #000000;
+  text-transform: uppercase;
+}
 .statistic__title {
   font-family: Montserrat;
   font-style: normal;
@@ -97,12 +100,6 @@
 }
 
 @media (min-width: 768px) {
-  /* .statistic {
-    width: 768px;
-    margin: 0 auto;
-    background: #e7eaf2;
-    padding: 0 20px 0 40px;
-  } */
   .statistic__wrapper {
     display: flex;
     justify-content: space-between;
@@ -132,12 +129,4 @@
   .statistic__group_result {
     padding: 0 30px 0 20px;
   }
-}
-@media (min-width: 1280px) {
-  /* .statistic {
-    width: 815px;
-    margin: 0 auto;
-    background: #e7eaf2;
-    padding: 0 85px 0 30px;
-  } */
 }

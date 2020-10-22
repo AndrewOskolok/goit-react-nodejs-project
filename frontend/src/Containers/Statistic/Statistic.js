@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import queryString from 'query-string';
 import StatisticCustomSelectors from '../../Components/StatisticCustomSelectors/StatisticCustomSelectors';
@@ -9,20 +9,29 @@ import StatisticChart from '../../Components/StatisticChart/StatisticChart';
 import getFilteredStatistic from '../../redux/opertions/statisticOperation';
 import Spinner from '../../Components/Spinner/Spinner';
 import { loaderToggle } from '../../redux/actions/loaderAction';
+import notFound from '../../images/icons/notFound.svg';
 import css from './Statistic.module.css';
 
 const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZjhmMmEwNjZjYmU4NDAwMTcwYzc3M2MiLCJzaWQiOiI1ZjkxNGZmZmExMzNkZTAwMTc2MWE1NjEiLCJpYXQiOjE2MDMzNTg3MTksImV4cCI6MTYwMzM2MDUxOX0.mMY1Z_qlv9RcVazcyzHbXV4YXtPCg-2ICeIfHymnumU";
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZjhmMWQ4NjZjYmU4NDAwMTcwYzc3MzgiLCJzaWQiOiI1ZjkxOTcwYmExMzNkZTAwMTc2MWE1NzgiLCJpYXQiOjE2MDMzNzY5MDcsImV4cCI6MTYwMzM3ODcwN30.rGUgmjbNN76V7A77xfxbiYUI-K-T4suTRfNCWrpcQ8U';
 
 const Statistic = () => {
   const dispatch = useDispatch();
   const location = useLocation();
+  const history = useHistory();
   const arrayOfStat = useSelector(state => state.statistics.items);
   const { typeOfAmount } = useSelector(state => state.statistics);
   const { balance } = useSelector(state => state.statistics);
   const { loader } = useSelector(state => state);
   const [months, setMonths] = useState([]);
   const [years, setYears] = useState([]);
+  const [nothingToShow, setNothingToShow] = useState(null);
+
+  const goToTransactions = () => {
+    setTimeout(() => {
+      history.push('/');
+    }, 3000);
+  };
 
   const requestForTimes = async () => {
     axios.defaults.baseURL = 'https://goit-react-nodejs-project.herokuapp.com';
@@ -38,6 +47,10 @@ const Statistic = () => {
 
       setMonths(months);
       setYears(years);
+      if (months.length === 0 && years.length === 0) {
+        setNothingToShow('transactions not found');
+        // goToTransactions();
+      }
     } catch (error) {
     } finally {
       dispatch(loaderToggle());
@@ -64,52 +77,64 @@ const Statistic = () => {
   return (
     <section className={css.statistic}>
       {!loader && <Spinner />}
-      {loader && years.length > 0 && months.length > 0 && (
+      {loader && (
         <>
-          <h2 className={css.statistic__title}>Статистика</h2>
-          <div className={css.statistic__wrapper}>
-            <div className={css.statistic__chart_wrapper}>
-              {arrayOfStat.length > 0 && (
-                <>
-                  <StatisticChart />
-                  <p className={css.statistic__chart_balance}>$ {balance}</p>
-                </>
-              )}
+          {years.length === 0 && months.length === 0 ? (
+            <div className={css.show__content}>
+              {nothingToShow && <img src={notFound} alt="content not found" />}
+
+              <p>{nothingToShow}</p>
             </div>
-
-            <div className={css.statistic__info_wrapper}>
-              <div className={css.statistic__info_select}>
-                <StatisticCustomSelectors months={months} years={years} />
-              </div>
-
-              <div className={css.statistic__group}>
-                <div className={css.statistic__group_header}>
-                  <p className={css.statistic__group_title}>Категория</p>
-                  <p className={css.statistic__group_title}>Сумма</p>
+          ) : (
+            <>
+              <h2 className={css.statistic__title}>Статистика</h2>
+              <div className={css.statistic__wrapper}>
+                <div className={css.statistic__chart_wrapper}>
+                  {arrayOfStat.length > 0 && (
+                    <>
+                      <StatisticChart />
+                      <p className={css.statistic__chart_balance}>
+                        $ {balance}
+                      </p>
+                    </>
+                  )}
                 </div>
-                <StatisticList />
 
-                <div className={css.statistic__group_result}>
-                  <div className={css.statistic__group_result_expense}>
-                    <p className={css.statistic__group_result_expense_info}>
-                      Расходы:
-                    </p>
-                    <p className={css.statistic__group_result_expense_info}>
-                      {typeOfAmount.expense}
-                    </p>
+                <div className={css.statistic__info_wrapper}>
+                  <div className={css.statistic__info_select}>
+                    <StatisticCustomSelectors months={months} years={years} />
                   </div>
-                  <div className={css.statistic__group_result_income}>
-                    <p className={css.statistic__group_result_income_info}>
-                      Доходы:
-                    </p>
-                    <p className={css.statistic__group_result_income_info}>
-                      {typeOfAmount.income}
-                    </p>
+
+                  <div className={css.statistic__group}>
+                    <div className={css.statistic__group_header}>
+                      <p className={css.statistic__group_title}>Категория</p>
+                      <p className={css.statistic__group_title}>Сумма</p>
+                    </div>
+                    <StatisticList />
+
+                    <div className={css.statistic__group_result}>
+                      <div className={css.statistic__group_result_expense}>
+                        <p className={css.statistic__group_result_expense_info}>
+                          Расходы:
+                        </p>
+                        <p className={css.statistic__group_result_expense_info}>
+                          {typeOfAmount.expense}
+                        </p>
+                      </div>
+                      <div className={css.statistic__group_result_income}>
+                        <p className={css.statistic__group_result_income_info}>
+                          Доходы:
+                        </p>
+                        <p className={css.statistic__group_result_income_info}>
+                          {typeOfAmount.income}
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
+            </>
+          )}
         </>
       )}
     </section>

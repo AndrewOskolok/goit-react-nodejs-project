@@ -3,7 +3,7 @@ import { loaderToggle } from '../actions/loaderAction';
 import axios from 'axios';
 axios.defaults.baseURL = 'https://goit-react-nodejs-project.herokuapp.com';
 const token =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZjhiNmEwMmNhZTMyNTE0N2ZmODhmODUiLCJzaWQiOiI1ZjkxMzQ3NGExMzNkZTAwMTc2MWE1NWMiLCJpYXQiOjE2MDMzNTE2NjgsImV4cCI6MTYwMzM1MzQ2OH0.yIvkiydqgqY0dszqO9F_s-JWnkcMaWgbJ7pWi1HtPgE';
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZjhmMWQ4NjZjYmU4NDAwMTcwYzc3MzgiLCJzaWQiOiI1ZjkxOTcwYmExMzNkZTAwMTc2MWE1NzgiLCJpYXQiOjE2MDMzNzY5MDcsImV4cCI6MTYwMzM3ODcwN30.rGUgmjbNN76V7A77xfxbiYUI-K-T4suTRfNCWrpcQ8U';
 const getFilteredStatistic = params => async dispatch => {
   try {
     // dispatch(loaderToggle());
