@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Switch, Route, Redirect, useHistory } from "react-router-dom";
+import alanBtn from "@alan-ai/alan-sdk-web";
 import Statistic from "../../Containers/Statistic/Statistic";
 import Header from "../../Components/Header/Header";
 import Balance from "../../Components/Balance/Balance";
