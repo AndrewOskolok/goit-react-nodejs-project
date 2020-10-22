@@ -10,21 +10,18 @@ import Transaction from "../../Components/Transaction/Transaction";
 import AddTransaction from "../../Components/addTransaction/AddTransaction";
 import css from "./Main.module.css";
 
-const Main = () => {
+const Main = ({history}) => {
   const [modalWindow, setModalWindow] = useState(false);
   const openModalHandler = () => {
     setModalWindow(state => !state);
   };
 
-  const dataSetter = value => {
-    console.log(value);
-  };
-
-  let history = useHistory();
+  const openModalHandler = () => {
+    setModalWindow((state) => !state);
 
   useEffect(() => {
     alanBtn({
-      key: process.env.REACT_APP_ALAN_KEY,
+      key: 'fae165cb71975b784fc426e228d7d48e2e956eca572e1d8b807a3e2338fdd0dc/stage',
       onCommand: commandData => {
         if (commandData.command === 'statistic') {
           history.push('/statistic');
