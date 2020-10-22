@@ -11,10 +11,33 @@ import css from "./Main.module.css";
 
 const Main = () => {
   const [modalWindow, setModalWindow] = useState(false);
-
   const openModalHandler = () => {
-    setModalWindow((state) => !state);
+    setModalWindow(state => !state);
   };
+
+  const dataSetter = value => {
+    console.log(value);
+  };
+
+  let history = useHistory();
+
+  useEffect(() => {
+    alanBtn({
+      key: process.env.REACT_APP_ALAN_KEY,
+      onCommand: commandData => {
+        if (commandData.command === 'statistic') {
+          history.push('/statistic');
+        } else if (commandData.command === 'mainPage') {
+          history.push('/');
+        } else if (commandData.command === 'open') {
+          openModalHandler();
+        }
+        // else if (commandData.command === 'setData') {
+        //   dataSetter(commandData.input);
+        // }
+      },
+    });
+  }, []);
 
   return (
     <>
