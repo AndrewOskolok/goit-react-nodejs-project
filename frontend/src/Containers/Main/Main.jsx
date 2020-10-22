@@ -14,7 +14,6 @@ import css from "./Main.module.css";
 
 const Main = ({ history }) => {
   const [modalWindow, setModalWindow] = useState(false);
-
   const openModalHandler = () => {
     setModalWindow((state) => !state);
   };
