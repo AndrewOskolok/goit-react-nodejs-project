@@ -12,8 +12,8 @@ import { useEffect } from "react";
 const Main = () => {
   const [modalWindow, setModalWindow] = useState(false);
 
-  const openModalHandler = () => { 
-    setModalWindow((state) => !state);  
+  const openModalHandler = () => {
+    setModalWindow((state) => !state);
   };
 
   return (
