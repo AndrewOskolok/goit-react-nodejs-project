@@ -44,11 +44,11 @@
 .transaction__list {
     background-color: #FFFFFF;
     border-radius: 5px;
-    border-left: 5px solid #FF6596;
+    /* border-left: 5px solid #FF6596; */
     margin-bottom: 10px;
     transition: transform, padding 250ms linear;
     position: relative;
-    overflow: hidden;
+
 }
 
 .transaction__list:not(:last-child) {
@@ -99,7 +99,7 @@
     color: #FF6596;
 }
 
-.transaction__list_item:not(:last-child) {
+.transaction__list_item:not(:last-of-type) {
     border-bottom: 1px solid #DCDCDF;
 }
 
@@ -111,7 +111,7 @@
     line-height: 46px;
     text-align: right;
     color: #000000;
-    margin-left: 15px;
+    margin-left: 20px;
 }
 
 .transaction__list_item_value {
@@ -134,7 +134,31 @@
 
 }
 
+
+
 @media(max-width:767px) {
+
+    .leftBorder_expense {
+        width: 5px;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        background-color: #FF6596;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+    }
+
+    .leftBorder_income {
+        width: 5px;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        background-color: #24CCA7;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+    }
 
     .transaction__filter {
         width: 100%;
@@ -179,6 +203,10 @@
 }
 
 @media(min-width:768px) {
+
+    .leftBorder {
+        display: none;
+    }
 
     .transaction__header {
         display: flex;
@@ -239,6 +267,7 @@
         background-color: transparent;
         height: 58px;
         padding: 0 20px;
+        overflow: hidden;
     }
 
     .transaction__list:not(:last-child) {

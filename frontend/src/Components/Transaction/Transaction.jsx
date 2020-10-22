@@ -11,7 +11,7 @@ const Transaction = () => {
   const dispatch = useDispatch();
   // const userToken = useSelector((state) => state.auth.token);
   const userToken =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZjhmMmEwNjZjYmU4NDAwMTcwYzc3M2MiLCJzaWQiOiI1ZjkxNjZjM2ExMzNkZTAwMTc2MWE1NjQiLCJpYXQiOjE2MDMzNjQ1NDcsImV4cCI6MTYwMzM2NjM0N30.a5hFbpYC7RcldxXSN6xPAfh8Sj8yPbVXONXb17mpIJg";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZjhmMmEwNjZjYmU4NDAwMTcwYzc3M2MiLCJzaWQiOiI1ZjkxNmU4ZWExMzNkZTAwMTc2MWE1NjYiLCJpYXQiOjE2MDMzNjY1NDIsImV4cCI6MTYwMzM2ODM0Mn0.BTLWUobvj12tg_NO-9bLsRw8HjLM9kYKQiGkzIhg-go";
   const transactions = useSelector((state) => state.transactions);
 
   useEffect(() => {
@@ -25,12 +25,6 @@ const Transaction = () => {
   const deleteTransaction = ({ target: { value } }) => {
     dispatch(deteteCurrentTransaction(value, userToken, transactions));
   };
-
-  const changeColor = (e) => {
-    console.log(e);
-  };
-
-  const change = changeColor();
 
   return (
     <>
@@ -116,6 +110,11 @@ const Transaction = () => {
             value={item.id}
             className={styles.transaction__list_delete}
           ></button>
+          {item.type === "-" ? (
+            <span className={styles.leftBorder_expense}></span>
+          ) : (
+            <span className={styles.leftBorder_income}></span>
+          )}
         </div>
       ))}
     </>
