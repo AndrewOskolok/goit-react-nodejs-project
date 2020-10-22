@@ -65,11 +65,7 @@ const Transaction = () => {
         <li className={styles.transaction__header_item}>Баланс</li>
       </ul>
       {transactions.map((item) => (
-        <div
-          onChange={change}
-          className={styles.transaction__list}
-          key={item.id}
-        >
+        <div className={styles.transaction__list} key={item.id}>
           <p className={styles.transaction__list_item}>
             <span className={styles.transaction__list_item_key}>Дата</span>
             <span className={styles.transaction__list_item_value}>
