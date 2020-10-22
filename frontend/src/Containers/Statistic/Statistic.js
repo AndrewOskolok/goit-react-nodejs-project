@@ -7,11 +7,12 @@ import StatisticCustomSelectors from '../../Components/StatisticCustomSelectors/
 import StatisticList from '../../Components/StatisticList/StatisticList';
 import StatisticChart from '../../Components/StatisticChart/StatisticChart';
 import getFilteredStatistic from '../../redux/opertions/statisticOperation';
+import Spinner from '../../Components/Spinner/Spinner';
 import { loaderToggle } from '../../redux/actions/loaderAction';
 import css from './Statistic.module.css';
 
 const token =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZjhiNmEwMmNhZTMyNTE0N2ZmODhmODUiLCJzaWQiOiI1ZjkwNDlhOWQ2NTY4YTAwMTcwMjk2MzEiLCJpYXQiOjE2MDMyOTE1NjEsImV4cCI6MTYwMzI5MzM2MX0.0VrpLw9xumPlOtmJChU8ezWEvDttl1siVDlJejjGsOA';
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZjhmMmEwNjZjYmU4NDAwMTcwYzc3M2MiLCJzaWQiOiI1ZjkxNGZmZmExMzNkZTAwMTc2MWE1NjEiLCJpYXQiOjE2MDMzNTg3MTksImV4cCI6MTYwMzM2MDUxOX0.mMY1Z_qlv9RcVazcyzHbXV4YXtPCg-2ICeIfHymnumU";
 
 const Statistic = () => {
   const dispatch = useDispatch();
@@ -24,20 +25,16 @@ const Statistic = () => {
   const [years, setYears] = useState([]);
 
   const requestForTimes = async () => {
-    // axios.defaults.baseURL =
-    //   'https://goit-react-nodejs-project.herokuapp.com/transactions/';
+    axios.defaults.baseURL = 'https://goit-react-nodejs-project.herokuapp.com';
     dispatch(loaderToggle());
     try {
-      const result = await axios.get(`time`, {
+      const result = await axios.get(`/transactions/time`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       const { years, months } = result.data;
       console.log(result.data);
-
-      // const uniqueYears = [...new Set(years)];
-      // const uniqueMonths = [...new Set(months)];
 
       setMonths(months);
       setYears(years);
@@ -66,7 +63,7 @@ const Statistic = () => {
 
   return (
     <section className={css.statistic}>
-      {!loader && <p>Loading...</p>}
+      {!loader && <Spinner />}
       {loader && years.length > 0 && months.length > 0 && (
         <>
           <h2 className={css.statistic__title}>Статистика</h2>

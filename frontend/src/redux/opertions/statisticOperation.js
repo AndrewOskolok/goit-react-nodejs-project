@@ -1,15 +1,15 @@
 import { getStatistic } from '../actions/statisticAction';
 import { loaderToggle } from '../actions/loaderAction';
 import axios from 'axios';
-// axios.defaults.baseURL =
-//   'https://goit-react-nodejs-project.herokuapp.com/transactions/';
+axios.defaults.baseURL = 'https://goit-react-nodejs-project.herokuapp.com';
 const token =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZjhiNmEwMmNhZTMyNTE0N2ZmODhmODUiLCJzaWQiOiI1ZjkwNDlhOWQ2NTY4YTAwMTcwMjk2MzEiLCJpYXQiOjE2MDMyOTE1NjEsImV4cCI6MTYwMzI5MzM2MX0.0VrpLw9xumPlOtmJChU8ezWEvDttl1siVDlJejjGsOA';
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZjhiNmEwMmNhZTMyNTE0N2ZmODhmODUiLCJzaWQiOiI1ZjkxMzQ3NGExMzNkZTAwMTc2MWE1NWMiLCJpYXQiOjE2MDMzNTE2NjgsImV4cCI6MTYwMzM1MzQ2OH0.yIvkiydqgqY0dszqO9F_s-JWnkcMaWgbJ7pWi1HtPgE';
 const getFilteredStatistic = params => async dispatch => {
   try {
     // dispatch(loaderToggle());
+
     const result = await axios.get(
-      `statistic?year=${params.year}&month=${params.month}`,
+      `/transactions/statistic?year=${params.year}&month=${params.month}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

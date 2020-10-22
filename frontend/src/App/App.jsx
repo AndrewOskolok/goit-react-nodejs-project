@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Login from '../Containers/Login/Login';
 import Registration from '../Containers/Registration/Registration';
 import Main from '../Containers/Main/Main';
-import Statistic from '../Containers/Statistic/Statistic';
 import css from './App.module.css';
 
 function App() {
@@ -19,8 +18,7 @@ function App() {
         {!authorise && <Route path="/registration" component={Registration} />}
         {!authorise && <Redirect to="/login" />}
 
-        {authorise && <Route path="/" exact component={Main} />}
-        {authorise && <Route path="/statistic" component={Statistic} />}
+        {authorise && <Route path="/" component={Main} />}
         {authorise && <Redirect to="/" />}
       </Switch>
     </div>
