@@ -104,7 +104,6 @@ const TransactionForm = ({
   };
 
   // const totalBalance = (amount) => {
-
   // }
 
   const validate = (amount, category, type) => {
