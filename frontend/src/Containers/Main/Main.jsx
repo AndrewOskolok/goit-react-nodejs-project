@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { Switch, Route, Redirect } from "react-router-dom";
 import alanBtn from "@alan-ai/alan-sdk-web";
 import Header from "../../Components/Header/Header";
+import Statistic from "../Statistic/Statistic";
 import Balance from "../../Components/Balance/Balance";
 import Navigation from "../../Components/Navigation/Navigation";
 import CurrencyRate from "../../Components/CurrencyRate/CurrencyRate";
@@ -43,17 +45,24 @@ const Main = ({ history }) => {
           <Navigation />
           <Balance />
           <div className={css.main__currency_wrapper}>
-            <CurrencyRate />
+            <CurrencyRate/>
           </div>
         </aside>
         <div className={css.content__wrapper}>
-          <Transaction />
+      <Switch>
+        <Route exact path="/" component={Transaction} />
+        <Route exact path="/statistic" component={Statistic} />
+        <Route exact path="/currency" component={CurrencyRate} />
+
+        <Redirect to="/"/>
+      </Switch>
         </div>
       </div>
       <AddTransaction modalHandler={openModalHandler} />
       {modalWindow && (
         <TransactionForm modalHandler={openModalHandler} status={modalWindow} />
       )}
+
     </div>
   );
 };
