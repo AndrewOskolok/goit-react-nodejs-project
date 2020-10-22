@@ -6,14 +6,6 @@ const CurrencyRate = () => {
   const [rateList, setRateList] = useState([]);
 
   useEffect(() => {
-    // const proxyurl = 'https://cors-anywhere.herokuapp.com/';
-    // fetch(proxyurl + url) // https://cors-anywhere.herokuapp.com/https://example.com
-    //   .then(response => response.text())
-    //   .then(contents => console.log(contents))
-    //   .catch(() =>
-    //     console.log('Can’t access ' + url + ' response. Blocked by browser?'),
-    //   );
-
     const fetchData = async () => {
       const proxyurl = 'https://cors-anywhere.herokuapp.com/';
       const url =

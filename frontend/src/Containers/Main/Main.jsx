@@ -10,17 +10,12 @@ import AddTransaction from '../../Components/addTransaction/AddTransaction';
 import TransactionForm from '../../Components/TransactionForm/TransactionForm';
 import css from './Main.module.css';
 
-const Main = () => {
+const Main = ({ history }) => {
   const [modalWindow, setModalWindow] = useState(false);
+
   const openModalHandler = () => {
     setModalWindow(state => !state);
   };
-
-  // const dataSetter = value => {
-  //   console.log(value);
-  // };
-
-  let history = useHistory();
 
   useEffect(() => {
     alanBtn({
