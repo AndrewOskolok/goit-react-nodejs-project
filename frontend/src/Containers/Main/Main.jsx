@@ -16,15 +16,16 @@ const Main = () => {
     setModalWindow(state => !state);
   };
 
-  const dataSetter = value => {
-    console.log(value);
-  };
+  // const dataSetter = value => {
+  //   console.log(value);
+  // };
 
   let history = useHistory();
 
   useEffect(() => {
     alanBtn({
-      key: process.env.REACT_APP_ALAN_KEY,
+      key:
+        'fae165cb71975b784fc426e228d7d48e2e956eca572e1d8b807a3e2338fdd0dc/stage',
       onCommand: commandData => {
         if (commandData.command === 'statistic') {
           history.push('/statistic');
