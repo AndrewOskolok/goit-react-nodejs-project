@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import styles from "./Transaction.module.css";
 import {
+  deteteCurrentTransaction,
   getCurrentTransactions,
   getFilteredTransactions,
 } from "../../redux/opertions/transactionsOperation";
@@ -10,7 +11,7 @@ const Transaction = () => {
   const dispatch = useDispatch();
   // const userToken = useSelector((state) => state.auth.token);
   const userToken =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZjhmMmEwNjZjYmU4NDAwMTcwYzc3M2MiLCJzaWQiOiI1ZjkwMGEzMmQ2NTY4YTAwMTcwMjk2MjUiLCJpYXQiOjE2MDMyNzUzMTQsImV4cCI6MTYwMzI3NzExNH0.K-ekWyj42iExnNoint8-ZdGTumtHOxN1cfFqwFAaIPo";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZjhmMmEwNjZjYmU4NDAwMTcwYzc3M2MiLCJzaWQiOiI1ZjkxNmU4ZWExMzNkZTAwMTc2MWE1NjYiLCJpYXQiOjE2MDMzNjY1NDIsImV4cCI6MTYwMzM2ODM0Mn0.BTLWUobvj12tg_NO-9bLsRw8HjLM9kYKQiGkzIhg-go";
   const transactions = useSelector((state) => state.transactions);
 
   useEffect(() => {
@@ -21,6 +22,10 @@ const Transaction = () => {
     dispatch(getFilteredTransactions(value, userToken));
   };
 
+  const deleteTransaction = ({ target: { value } }) => {
+    dispatch(deteteCurrentTransaction(value, userToken, transactions));
+  };
+
   return (
     <>
       <div className={styles.transaction__filter}>
@@ -28,21 +33,21 @@ const Transaction = () => {
           onClick={transactionFilter}
           className={styles.transaction__filter_button}
         >
-          Всі
+          Все
         </button>
         <button
           onClick={transactionFilter}
           className={styles.transaction__filter_button}
           value="income"
         >
-          Доходи
+          Доходы
         </button>
         <button
           onClick={transactionFilter}
           className={styles.transaction__filter_button}
           value="expense"
         >
-          Витрати
+          Расходы
         </button>
       </div>
       <ul className={styles.transaction__header}>
@@ -83,9 +88,15 @@ const Transaction = () => {
           </p>
           <p className={styles.transaction__list_item}>
             <span className={styles.transaction__list_item_key}>Сумма</span>
-            <span className={styles.transaction__list_item_value}>
-              {item.amount}
-            </span>
+            {item.type === "-" ? (
+              <span className={styles.transaction__list_item_value}>
+                {item.amount}
+              </span>
+            ) : (
+              <span className={styles.transaction__list_item_value_income}>
+                {item.amount}
+              </span>
+            )}
           </p>
           <p className={styles.transaction__list_item}>
             <span className={styles.transaction__list_item_key}>Баланс</span>
@@ -94,7 +105,16 @@ const Transaction = () => {
             </span>
           </p>
           <button className={styles.transaction__list_edit}></button>
-          <button className={styles.transaction__list_delete}></button>
+          <button
+            onClick={deleteTransaction}
+            value={item.id}
+            className={styles.transaction__list_delete}
+          ></button>
+          {item.type === "-" ? (
+            <span className={styles.leftBorder_expense}></span>
+          ) : (
+            <span className={styles.leftBorder_income}></span>
+          )}
         </div>
       ))}
     </>

@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import Media from 'react-media';
 import alanBtn from '@alan-ai/alan-sdk-web';
 import Header from '../../Components/Header/Header';
+import Statistic from '../Statistic/Statistic';
 import Balance from '../../Components/Balance/Balance';
 import Navigation from '../../Components/Navigation/Navigation';
 import CurrencyRate from '../../Components/CurrencyRate/CurrencyRate';
 import Transaction from '../../Components/Transaction/Transaction';
-import AddTransaction from '../../Components/addTransaction/AddTransaction';
+import AddTransaction from '../../Components/AddTransaction/AddTransaction.jsx';
 import TransactionForm from '../../Components/TransactionForm/TransactionForm';
-import css from './Main.module.css';
 import './alanBtnStyles.css';
+import css from './Main.module.css';
 
 const Main = ({ history }) => {
   const [modalWindow, setModalWindow] = useState(false);
-
   const openModalHandler = () => {
     setModalWindow(state => !state);
   };
@@ -47,8 +49,21 @@ const Main = ({ history }) => {
             <CurrencyRate />
           </div>
         </aside>
+
         <div className={css.content__wrapper}>
-          <Transaction />
+          <Switch>
+            <Route exact path="/" component={Transaction} />
+            <Route exact path="/statistic" component={Statistic} />
+
+            <Media
+              query="(min-width: 320px) and (max-width: 767px)"
+              render={() => (
+                <Route exact path="/currency" component={CurrencyRate} />
+              )}
+            />
+
+            <Redirect to="/" />
+          </Switch>
         </div>
       </div>
       <AddTransaction modalHandler={openModalHandler} />

@@ -6,6 +6,7 @@
   border-radius: 30px;
   margin: 0 auto 30px;
   padding-top: 8px;
+  /* display: none; */
 }
 
 .balance__name {
