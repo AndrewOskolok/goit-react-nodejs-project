@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
 import alanBtn from "@alan-ai/alan-sdk-web";
 import Header from "../../Components/Header/Header";
 import Balance from "../../Components/Balance/Balance";
