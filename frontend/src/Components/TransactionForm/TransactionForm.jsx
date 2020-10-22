@@ -1,84 +1,82 @@
-import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
-import Select from "react-select";
-import DatePicker from "react-datepicker";
-import moment from "moment";
-import "react-datepicker/dist/react-datepicker.css";
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import Select from 'react-select';
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
+import 'react-datepicker/dist/react-datepicker.css';
 
-import transactionOperations from "../../redux/opertions/formOperations.js";
+import transactionOperations from '../../redux/opertions/formOperations.js';
+import formSelectors from "../../redux/selectors/selectors"
 
-import formStyle from "./TransactionForm.module.css";
-import "./transactionFormSelect.css";
-import "./transactionFormDatepicker.css";
+import formStyle from './TransactionForm.module.css';
+import './transactionFormSelect.css';
+import './transactionFormDatepicker.css';
 
 const initialState = {
-  date: Number(moment(new Date()).format("D")),
-  month: moment(new Date()).format("MMMM"),
-  year: Number(moment(new Date()).format("YYYY")),
-  type: "income",
-  category: "",
-  description: "",
-  amount: "",
+  date: Number(moment(new Date()).format('D')),
+  month: moment(new Date()).format('MMMM'),
+  year: Number(moment(new Date()).format('YYYY')),
+  type: 'income',
+  category: '',
+  description: '',
+  amount: '',
   balanceAfter: 0,
 };
 
-const options = [
-  { value: "chocolate", label: "Chocolate" },
-  { value: "strawberry", label: "Strawberry" },
-  { value: "vasya", label: "Vasya" },
-  { value: "vanilla", label: "Vanilla" },
-  { value: "vanilla", label: "Vanilla" },
-  { value: "vanilla", label: "Vanilla" },
-  { value: "vanilla", label: "Vanilla" },
-  { value: "vanilla", label: "Vanilla" },
-  { value: "vanilla", label: "Vanilla" },
-  { value: "vanilla", label: "Vanilla" },
-  { value: "vanilla", label: "Vanilla" },
-  { value: "vanilla", label: "Vanilla" },
-  { value: "vanilla", label: "Vanilla" },
-  { value: "vanilla", label: "Vanilla" },
-];
-
-const TransactionForm = ({ addTransaction, getCategories, modalHandler, status }) => {
+const TransactionForm = ({
+  addTransaction,
+  getCategories,
+  modalHandler,
+  categoriesList,
+}) => {
   const [transactionItem, setTransactionItem] = useState(initialState);
   const [startDate, setStartDate] = useState(new Date());
-  const [errors, setErrors] = useState({});  
+  const [errors, setErrors] = useState({});
 
-  // console.log("status", status);
+  let options = [
 
-  useEffect(() => {
-    // console.log("WindowStatus");
-    addListener(); 
+  ];
+
+  const getCategoriesNames = (list) => {    
+    list.reduce((acc, item) => {
+      acc.push(...item.name);
+      return acc;
+    }, []);
+  };
+
+  console.log("List", getCategoriesNames(categoriesList));
+
+  console.log("categoriesList", categoriesList);
+
+  useEffect(() => {    
+    addListener();
     getCategories();
   }, []);
 
   const closeForm = () => {
-    // console.log("Hi!");
     removeListener();
-    modalHandler();   
+    modalHandler();
   };
 
-  const handleKeyDown = (event) => {    
-    if (event.code === "Escape") {
+  const handleKeyDown = event => {
+    if (event.code === 'Escape') {
       removeListener();
-      modalHandler();     
-    }   
+      modalHandler();
+    }
   };
 
   const addListener = () => {
-    // console.log("hello add");
     window.addEventListener("keydown", handleKeyDown);
   };
 
   const removeListener = () => {
-    // console.log("hello remove");
     window.removeEventListener("keydown", handleKeyDown);
   };
 
   const handleInputAmount = ({ target }) => {
     const { name, value } = target;
     if (Number(value) || value.length === 0) {
-      setTransactionItem((state) => ({
+      setTransactionItem(state => ({
         ...state,
         [name]: value,
       }));
@@ -87,26 +85,25 @@ const TransactionForm = ({ addTransaction, getCategories, modalHandler, status }
 
   const handleInput = ({ target }) => {
     const { name, value } = target;
-    setTransactionItem((state) => ({
+    setTransactionItem(state => ({
       ...state,
       [name]: value,
     }));
   };
 
-  const handleSelect = (option) => {
-    setTransactionItem((state) => ({
+  const handleSelect = option => {
+    setTransactionItem(state => ({
       ...state,
       category: option,
     }));
   };
 
   const handleCheckboxChange = ({ target }) => {
-    const typeValue = target.checked ? "expense" : "income";
-    setTransactionItem((state) => ({ ...state, type: typeValue }));
+    const typeValue = target.checked ? 'expense' : 'income';
+    setTransactionItem(state => ({ ...state, type: typeValue }));
   };
 
   // const totalBalance = (amount) => {
-
   // }
 
   const validate = (amount, category, type) => {
@@ -114,15 +111,15 @@ const TransactionForm = ({ addTransaction, getCategories, modalHandler, status }
 
     if (amount.length === 0) {
       console.log(amount);
-      console.log("Введите число.");
-      errors.amount = "Введите число!";
+      console.log('Введите число.');
+      errors.amount = 'Введите число!';
     }
 
-    if (type === "expense" && category === "") {
+    if (type === 'expense' && category === '') {
       console.log(type);
       console.log(category);
-      console.log("Выберите категорию!");
-      errors.amount = "Выберите категорию!";
+      console.log('Выберите категорию!');
+      errors.amount = 'Выберите категорию!';
     }
 
     setErrors(errors);
@@ -130,14 +127,14 @@ const TransactionForm = ({ addTransaction, getCategories, modalHandler, status }
     return !!Object.keys(errors).length;
   };
 
-  const handleDate = (date) => {
+  const handleDate = date => {
     setStartDate(date);
-    const formatedDate = moment(date).format("DD/MMMM/yyyy");
+    const formatedDate = moment(date).format('DD/MMMM/yyyy');
     console.log(formatedDate);
     const dateD = moment(formatedDate).date();
-    const month = moment(formatedDate).format("MMMM");
+    const month = moment(formatedDate).format('MMMM');
     const year = moment(formatedDate).year();
-    setTransactionItem((state) => ({
+    setTransactionItem(state => ({
       ...state,
       date: dateD,
       month: month,
@@ -145,7 +142,7 @@ const TransactionForm = ({ addTransaction, getCategories, modalHandler, status }
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = event => {
     event.preventDefault();
 
     const {
@@ -160,11 +157,11 @@ const TransactionForm = ({ addTransaction, getCategories, modalHandler, status }
     if (!validateResult) {
       if (event.target[1].checked) {
         transactionItem.category = transactionItem.category.value;
-      };
+      }
       event.target[1].checked
-      // totalBalance
-        ? (transactionItem.balanceAfter =- amount)  
-        : (transactionItem.balanceAfter =+ amount);
+        ? // totalBalance
+          (transactionItem.balanceAfter = -amount)
+        : (transactionItem.balanceAfter = +amount);
       transactionItem.amount = Number(transactionItem.amount);
       addTransaction(transactionItem);
       setTransactionItem(initialState);
@@ -206,12 +203,12 @@ const TransactionForm = ({ addTransaction, getCategories, modalHandler, status }
             </label>
           </label>
         </div>
-        {transactionItem.type === "income" ? null : (
+        {transactionItem.type === 'income' ? null : (
           <Select
             className="select"
             classNamePrefix="selectprefix"
             options={options}
-            noOptionsMessage={() => "Категория не найдена"}
+            noOptionsMessage={() => 'Категория не найдена'}
             placeholder="Выберите категорию"
             // menuIsOpen={true}
             isSearchable={true}
@@ -257,8 +254,8 @@ const TransactionForm = ({ addTransaction, getCategories, modalHandler, status }
 };
 
 const mapStateToProps = (state) => ({
-  // totalBalance: 
-  // categoriesList:
+  // totalBalance: ,
+  categoriesList: formSelectors.categoriesSelector(state),
 });
 
 const mapDispatchToProps = {
