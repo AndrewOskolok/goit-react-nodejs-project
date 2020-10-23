@@ -19,6 +19,7 @@
       url(../../images/icons/main/BackgroundMain.svg), rgba(238, 238, 238, 0.4);
     background-position: left bottom, right top 80px;
     background-repeat: no-repeat;
+    position: relative;
   }
 
   .main::after {

@@ -193,8 +193,8 @@ async function sendVerificationEmail(email, verificationToken) {
   return transporter.sendMail({
     to: email,
     from: process.env.NODEMAILER_EMAIL,
-    subject: "Please, verify your account",
-    html: `<a href="${verificationLink}" style="display:block;background-color:darkorange;width:220px;height:26px;line-height:26px;text-align:center;color:white;border-radius:14px;box-shadow:3px 3px 5px 0px rgba(0,0,0,0.75);">Click here to verify your email</a>`,
+    subject: "Подтверждение e-mail'a",
+    html: `<a href="${verificationLink}" style="display:block;background-color:darkorange;width:220px;height:26px;line-height:26px;text-align:center;color:white;border-radius:14px;box-shadow:3px 3px 5px 0px rgba(0,0,0,0.75);">Нажмите, чтобы подтвердить Вашу почту</a>`,
   });
 }
 
