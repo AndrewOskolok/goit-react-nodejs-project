@@ -1,11 +1,13 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import css from './StatisticList.module.css';
 
-const StatisticList = ({ arrayOfStat }) => {
+const StatisticList = () => {
+  const { items } = useSelector(state => state.statistics);
   return (
-    arrayOfStat.length > 0 && (
+    items.length > 0 && (
       <ul className={css.statistic_group__list}>
-        {arrayOfStat.map(el => (
+        {items.map(el => (
           <li className={css.statistic_group__list_item} key={el.category}>
             <span
               style={{ backgroundColor: el.color }}
