@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Login from '../Containers/Login/Login';
 import ConfirmedEmail from "../Components/ConfirmedEmail/ConfirmedEmail";
 import Registration from "../Containers/Registration/Registration.jsx";
 import Main from "../Containers/Main/Main";
+import {getUserState} from '../redux/selectors/selectors'
 import css from "./App.module.css";
 
 function App() {
-  // This state for convenient development of your components
-  // Set whether the user is authorized
-  // In the future, the routing system will change
-  const [authorise] = useState(false);
+  const authorise = useSelector(state => getUserState(state))
 
   return (
     <div className={css.app}>
