@@ -49,7 +49,7 @@ const Registration = ({history}) => {
       else if (form.password.length >= 12 && reliability.test(form.password)) {
       setReliability(3)
     }
-  }, [])
+  }, [form])
 
   const validate = async(e) => {
     //=====================================email=================================//
@@ -135,12 +135,12 @@ const Registration = ({history}) => {
           <input
             className={css.registration__email}
             id="email"
-            type="email" 
+            // type="email" 
             placeholder="E-mail"
             name="email"
             value={email}
             onChange={handleFormInput}
-            required
+            // required
             autoFocus
           />
         </label>
@@ -160,7 +160,7 @@ const Registration = ({history}) => {
             onChange={handleFormInput}
             minLength="6"
             maxLength="20"
-            required
+            // required
           />
         </label>
 
@@ -187,7 +187,7 @@ const Registration = ({history}) => {
             onChange={handleFormInput}
             minLength="6"
             maxLength="20"
-            required
+            // required
           />
         </label>
 
@@ -207,7 +207,7 @@ const Registration = ({history}) => {
             onChange={handleFormInput}
             minLength="2"
             maxLength="11"
-            required
+            // required
           />
         </label>
 
@@ -231,4 +231,5 @@ const Registration = ({history}) => {
   </div>
  </div>
 };
+
 export default Registration;
