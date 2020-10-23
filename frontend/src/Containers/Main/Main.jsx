@@ -12,8 +12,8 @@ import Transaction from '../../Components/Transaction/Transaction';
 import AddTransaction from '../../Components/AddTransaction/AddTransaction.jsx';
 import TransactionForm from '../../Components/TransactionForm/TransactionForm';
 import transactionOperations from "../../redux/opertions/formOperations"
-// import { CSSTransition } from "react-transition-group";
-// import formAnimation from "../../Components/TransactionForm/transactionFormAnimation.module.css";
+import { CSSTransition } from "react-transition-group";
+import formAnimation from "../../Components/TransactionForm/transactionFormAnimation.module.css";
 import './alanBtnStyles.css';
 import css from './Main.module.css';
 
@@ -72,11 +72,9 @@ const Main = ({ history, getCategories }) => {
         </div>
       </div>
       <AddTransaction modalHandler={openModalHandler} />
-      {/* <CSSTransition in={modalWindow} timeout={250} onEnter={() => { console.log("GO ANIME!!!") }} classNames={formAnimation} mountOnEnter unmountOnExit> */}
-      {modalWindow && (
+      <CSSTransition in={modalWindow} timeout={250} classNames={formAnimation} mountOnEnter unmountOnExit>
         <TransactionForm modalHandler={openModalHandler} status={modalWindow} />
-      )}
-      {/* </CSSTransition> */}
+      </CSSTransition>
     </div>
   );
 };

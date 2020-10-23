@@ -44,6 +44,7 @@ const TransactionForm = ({
   useEffect(() => {
     addListener();
     setOptionsList(getCategoriesNames(categoriesList));
+    return removeListener;
   }, []);
 
   const closeForm = () => {
@@ -147,7 +148,7 @@ const TransactionForm = ({
         : (transactionItem.balanceAfter = +amount);
       transactionItem.amount = Number(transactionItem.amount);
       addTransaction(transactionItem);
-      console.log(transactionItem);
+      // console.log(transactionItem);
       setTransactionItem(initialState);
       closeForm();
     }
@@ -239,8 +240,6 @@ const TransactionForm = ({
         </button>
       </form>
       <div className={formStyle.overlay} onClick={closeForm}></div>
-
-      {/* </CSSTransition> */}
     </>
   );
 };

@@ -3,12 +3,12 @@
   }
   .enterActive {
     opacity: 1;
-    transition: opacity 2000ms;
+    transition: opacity 250ms;
   }
   .exit {
     opacity: 1;
   }
   .exitActive {
     opacity: 0;
-    transition: opacity 2000ms;
+    transition: opacity 250ms;
   }
