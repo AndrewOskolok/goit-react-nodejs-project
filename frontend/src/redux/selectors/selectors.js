@@ -1,4 +1,5 @@
-const categoriesSelector = (state) => state.categories;
-const getUserState = (state) => state.user;
+export const getUserState = (state) => state.user;
 
-export default {categoriesSelector, getUserState};
+const categoriesSelector = (state) => state.categories;
+
+export default {categoriesSelector};

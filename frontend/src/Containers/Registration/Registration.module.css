@@ -49,12 +49,23 @@
 }
 
 .registration__errorEmailLength_p{
+    position: absolute;
+    display: block;
+    transform: translate(0, -20px);
+    font-family: "Montserrat";
+    font-weight: 700;
+    font-size: 8px;
     color: red;
-    /* display: none; */
 }
 
 .registration__errorEmailValidate_p{
-   color: red; 
+    position: absolute;
+    display: block;
+    transform: translate(0, -20px);
+    font-family: "Montserrat";
+    font-weight: 700;
+    font-size: 8px;
+    color: red; 
 }
 
 .registration__email_icon::before {
@@ -81,10 +92,22 @@
 }
 
 .registration__errorPasswordLength_p{
+    position: absolute;
+    display: block;
+    transform: translate(0, -10px);
+    font-family: "Montserrat";
+    font-weight: 700;
+    font-size: 8px;
     color: red;
 }
 
 .registration__errorPasswordValidate_p{
+    position: absolute;
+    display: block;
+    transform: translate(0, -10px);
+    font-family: "Montserrat";
+    font-weight: 700;
+    font-size: 8px;
     color: red;
 }
 
@@ -163,11 +186,13 @@
 }
 
 .registration__password_reliability_text{
-    font-family: "Montserrat";
-    color: red;
     position: absolute;
     display: block;
-    transform: translate(45px, -25px);
+    transform: translate(0, -20px);
+    font-family: "Montserrat";
+    font-weight: 700;
+    font-size: 8px;
+    color: red;
 }
 
 
@@ -184,9 +209,6 @@
     padding-left: 55px;
 }
 
-.registration__errorFirstNameLength_p{
-    color: red;
-}
 
 .registration__avatar_icon::before {
     position: absolute;
@@ -196,6 +218,16 @@
     background-image: url(../../images/icons/authForm/icon/avatar.svg);
     width: 24px;
     height: 24px;
+}
+
+.registration__errorFirstNameLength_p{
+    position: absolute;
+    display: block;
+    transform: translate(0, -30px);
+    font-family: "Montserrat";
+    font-weight: 700;
+    font-size: 8px;
+    color: red;
 }
 
 .registration__submit_btn {
@@ -273,7 +305,8 @@
     .registration__form_wrapper {
         transform: translateY(-20px);
         width: 540px;
-        height: 670px;
+        /* height: 670px; */
+        height: 620px;
         background-color: #fff;
         border-radius: 20px;
         display: flex;
@@ -283,7 +316,7 @@
     
     .registration__logo {
         font-size: 30px;
-        margin-bottom: 65px;
+        margin-bottom: 40px;
     }
 
     .registration__logo::before {
@@ -304,9 +337,29 @@
         margin-bottom: 40px;
     }
 
+    .registration__errorEmailLength_p{
+        font-size: 11px;
+        transform: translate(-145px, 50px);
+    }
+    
+    .registration__errorEmailValidate_p{
+        font-size: 11px;
+        transform: translate(-140px, 50px);
+    }
+
     .registration__password {
         width: 410px;
         margin-bottom: 40px;
+    }
+
+    .registration__errorPasswordLength_p{
+        font-size: 11px;
+        transform: translate(-140px, 155px);
+    }
+    
+    .registration__errorPasswordValidate_p{
+        font-size: 11px;
+        transform: translate(-47px, 155px);
     }
 
     .registration__password_reliability_1 {
@@ -330,13 +383,19 @@
     }
 
     .registration__password_reliability_text{
-        transform: translate(-65px, 220px);
+        font-size: 11px;
+        transform: translate(-140px, 215px);
     }
 
     .registration__name_input {
         width: 410px;
         padding-left: 55px;
         margin-bottom: 50px;
+    }
+
+    .registration__errorFirstNameLength_p{
+        font-size: 11px;
+        transform: translate(-165px, 300px);
     }
 
     .registration__button{

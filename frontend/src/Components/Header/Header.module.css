@@ -20,6 +20,7 @@
   font-weight: bold;
   position: relative;
   padding-left: 42px;
+  transition: all 0.4s linear;
 }
 
 .header__title:hover,
@@ -87,20 +88,28 @@
     height: 40px;
   }
 
+  .header__login_wrapper {
+    position: relative;
+    right: -6px;
+  }
+
   .header__login_name {
     font-size: 20px;
-    margin-right: 30px;
-    position: relative;
+    position: absolute;
+    right: 140px;
+    bottom: -12px;
   }
 
-  .header__login_wrapper {
-    padding-right: 84px;
+  .header__logout_button {
+    position: absolute;
+    bottom: -10px;
+    right: 104px;
   }
 
-  .header__login_name::after {
+  .header__login_name::before {
     position: absolute;
     bottom: -4px;
-    left: 58px;
+    right: -16px;
     display: block;
     content: "";
     height: 30px;
@@ -108,15 +117,10 @@
     background-color: #bdbdbd;
   }
 
-  .header__logout_button {
-    position: relative;
-    top: 2px;
-  }
-
   .header__logout_button::after {
     position: absolute;
-    bottom: -20px;
-    left: 32px;
+    bottom: -19px;
+    right: -78px;
     display: block;
     content: "Выйти";
     color: #bdbdbd;
@@ -131,7 +135,7 @@
     width: 1110px;
   }
 
-  .header__title {
-    margin-right: 780px;
+  .header__login_wrapper {
+    right: -19px;
   }
 }

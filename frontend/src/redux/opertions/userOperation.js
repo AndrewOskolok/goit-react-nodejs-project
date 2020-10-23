@@ -6,14 +6,13 @@ axios.defaults.baseURL = "https://goit-react-nodejs-project.herokuapp.com";
 export const registerHandler = (userObject) => async (dispatch) => {
     try {
       // loaderOn
-      const result = await axios.post('/auth/register', userObject);
-      console.log('result :>> ', result);
-      if (result.status === 201) {
+      const result = await axios.post('/auth/register', userObject)
         dispatch(getUser('onVerification'))
-      }
-      // dispatch(example(result));
+
     } catch (error) {
       console.log('error :>> ', error);
+
+
       // errorHandler
     } finally {
       // loaderOff
@@ -28,9 +27,11 @@ export const registerHandler = (userObject) => async (dispatch) => {
         dispatch(getUser(result.data));
       } catch (error) {
         console.log('error :>> ', error);
+        
         // errorHandler
       } finally {
         // loaderOff
       }
     };
+
     
