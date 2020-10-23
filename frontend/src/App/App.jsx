@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Login from '../Containers/Login/Login';
 import ConfirmedEmail from "../Components/ConfirmedEmail/ConfirmedEmail";
-import Registration from '../Containers/Registration/Registration';
-import Main from '../Containers/Main/Main';
-import css from './App.module.css';
+import Registration from "../Containers/Registration/Registration.jsx";
+import Main from "../Containers/Main/Main";
+import css from "./App.module.css";
 
 function App() {
   // This state for convenient development of your components
@@ -17,8 +17,16 @@ function App() {
       <Switch>
         {!authorise && <Route path="/login" component={Login} />}
         {!authorise && <Route path="/registration" component={Registration} />}
-        {!authorise && <Route exact path="/verification" component={ConfirmedEmail} />}
-        {!authorise && <Route exact path="/verification/:verificationToken" component={ConfirmedEmail} />}
+        {!authorise && (
+          <Route exact path="/verification" component={ConfirmedEmail} />
+        )}
+        {!authorise && (
+          <Route
+            exact
+            path="/verification/:verificationToken"
+            component={ConfirmedEmail}
+          />
+        )}
         {!authorise && <Redirect to="/login" />}
 
         {authorise && <Route path="/" component={Main} />}
