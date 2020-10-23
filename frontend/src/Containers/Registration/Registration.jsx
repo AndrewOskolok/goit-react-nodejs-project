@@ -13,9 +13,10 @@ const initialState = {
   firstName: ''
 }
 
-const Registration = ({location}) => {
+const Registration = ({history }) => {
   const [form, setForm] = useState(initialState);
   const [reliability, setReliability] = useState(null)
+  const [onVerification, setOnVerification]= useState(false)
   const [errorEmailLength, setErrorEmailLength] = useState(false)
   const [errorEmailValidate, setErrorEmailValidate] = useState(false)
   const [errorPasswordLength, setErrorPasswordLength] = useState(false)
@@ -30,15 +31,20 @@ const Registration = ({location}) => {
   }
 
   const userStatus = useSelector((state) => getUserState(state));
-  console.log('userStatus :>> ', userStatus);
+
+  if (userStatus === "onVerification" && onVerification) {
+    history.push('/verification')
+  }
 
   useEffect(() => {
     if (form.password.length === 0) {
       setReliability(null)
-    } else if (form.password.length > 0 && form.password.length < 8) {
+    } else if (form.password.length > 0 && form.password.length < 6) {
       setReliability(1)
-    } else if (form.password.length >= 8) {
+    } else if (form.password.length >= 6 && form.password.length <= 12) {
       setReliability(2)
+    } else if (form.password.length >= 12) {
+      setReliability(3)
     }
     // } else if (form.password.length === 8) {
     //     for (let i = 0; i < form.password.length; i++) {
@@ -73,46 +79,58 @@ const Registration = ({location}) => {
     const passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
     const errors = {}
     if (form.email.length === 0) {
-      setErrorEmailLength(true)
+      setErrorEmailLength(true);
       errors.emailLength = true;
+      setErrorEmailValidate(false);
+      errors.emailValidateLength = false;
     }
 
       else {
       setErrorEmailLength(false);
       errors.emailLength = false;
-     }
+          if (!re.test(form.email)) {
+          setErrorEmailValidate(true);
+          errors.emailValidateLength = true;
+          }
+      }
 
-    if (!re.test(form.email)) {
-      setErrorEmailValidate(true)
-      errors.emailValidateLength = true;
-    }
+    // if (!re.test(form.email)) {
+    //   setErrorEmailValidate(true)
+    //   errors.emailValidateLength = true;
+    // }
 
-      else {
-      setErrorEmailValidate(false);
-      errors.emailValidateLength = false;
-     }
+    //   else {
+    //   setErrorEmailValidate(false);
+    //   errors.emailValidateLength = false;
+    //  }
 
     //=====================================password===============================//
 
     if (form.password.length < 6) {
       setErrorPasswordLength(true)
       errors.passwordLength = true;
+      setErrorPasswordValidate(false)
+      errors.passwordValidate = false;
     }
 
       else {
       setErrorPasswordLength(false);
       errors.passwordLength = false;
+      if (!passw.test(form.password)) {
+        setErrorPasswordValidate(true)
+        errors.passwordValidate = true;
+        }
       }
 
-    if (!passw.test(form.password)) {
-      setErrorPasswordValidate(true)
-      errors.passwordValidate = true;
-    }
+    // if (!passw.test(form.password)) {
+    //   setErrorPasswordValidate(true)
+    //   errors.passwordValidate = true;
+    // }
 
-      else{
-      setErrorPasswordValidate(false)
-      errors.passwordValidate = false;
-      }
+      // else{
+      // setErrorPasswordValidate(false)
+      // errors.passwordValidate = false;
+      // }
   
     //=====================================name======================================//
 
@@ -127,9 +145,12 @@ const Registration = ({location}) => {
       }
 
     const arr = Object.values(errors)
+
     if (!arr.find(error => error === true)) {
       dispatch(registerHandler({email, password,username: firstName}))
+      setOnVerification(true)
     }
+
   }
 
 
@@ -194,8 +215,8 @@ const Registration = ({location}) => {
           />
         </label>
 
-        {errorEmailLength &&<p className={css.registration__errorEmailLength_p}>email</p>}
-        {errorEmailValidate &&<p className={css.registration__errorEmailValidate_p}>email111</p>}
+        {errorEmailLength &&<p className={css.registration__errorEmailLength_p}>Введите ваш Email</p>}
+        {errorEmailValidate &&<p className={css.registration__errorEmailValidate_p}>Некорректный Email</p>}
 
 {/* ------------------------ password input ------------------------*/}
 
@@ -213,8 +234,8 @@ const Registration = ({location}) => {
           />
         </label>
 
-        {errorPasswordLength &&<p className={css.registration__errorPasswordLength_p}>password</p>}
-        {errorPasswordValidate &&<p className={css.registration__errorPasswordValidate_p}>password111</p>}
+        {errorPasswordLength &&<p className={css.registration__errorPasswordLength_p}>Введите ваш пароль</p>}
+        {errorPasswordValidate &&<p className={css.registration__errorPasswordValidate_p}>Пароль должен содержать цифру и большую букву</p>}
       
 {/* ------------------------ password confirm status------------------------*/}
 
@@ -260,7 +281,7 @@ const Registration = ({location}) => {
           />
         </label>
 
-        {errorFirstNameLength &&<p className={css.registration__errorFirstNameLength_p}>name</p>}
+        {errorFirstNameLength &&<p className={css.registration__errorFirstNameLength_p}>Введите имя</p>}
 
       </div>
 

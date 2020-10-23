@@ -7,7 +7,7 @@ export const registerHandler = (userObject) => async (dispatch) => {
     try {
       // loaderOn
       const result = await axios.post('/auth/register', userObject);
-      console.log('result :>> ', result);
+
       if (result.status === 201) {
         dispatch(getUser('onVerification'))
       }
