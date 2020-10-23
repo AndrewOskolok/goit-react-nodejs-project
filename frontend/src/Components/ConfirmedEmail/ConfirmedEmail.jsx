@@ -1,12 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import css from "./ConfirmedEmail.module.css";
 
-const ConfirmedEmail = () => {
+const ConfirmedEmail = ({location}) => {
+  const [isVerified, setIsVerified] = useState(null)
+
+  useEffect(() => {
+    const path = location.pathname
+
+    setIsVerified(path.length > 14)
+  }, [location.pathname])
+
   return (
     <div className={css.confirmed}>
       <div className={css.confirmed__wrapper}>
-        <div onSubmit className={css.confirmed__email_wrapper}>
-          <p className={css.confirmed__text}>E-mail подтверждён!</p>
+        <div className={css.confirmed__email_wrapper}>
+          {!isVerified && <p className={css.confirmed__text}>Необходимо подтвердить ваш E-mail</p>}
+          {isVerified && <p className={css.confirmed__text}>Ваш E-mail успешно подтверждён!</p>}
         </div>
       </div>
     </div>

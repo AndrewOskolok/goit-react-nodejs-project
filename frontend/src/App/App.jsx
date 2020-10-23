@@ -15,9 +15,10 @@ function App() {
   return (
     <div className={css.app}>
       <Switch>
-        {/* {!authorise && <Route path="/login" component={Login} />} */}
-        <ConfirmedEmail/>
+        {!authorise && <Route path="/login" component={Login} />}
         {!authorise && <Route path="/registration" component={Registration} />}
+        {!authorise && <Route exact path="/verification" component={ConfirmedEmail} />}
+        {!authorise && <Route exact path="/verification/:verificationToken" component={ConfirmedEmail} />}
         {!authorise && <Redirect to="/login" />}
 
         {authorise && <Route path="/" component={Main} />}
