@@ -10,8 +10,6 @@ const initialState = {
   password: ''
 }
 
-// console.log('object :>> ', initialState);
-
 const Login = ({location}) => {
   const [form, setForm] = useState(initialState);
   const [errorEmailLength, setErrorEmailLength] = useState(false)
