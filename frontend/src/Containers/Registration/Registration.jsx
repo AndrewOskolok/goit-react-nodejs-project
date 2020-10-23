@@ -136,7 +136,7 @@ const Registration = ({history}) => {
           <input
             className={css.registration__email}
             id="email"
-            type="email"
+            type="email" 
             placeholder="E-mail"
             name="email"
             value={email}
