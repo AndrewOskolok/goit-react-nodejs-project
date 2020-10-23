@@ -34,8 +34,6 @@ const TransactionForm = ({
   const [optionsList, setOptionsList] = useState([]);
   const [errors, setErrors] = useState({});
 
-  console.log("currentTransaction", currentTransaction);
-
   const getCategoriesNames = (list) => {
     const namesList = list.map((item) =>
       ({ "value": item.name, "label": item.name.charAt(0).toUpperCase() + item.name.slice(1) })
@@ -44,19 +42,24 @@ const TransactionForm = ({
   };
 
   useEffect(() => {
+    if (currentTransaction) {
+      setTransactionItem((state) => ({
+        ...state,
+        ...currentTransaction
+      }))
+    }
     addListener();
     setOptionsList(getCategoriesNames(categoriesList));
-    // renderTransactionOnEdit(currentTransaction);
+
     return removeListener;
   }, []);
 
-  const renderTransactionOnEdit = ({transaction}) => {
-    const {name, value} = transaction
-    setTransactionItem((state) => ({ 
-      ...state,
-      [name]: value
-    }))
-  }
+  // const changeType = ({ type }) => {
+  //   setTransactionItem((state) => ({
+  //     ...state,
+  //     type: type
+  //   }))
+  // };
 
   const closeForm = () => {
     removeListener();
@@ -197,9 +200,14 @@ const TransactionForm = ({
             </label>
           </label>
         </div>
-        {transactionItem.type === 'income' || currentTransaction.type === "+" ? null : (
+        {transactionItem.type === 'income' ? null : (
           <div className={formStyle.form__errorsWrapper}>
             <Select
+              // { "value": item.name, "label": item.name.charAt(0).toUpperCase() + item.name.slice(1) }
+
+              defaultValue={{ label: 555, value: 555 }}
+              inputValue={currentTransaction && transactionItem.category}
+              // {currentTransaction && ({"label": editedTransaction.category, "value": editedTransaction.category})}
               className="select"
               classNamePrefix="selectprefix"
               options={optionsList}
@@ -207,7 +215,7 @@ const TransactionForm = ({
               placeholder="Выберите категорию"
               isSearchable={true}
               name="category"
-              value={currentTransaction ? currentTransaction.category : transactionItem.category}
+              value={transactionItem.category}
               onChange={handleSelect}
             />
             {errors.category && <span className={formStyle.form__categoryError}>{errors.category}</span>}
@@ -220,7 +228,7 @@ const TransactionForm = ({
               className={formStyle.form__amount}
               placeholder="0.00"
               name="amount"
-              value={currentTransaction ? currentTransaction.amount : transactionItem.amount}
+              value={transactionItem.amount}
               onChange={handleInputAmount}
             />
             {errors.amount && <span className={formStyle.form__amountError}>{errors.amount}</span>}
@@ -239,7 +247,7 @@ const TransactionForm = ({
             className={formStyle.form__description}
             placeholder="Комментарий"
             name="description"
-            value={currentTransaction ? currentTransaction.description : transactionItem.description}
+            value={transactionItem.description}
             onChange={handleInput}
             maxLength="24"
           />

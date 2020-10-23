@@ -20,8 +20,7 @@ export const getCurrentTransactions = (token) => async (dispatch) => {
       },
     });
 
-    const newData = editedData(data);
-    dispatch(currentMonth(newData));
+    dispatch(currentMonth(data));
   } catch (error) {
     console.log(error);
   } finally {
@@ -53,8 +52,7 @@ export const getFilteredTransactions = (filter, token) => async (dispatch) => {
       });
     }
 
-    const newData = editedData(transactions.data);
-    dispatch(filteredTransaction(newData));
+    dispatch(filteredTransaction(transactions.data));
   } catch (error) {
     console.log(error);
   } finally {

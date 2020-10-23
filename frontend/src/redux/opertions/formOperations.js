@@ -8,7 +8,7 @@ axios.defaults.baseURL = "https://goit-react-nodejs-project.herokuapp.com";
 // axios.defaults.headers.common["Authorization"] = localStorage.getItem("token");
 
 const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZjhmMmEwNjZjYmU4NDAwMTcwYzc3M2MiLCJzaWQiOiI1ZjkyZDRiMDk3OTQyNTAwMTdkNGZiNjgiLCJpYXQiOjE2MDM0NTgyMjQsImV4cCI6MTYwMzQ2MDAyNH0.FMCSqI5HaQX26CEsrLKeguSb6amqHuepyUJiVKHEwr0";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZjhmMmEwNjZjYmU4NDAwMTcwYzc3M2MiLCJzaWQiOiI1ZjkyZTkxZDk3OTQyNTAwMTdkNGZiNmIiLCJpYXQiOjE2MDM0NjM0NTMsImV4cCI6MTYwMzQ2NTI1M30.2RbhwMxaC2xKm4Uf7eCm27IS63LZOAhTvmEZ0KoIb7Y";
 
 const addTransactionOperation = (transaction) => async (dispatch) => {
   try {
