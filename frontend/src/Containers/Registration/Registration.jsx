@@ -46,7 +46,6 @@ const Registration = ({history}) => {
     } else if (form.password.length >= 6 && form.password.length <= 12 && reliability.test(form.password)) {
       setReliability(2)
     }
-
       else if (form.password.length >= 12 && reliability.test(form.password)) {
       setReliability(3)
     }
