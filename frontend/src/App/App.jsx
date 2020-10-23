@@ -9,7 +9,7 @@ function App() {
   // This state for convenient development of your components
   // Set whether the user is authorized
   // In the future, the routing system will change
-  const [authorise] = useState(true);
+  const [authorise] = useState(false);
 
   return (
     <div className={css.app}>

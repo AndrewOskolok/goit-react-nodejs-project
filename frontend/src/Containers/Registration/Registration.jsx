@@ -4,7 +4,7 @@ import css from "./Registration.module.css";
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { registerHandler } from '../../redux/opertions/userOperation'
-import  getUserState  from '../../redux/selectors/selectors'
+import  {getUserState}  from '../../redux/selectors/selectors'
 
 const initialState = {
   email: '',
@@ -40,6 +40,18 @@ const Registration = ({location}) => {
     } else if (form.password.length >= 8) {
       setReliability(2)
     }
+    // } else if (form.password.length === 8) {
+    //     for (let i = 0; i < form.password.length; i++) {
+    //       if (form.password.length === !Number) {
+    //         console.log('111 :>> ', form.password.length);
+    //     }
+    //   }
+    // }
+    //       console.log('111 :>> ', i);
+    //     }
+
+    //   setReliability(3)
+    // }
       // else if (form.password.length >= 8) {
       //   for (let i = 0; i < form.password.length; i++) {
       //     if (form.password.length === !Number) {
