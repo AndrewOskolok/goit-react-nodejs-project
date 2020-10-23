@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { registerHandler } from '../../redux/opertions/userOperation'
 import  {getUserState}  from '../../redux/selectors/selectors'
+import { getUser } from "../../redux/actions/userAction";
 
 const initialState = {
   email: '',
@@ -13,7 +14,7 @@ const initialState = {
   firstName: ''
 }
 
-const Registration = ({history }) => {
+const Registration = ({history}) => {
   const [form, setForm] = useState(initialState);
   const [reliability, setReliability] = useState(null)
   const [onVerification, setOnVerification]= useState(false)
@@ -32,52 +33,24 @@ const Registration = ({history }) => {
 
   const userStatus = useSelector((state) => getUserState(state));
 
-  if (userStatus === "onVerification" && onVerification) {
-    history.push('/verification')
-  }
+  useEffect(()=> {
+    dispatch(getUser(null))
+  }, [])
 
   useEffect(() => {
-    const reliability = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    const reliability = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
     if (form.password.length === 0) {
       setReliability(null)
-    } else if (form.password.length > 0 && form.password.length < 6) {
+    } else if ((form.password.length > 0 && form.password.length < 6) || !reliability.test(form.password)) {
       setReliability(1)
-    } else if (form.password.length >= 6 && form.password.length <= 12) {
+    } else if (form.password.length >= 6 && form.password.length <= 12 && reliability.test(form.password)) {
       setReliability(2)
     }
-          //  if (reliability.test(form.password)){
-          //  console.log('Ура :>> ');
-          //  setReliability(2)
-          //  }
-      // setReliability(2)
-      else if (form.password.length >= 12) {
+
+      else if (form.password.length >= 12 && reliability.test(form.password)) {
       setReliability(3)
     }
-    // } else if (form.password.length === 8) {
-    //     for (let i = 0; i < form.password.length; i++) {
-    //       if (form.password.length === !Number) {
-    //         console.log('111 :>> ', form.password.length);
-    //     }
-    //   }
-    // }
-    //       console.log('111 :>> ', i);
-    //     }
-
-    //   setReliability(3)
-    // }
-      // else if (form.password.length >= 8) {
-      //   for (let i = 0; i < form.password.length; i++) {
-      //     if (form.password.length === !Number) {
-      //       console.log('111 :>> ');
-      //     }
-      //   }
-      
-      // setReliability(3)
-    // }
-    // else if (form.password.length >= 8 &) {
-    //   setForm(2)
-    // }
-  }, [form])
+  }, [])
 
   const validate = async(e) => {
     //=====================================email=================================//
@@ -101,16 +74,6 @@ const Registration = ({history }) => {
           }
       }
 
-    // if (!re.test(form.email)) {
-    //   setErrorEmailValidate(true)
-    //   errors.emailValidateLength = true;
-    // }
-
-    //   else {
-    //   setErrorEmailValidate(false);
-    //   errors.emailValidateLength = false;
-    //  }
-
     //=====================================password===============================//
 
     if (form.password.length < 6) {
@@ -128,16 +91,6 @@ const Registration = ({history }) => {
         errors.passwordValidate = true;
         }
       }
-
-    // if (!passw.test(form.password)) {
-    //   setErrorPasswordValidate(true)
-    //   errors.passwordValidate = true;
-    // }
-
-      // else{
-      // setErrorPasswordValidate(false)
-      // errors.passwordValidate = false;
-      // }
   
     //=====================================name======================================//
 
@@ -150,56 +103,27 @@ const Registration = ({history }) => {
       setErrorFirstNameLength(false);
       errors.firstNameLength = false;
       }
-
     const arr = Object.values(errors)
 
     if (!arr.find(error => error === true)) {
       dispatch(registerHandler({email, password,username: firstName}))
       setOnVerification(true)
+
     }
-
   }
-
-
-  const {email, password, passwordConfirm, firstName} = form
   
-  // const [typeRegister, setTypeRegister] = useState(false);
-
-  // const dispatch = useDispatch();
-
-  // const handleTypeRegister = () => {
-  //   setTypeRegister(currentState => {
-  //     if (currentState) {
-  //       return false;
-  //     } else {
-  //       return true;
-  //     }
-  //   });
-  // };
-
-  // const handleSubmit = e => {
-  //   e.preventDefault();
-  //   if (typeRegister) {
-  //     const setRegParams = (email, password, passwordConfirm, firstName) => ({
-  //         email: email,
-  //         password: password,
-  //         passwordConfirm: passwordConfirm,
-  //         firstName: firstName
-  //   });
-  //     dispatch(register(setRegParams(email, password, passwordConfirm, firstName)));
-  //   } else {
-  //     const setLoginParams = (email, password) => ({
-  //       email: email,
-  //       password: password,
-  //     });
-  //     dispatch(login(setLoginParams(email, password)));
-  //   }
-  // };
+  if (onVerification && userStatus === "onVerification") {
+    setTimeout(() => {
+      history.push('/verification')
+    }, 500);
+  }
+  
+  const {email, password, passwordConfirm, firstName} = form
  
   return <div className={css.registration}>   
   <div className={css.registration__wrapper}>
     <form 
-    // onSubmit={handleSubmit}
+    onSubmit={validate}
       className={css.registration__form_wrapper}>
       <p className={css.registration__logo}>
          Wallet
@@ -295,7 +219,7 @@ const Registration = ({history }) => {
 {/* ----------------------- buttons login/register ------------------------ */}
 
       <div className={css.registration__button}>
-        <button onClick={validate}
+        <button
           className={css.registration__submit_btn}>
           Регистрация
         </button>
