@@ -186,7 +186,7 @@ const Registration = ({history}) => {
             name="passwordConfirm"
             value={passwordConfirm}
             onChange={handleFormInput}
-            minLength="4"
+            minLength="6"
             maxLength="20"
             required
           />
@@ -206,8 +206,8 @@ const Registration = ({history}) => {
             name="firstName"
             value={firstName}
             onChange={handleFormInput}
-            // minLength="2"
-            // maxLength="20"
+            minLength="2"
+            maxLength="11"
             required
           />
         </label>
