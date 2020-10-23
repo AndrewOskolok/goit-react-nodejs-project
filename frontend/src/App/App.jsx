@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
-import Login from "../Containers/Login/Login";
+import React, { useState } from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import Login from '../Containers/Login/Login';
 import ConfirmedEmail from "../Components/ConfirmedEmail/ConfirmedEmail";
 import Registration from "../Containers/Registration/Registration.jsx";
 import Main from "../Containers/Main/Main";

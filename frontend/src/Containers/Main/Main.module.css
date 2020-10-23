@@ -50,8 +50,8 @@
   }
 
   .main__currency_wrapper {
-  display: table;
-}
+    display: table;
+  }
 }
 
 @media (min-width: 1280px) {
