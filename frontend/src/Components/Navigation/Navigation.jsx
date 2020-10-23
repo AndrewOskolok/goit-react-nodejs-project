@@ -4,9 +4,10 @@ import classNames from "classnames";
 import css from "./Navigation.module.css";
 
 const Navigation = () => {
-  return (
-    <nav className={css.main__buttons_wrapper}>
-      <NavLink
+
+    return (
+      <nav className={css.main__buttons_wrapper}>
+        <NavLink exact
         to="/"
         className={classNames(css.main__btn, css.main__btn_home)}
         activeClassName={css.main__btn_active}
@@ -21,7 +22,8 @@ const Navigation = () => {
         className={classNames(css.main__btn, css.main__btn_course)}
         activeClassName={css.main__btn_active}
       ></NavLink>
-    </nav>
-  );
-};
+      </nav>
+    );
+  };
+
 export default Navigation;
