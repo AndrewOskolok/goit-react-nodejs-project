@@ -10,7 +10,6 @@ const dispatch = useDispatch()
 const logOut = () => {
   dispatch(getUser(null))
 }
-
   return (
     <header className={css.header}>
       <div className={css.header__wrapper}>
