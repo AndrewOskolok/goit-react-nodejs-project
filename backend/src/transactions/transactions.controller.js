@@ -80,15 +80,14 @@ async function filteredStatisticsByDate(req, res) {
 
 async function getMonthsAndYears(req, res) {
   const loggedUser = req.user;
-  const transactionsMonths = [
-    ...new Set(loggedUser.transactions.map((transaction) => transaction.month)),
-  ];
   const transactionsYears = [
-    ...new Set(loggedUser.transactions.map((transaction) => transaction.year)),
+    ...new Set(loggedUser.transactions.map((transaction) => transaction.year).sort()),
   ];
+  const bigArr = transactionsYears.map(year => loggedUser.transactions.filter(transaction => transaction.year === year));
+  const yearAndItsMonths = bigArr.map(arr => ({[arr[0].year]: arr.map(transaction => transaction.month)}));
   return res
     .status(200)
-    .send({ months: transactionsMonths, years: transactionsYears });
+    .send(yearAndItsMonths);
 }
 
 async function getCurrentMonth(req, res) {
