@@ -1,0 +1,13 @@
+.alanBtn {
+  width: 44px !important;
+  min-width: 44px !important;
+  max-width: 44px !important;
+  min-height: 44px !important;
+  height: 44px !important;
+  max-height: 44px !important;
+}
+
+.alanBtn-root {
+  bottom: 93px !important;
+  right: 85px !important;
+}

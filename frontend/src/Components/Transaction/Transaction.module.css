@@ -1,26 +1,109 @@
+.transaction__filter {
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    background-color: #FFFFFF;
+    border-radius: 30px;
+    margin-bottom: 10px;
+    width: 50%;
+}
+
+.transaction__filter_button {
+    font-family: "Montserrat",
+        sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    color: #FFFFFF;
+    background-color: transparent;
+    width: 100%;
+    height: 20px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    transition: all 250ms linear;
+    background-color: #6e7be1;
+}
+
+.transaction__filter_button:first-of-type {
+    border-right: 1px solid #DCDCDF;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+}
+
+.transaction__filter_button:last-of-type {
+    border-left: 1px solid #DCDCDF;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+
+.transaction__filter_button:hover {
+    background-color: #4a56e2;
+}
+
 .transaction__list {
     background-color: #FFFFFF;
     border-radius: 5px;
-    border-left: 5px solid #FF6596;
+    /* border-left: 5px solid #FF6596; */
+    margin-bottom: 10px;
+    transition: transform, padding 250ms linear;
+    position: relative;
+
+}
+
+.transaction__list:not(:last-child) {
     margin-bottom: 10px;
 }
 
-.tarnsaction__list_item {
+.transaction__list_edit {
+    width: 38px;
+    height: 38px;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    background-image: url('../../images/icons/transaction/edit.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: all 250ms linear;
+}
+
+.transaction__list_delete {
+    width: 38px;
+    height: 38px;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    background-image: url('../../images/icons/transaction/delete.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: all 250ms linear;
+}
+
+.transaction__list_item {
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 46px;
+    transition: all 250ms linear;
 }
 
-.tarnsaction__list_item:nth-of-type(5) .tarnsaction__list_item_value {
+.transaction__list_item:nth-of-type(5) .transaction__list_item_value {
     color: #FF6596;
 }
 
-.tarnsaction__list_item:not(:last-child) {
+.transaction__list_item:not(:last-of-type) {
     border-bottom: 1px solid #DCDCDF;
 }
 
-.tarnsaction__list_item_key {
+.transaction__list_item_key {
     font-family: "Montserrat", sans-serif;
     font-style: normal;
     font-weight: 900;
@@ -28,10 +111,10 @@
     line-height: 46px;
     text-align: right;
     color: #000000;
-     margin-left: 15px;
+    margin-left: 20px;
 }
 
-.tarnsaction__list_item_value {
+.transaction__list_item_value {
     font-family: "Montserrat", sans-serif;
     font-style: normal;
     font-weight: 400;
@@ -41,13 +124,89 @@
     margin-right: 20px;
 }
 
+.transaction__list_item_value_income {
+    font-family: "Montserrat", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    text-align: right;
+    color: #24cca7;
+
+}
+
+
+
 @media(max-width:767px) {
+
+    .leftBorder_expense {
+        width: 5px;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        background-color: #FF6596;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+    }
+
+    .leftBorder_income {
+        width: 5px;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        background-color: #24CCA7;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+    }
+
+    .transaction__filter {
+        width: 100%;
+    }
+
+    .transaction__list:hover .transaction__list_item {
+        opacity: 0;
+    }
+
+    .transaction__list_item_value_income {
+        margin-right: 20px;
+        width: 60px;
+    }
+
+    .transaction__list_edit {
+        top: 50%;
+        left: 100px;
+        z-index: -1;
+        opacity: 0;
+    }
+
+    .transaction__list_delete {
+        top: 50%;
+        right: 60px;
+        z-index: -1;
+        opacity: 0;
+    }
+
+    .transaction__list:hover .transaction__list_edit {
+        z-index: 1;
+        opacity: 1;
+    }
+
+    .transaction__list:hover .transaction__list_delete {
+        z-index: 1;
+        opacity: 1;
+    }
+
     .transaction__header {
         display: none;
     }
 }
 
-@media(min-width:768px){
+@media(min-width:768px) {
+
+    .leftBorder {
+        display: none;
+    }
 
     .transaction__header {
         display: flex;
@@ -56,13 +215,13 @@
         height: 58px;
         background: #FFFFFF;
         border-radius: 30px;
-
+        margin-bottom: 10px;
         padding: 0 20px;
     }
 
     .transaction__header_item {
         font-family: "Montserrat",
-        sans-serif;
+            sans-serif;
         font-style: normal;
         font-weight: 900;
         font-size: 18px;
@@ -95,71 +254,107 @@
         text-align: right;
     }
 
-   .transaction__header_item:nth-of-type(6) {
+    .transaction__header_item:nth-of-type(6) {
         width: 80px;
         text-align: right;
     }
 
-    .transaction__list{
+    .transaction__list {
         display: flex;
         justify-content: space-between;
         border-left: none;
         border-radius: 0;
-        margin: 0;
         background-color: transparent;
-
+        height: 58px;
         padding: 0 20px;
+        overflow: hidden;
     }
 
-    .transaction__list:not(:last-child){
+    .transaction__list:not(:last-child) {
         border-bottom: 1px solid #DCDCDF
     }
 
-    .tarnsaction__list_item{
+    .transaction__list:hover {
+        background-color: #FFFFFF;
+        padding-right: 90px;
+        border-radius: 30px;
+    }
+
+    .transaction__list:hover .transaction__list_item {
+        cursor: default;
+    }
+
+    .transaction__list:hover:first-of-type {
+        border-top: 1px solid #DCDCDF
+    }
+
+    .transaction__list_edit {
+        width: 18px;
+        height: 18px;
+        top: 50%;
+        right: -50px;
+    }
+
+    .transaction__list_delete {
+        width: 18px;
+        height: 18px;
+        top: 50%;
+        right: -50px;
+    }
+
+    .transaction__list:hover .transaction__list_edit {
+        right: 34px;
+    }
+
+    .transaction__list:hover .transaction__list_delete {
+        right: 8px;
+    }
+
+    .transaction__list_item {
         flex-direction: column;
         justify-content: center;
         height: 54px;
     }
 
-    .tarnsaction__list_item:nth-of-type(1) .tarnsaction__list_item_value{
-         width: 80px;
-         text-align: center;
-    }
-
-    .tarnsaction__list_item:nth-of-type(2) .tarnsaction__list_item_value {
-         width: 60px;
+    .transaction__list_item:nth-of-type(1) .transaction__list_item_value {
+        width: 80px;
         text-align: center;
     }
 
-    .tarnsaction__list_item:nth-of-type(3) .tarnsaction__list_item_value {
-         width: 120px;
+    .transaction__list_item:nth-of-type(2) .transaction__list_item_value {
+        width: 60px;
+        text-align: center;
+    }
+
+    .transaction__list_item:nth-of-type(3) .transaction__list_item_value {
+        width: 120px;
         text-align: left;
     }
 
-    .tarnsaction__list_item:nth-of-type(4) .tarnsaction__list_item_value {
-         width: 120px;
+    .transaction__list_item:nth-of-type(4) .transaction__list_item_value {
+        width: 120px;
         text-align: left;
     }
 
-    .tarnsaction__list_item:nth-of-type(5) .tarnsaction__list_item_value {
-         width: 60px;
+    .transaction__list_item:nth-of-type(5) .transaction__list_item_value {
+        width: 60px;
         text-align: right;
     }
 
-    .tarnsaction__list_item:nth-of-type(6) .tarnsaction__list_item_value {
-         width: 80px;
-         text-align: right;
+    .transaction__list_item:nth-of-type(6) .transaction__list_item_value {
+        width: 80px;
+        text-align: right;
     }
 
-    .tarnsaction__list_item:not(:last-child) {
+    .transaction__list_item:not(:last-child) {
         border: none;
     }
 
-    .tarnsaction__list_item_key{
+    .transaction__list_item_key {
         display: none;
     }
 
-    .tarnsaction__list_item_value{
+    .transaction__list_item_value {
         margin: 0;
         line-height: normal;
     }

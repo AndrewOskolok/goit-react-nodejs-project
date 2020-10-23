@@ -1,0 +1,13 @@
+.react-datepicker__input-container::after {
+  position: absolute;
+  content: url("../../images/icons/transactionForm/calendar.png");
+  transform: translateX(-40px);
+}
+
+.react-datepicker__input-container:focus {
+  outline: none;
+}
+
+.react-datepicker-wrapper {
+  display: block;
+}

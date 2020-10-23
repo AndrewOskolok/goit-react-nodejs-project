@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const nodemailer = require("nodemailer");
 const uuid = require("uuid").v4;
 const { SessionModel } = require("../sessions/session.model");
-const { UserModel } = require("../users/user.model");
+const { UserModel } = require("../users/users.model");
 
 const monthNames = [
   "January",
@@ -67,6 +67,11 @@ async function login(req, res) {
       .status(403)
       .send({ message: `User with ${email} email doesn't exist` });
   }
+  if (user.verificationToken) {
+    return res
+      .status(401)
+      .send({ message: "You haven't verified your email address." });
+  }
   const isPasswordCorrect = await bcrypt.compare(password, user.passwordHash);
   if (!isPasswordCorrect) {
     return res.status(403).send({ message: "Password is wrong" });
@@ -95,6 +100,7 @@ async function login(req, res) {
   );
   return res.status(200).send({
     id: user._id,
+    sid: newSession._id,
     username: user.username,
     currentBalance: user.currentBalance,
     transactions: currentMonthTransactions,
@@ -121,12 +127,11 @@ async function authorize(req, res, next) {
     if (!session) {
       return res.status(404).send({ message: "Invalid session" });
     }
-    // if (user.verificationToken) {
-    //   return res
-    //     .status(401)
-    //     .send({ message: "You haven't verified your email address." });
-    // }
-    // gmail не парсит ссылку, после изменения на heroku вернуть этот блок
+    if (user.verificationToken) {
+      return res
+        .status(401)
+        .send({ message: "You haven't verified your email address." });
+    }
     req.user = user;
     req.session = session;
     next();
@@ -141,6 +146,7 @@ async function refreshTokens(req, res) {
     try {
       payload = jwt.verify(reqRefreshToken, process.env.JWT_SECRET);
     } catch (err) {
+      await SessionModel.findByIdAndDelete(req.body.sid);
       return res.status(401).send({ message: "Unauthorized" });
     }
     const user = await UserModel.findById(payload.uid);
@@ -187,9 +193,22 @@ async function sendVerificationEmail(email, verificationToken) {
   return transporter.sendMail({
     to: email,
     from: process.env.NODEMAILER_EMAIL,
-    subject: "Please, verify your account",
-    html: `<a href="${verificationLink}">Click here to verify your email</a>`,
+    subject: "Подтверждение e-mail'a",
+    html: `<a href="${verificationLink}" style="display:block;background-color:darkorange;width:220px;height:26px;line-height:26px;text-align:center;color:white;border-radius:14px;box-shadow:3px 3px 5px 0px rgba(0,0,0,0.75);">Нажмите, чтобы подтвердить Вашу почту</a>`,
   });
+}
+
+async function verifyEmail(req, res) {
+  const { verificationToken } = req.params;
+  const user = await UserModel.findOne({ verificationToken });
+  if (!user) {
+    return res.status(404).send("Already verified");
+  }
+  await UserModel.findOneAndUpdate(
+    { verificationToken },
+    { $unset: { verificationToken } }
+  );
+  return res.status(200).send("User successfully verified");
 }
 
 module.exports = {
@@ -198,4 +217,5 @@ module.exports = {
   refreshTokens,
   authorize,
   logout,
+  verifyEmail,
 };

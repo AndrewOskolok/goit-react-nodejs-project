@@ -15,13 +15,12 @@
 
 /* .main__btn:hover,
 .main__btn:focus {
-  fill: #4a56e2;
+  fill: #4A56E2;
 } */
 
 .main__btn_active {
   font-weight: bold;
 }
-
 .main__btn_home {
   background-image: url(../../images/icons/navigation/home.svg);
   margin-right: 36px;
@@ -33,7 +32,6 @@
 .main__btn_course {
   background-image: url(../../images/icons/navigation/course.svg);
 }
-
 @media (min-width: 768px) {
   .main__buttons_wrapper {
     flex-direction: column;
@@ -42,18 +40,15 @@
     height: 80px;
     padding-left: 4px;
   }
-
   .main__btn {
     width: 18px;
     height: 18px;
   }
-
   .main__btn_home {
     background-size: cover;
     margin-bottom: 19px;
     position: relative;
   }
-
   .main__btn_home::after {
     display: block;
     position: absolute;
@@ -63,17 +58,14 @@
     font-size: 18px;
     font-family: "Montserrat";
   }
-
   .main__btn_home:hover::after,
   .main__btn_home:focus::after {
-    color: #4a56e2;
+    color: #4A56E2;
   }
-
   .main__btn_statistic {
     background-size: cover;
     position: relative;
   }
-
   .main__btn_statistic::after {
     display: block;
     position: absolute;
@@ -83,17 +75,14 @@
     font-size: 18px;
     font-family: "Montserrat";
   }
-
   .main__btn_statistic:hover::after,
   .main__btn_statistic:focus::after {
-    color: #4a56e2;
+    color: #4A56E2;
   }
-
   .main__btn_course {
     display: none;
   }
 }
-
 @media (min-width: 1280px) {
   .main__buttons_wrapper {
     width: 350px;
