@@ -29,6 +29,7 @@ const transporter = nodemailer.createTransport({
 });
 
 async function register(req, res) {
+  throw new Error();
   const { email, password, username } = req.body;
   const existingUser = await UserModel.findOne({ email });
   if (existingUser) {
