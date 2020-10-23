@@ -37,13 +37,20 @@ const Registration = ({history }) => {
   }
 
   useEffect(() => {
+    const reliability = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     if (form.password.length === 0) {
       setReliability(null)
     } else if (form.password.length > 0 && form.password.length < 6) {
       setReliability(1)
     } else if (form.password.length >= 6 && form.password.length <= 12) {
       setReliability(2)
-    } else if (form.password.length >= 12) {
+    }
+          //  if (reliability.test(form.password)){
+          //  console.log('Ура :>> ');
+          //  setReliability(2)
+          //  }
+      // setReliability(2)
+      else if (form.password.length >= 12) {
       setReliability(3)
     }
     // } else if (form.password.length === 8) {
@@ -215,8 +222,8 @@ const Registration = ({history }) => {
           />
         </label>
 
-        {errorEmailLength &&<p className={css.registration__errorEmailLength_p}>Введите ваш Email</p>}
-        {errorEmailValidate &&<p className={css.registration__errorEmailValidate_p}>Некорректный Email</p>}
+        {errorEmailLength &&<p className={css.registration__errorEmailLength_p}>*Введите ваш Email</p>}
+        {errorEmailValidate &&<p className={css.registration__errorEmailValidate_p}>*Некорректный Email</p>}
 
 {/* ------------------------ password input ------------------------*/}
 
@@ -234,8 +241,8 @@ const Registration = ({history }) => {
           />
         </label>
 
-        {errorPasswordLength &&<p className={css.registration__errorPasswordLength_p}>Введите ваш пароль</p>}
-        {errorPasswordValidate &&<p className={css.registration__errorPasswordValidate_p}>Пароль должен содержать цифру и большую букву</p>}
+        {errorPasswordLength &&<p className={css.registration__errorPasswordLength_p}>*Введите ваш пароль</p>}
+        {errorPasswordValidate &&<p className={css.registration__errorPasswordValidate_p}>*Пароль должен содержать цифру и большую букву</p>}
       
 {/* ------------------------ password confirm status------------------------*/}
 
@@ -261,7 +268,7 @@ const Registration = ({history }) => {
           />
         </label>
 
-         { password !== passwordConfirm && <p className={css.registration__password_reliability_text}>* Пароль не совпадает</p>}
+         { password !== passwordConfirm && <p className={css.registration__password_reliability_text}>*Пароль не совпадает</p>}
 
 
  {/* ----------------------- name user input ------------------------------        */}
@@ -281,7 +288,7 @@ const Registration = ({history }) => {
           />
         </label>
 
-        {errorFirstNameLength &&<p className={css.registration__errorFirstNameLength_p}>Введите имя</p>}
+        {errorFirstNameLength &&<p className={css.registration__errorFirstNameLength_p}>*Введите имя</p>}
 
       </div>
 
