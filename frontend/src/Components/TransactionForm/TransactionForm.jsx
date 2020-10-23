@@ -1,25 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import Select from 'react-select';
-import DatePicker from 'react-datepicker';
-import moment from 'moment';
-// import { CSSTransition } from "react-transition-group";
-import transactionOperations from '../../redux/opertions/formOperations.js';
-import formSelectors from "../../redux/selectors/selectors"
-import 'react-datepicker/dist/react-datepicker.css';
-import formStyle from './TransactionForm.module.css';
-import './transactionFormSelect.css';
-import './transactionFormDatepicker.css';
-// import formAnimation from "./transactionFormAnimation.module.css";
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import Select from "react-select";
+import DatePicker from "react-datepicker";
+import moment from "moment";
+
+import formOperations from "../../redux/opertions/formOperations.js";
+import formSelectors from "../../redux/selectors/selectors";
+
+import "react-datepicker/dist/react-datepicker.css";
+import formStyle from "./TransactionForm.module.css";
+import "./transactionFormSelect.css";
+import "./transactionFormDatepicker.css";
 
 const initialState = {
-  date: Number(moment(new Date()).format('D')),
-  month: moment(new Date()).format('MMMM'),
-  year: Number(moment(new Date()).format('YYYY')),
-  type: 'income',
-  category: '',
-  description: '',
-  amount: '',
+  date: Number(moment(new Date()).format("D")),
+  month: moment(new Date()).format("MMMM"),
+  year: Number(moment(new Date()).format("YYYY")),
+  type: "income",
+  category: "",
+  description: "",
+  amount: "",
   balanceAfter: 0,
 };
 
@@ -27,12 +27,14 @@ const TransactionForm = ({
   addTransaction,
   modalHandler,
   categoriesList,
-  // status
+  currentTransaction,
 }) => {
   const [transactionItem, setTransactionItem] = useState(initialState);
   const [startDate, setStartDate] = useState(new Date());
   const [optionsList, setOptionsList] = useState([]);
   const [errors, setErrors] = useState({});
+
+  console.log("currentTransaction", currentTransaction);
 
   const getCategoriesNames = (list) => {
     const namesList = list.map((item) =>
@@ -44,8 +46,17 @@ const TransactionForm = ({
   useEffect(() => {
     addListener();
     setOptionsList(getCategoriesNames(categoriesList));
+    // renderTransactionOnEdit(currentTransaction);
     return removeListener;
   }, []);
+
+  const renderTransactionOnEdit = ({transaction}) => {
+    const {name, value} = transaction
+    setTransactionItem((state) => ({ 
+      ...state,
+      [name]: value
+    }))
+  }
 
   const closeForm = () => {
     removeListener();
@@ -69,7 +80,7 @@ const TransactionForm = ({
   const handleInputAmount = ({ target }) => {
     const { name, value } = target;
     if (Number(value) || value.length === 0) {
-      setTransactionItem(state => ({
+      setTransactionItem((state) => ({
         ...state,
         [name]: value,
       }));
@@ -78,22 +89,22 @@ const TransactionForm = ({
 
   const handleInput = ({ target }) => {
     const { name, value } = target;
-    setTransactionItem(state => ({
+    setTransactionItem((state) => ({
       ...state,
       [name]: value,
     }));
   };
 
-  const handleSelect = option => {
-    setTransactionItem(state => ({
+  const handleSelect = (option) => {
+    setTransactionItem((state) => ({
       ...state,
       category: option,
     }));
   };
 
   const handleCheckboxChange = ({ target }) => {
-    const typeValue = target.checked ? 'expense' : 'income';
-    setTransactionItem(state => ({ ...state, type: typeValue }));
+    const typeValue = target.checked ? "expense" : "income";
+    setTransactionItem((state) => ({ ...state, type: typeValue }));
   };
 
   const validate = (amount, category, type, description) => {
@@ -111,14 +122,14 @@ const TransactionForm = ({
     return !!Object.keys(errors).length;
   };
 
-  const handleDate = date => {
+  const handleDate = (date) => {
     setStartDate(date);
-    const formatedDate = moment(date).format('DD/MMMM/yyyy');
+    const formatedDate = moment(date).format("DD/MMMM/yyyy");
     console.log(formatedDate);
     const dateD = moment(formatedDate).date();
-    const month = moment(formatedDate).format('MMMM');
+    const month = moment(formatedDate).format("MMMM");
     const year = moment(formatedDate).year();
-    setTransactionItem(state => ({
+    setTransactionItem((state) => ({
       ...state,
       date: dateD,
       month: month,
@@ -126,9 +137,11 @@ const TransactionForm = ({
     }));
   };
 
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
     event.preventDefault();
+    // if (currentTransaction) {
 
+    // }
     const {
       type,
       amount,
@@ -157,8 +170,6 @@ const TransactionForm = ({
 
   return (
     <>
-      {/* <CSSTransition in={status} timeout={250} onEnter={() => {console.log("GO ANIME!!!")}} classNames={formAnimation} mountOnEnter unmountOnExit> */}
-
       <form
         className={formStyle.form}
         autoComplete="off"
@@ -186,7 +197,7 @@ const TransactionForm = ({
             </label>
           </label>
         </div>
-        {transactionItem.type === 'income' ? null : (
+        {transactionItem.type === 'income' || currentTransaction.type === "+" ? null : (
           <div className={formStyle.form__errorsWrapper}>
             <Select
               className="select"
@@ -196,7 +207,7 @@ const TransactionForm = ({
               placeholder="Выберите категорию"
               isSearchable={true}
               name="category"
-              value={transactionItem.category}
+              value={currentTransaction ? currentTransaction.category : transactionItem.category}
               onChange={handleSelect}
             />
             {errors.category && <span className={formStyle.form__categoryError}>{errors.category}</span>}
@@ -209,7 +220,7 @@ const TransactionForm = ({
               className={formStyle.form__amount}
               placeholder="0.00"
               name="amount"
-              value={transactionItem.amount}
+              value={currentTransaction ? currentTransaction.amount : transactionItem.amount}
               onChange={handleInputAmount}
             />
             {errors.amount && <span className={formStyle.form__amountError}>{errors.amount}</span>}
@@ -228,21 +239,22 @@ const TransactionForm = ({
             className={formStyle.form__description}
             placeholder="Комментарий"
             name="description"
-            value={transactionItem.description}
+            value={currentTransaction ? currentTransaction.description : transactionItem.description}
             onChange={handleInput}
             maxLength="24"
           />
           {errors.description && <span className={formStyle.form__descriptionError}>{errors.description}</span>}
         </div>
-        <button className={formStyle.form__add_btn}>Добавить</button>
+        <button className={formStyle.form__add_btn}>{currentTransaction ? "Изменить" : "Добавить"}</button>
         <button className={formStyle.form__cancel_btn} onClick={closeForm}>
-          Отмена
+          Отмена"
         </button>
       </form>
       <div className={formStyle.overlay} onClick={closeForm}></div>
     </>
   );
-};
+}
+
 
 const mapStateToProps = (state) => ({
   // totalBalance: ,
@@ -250,7 +262,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-  addTransaction: transactionOperations.addTransactionOperation,
+  addTransaction: formOperations.addTransactionOperation,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TransactionForm);

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Transaction.module.css";
 import {
   deteteCurrentTransaction,
@@ -6,17 +6,20 @@ import {
   getFilteredTransactions,
 } from "../../redux/opertions/transactionsOperation";
 import { useDispatch, useSelector } from "react-redux";
+import TransactionForm from "../TransactionForm/TransactionForm";
 
 const Transaction = () => {
   const dispatch = useDispatch();
   // const userToken = useSelector((state) => state.auth.token);
   const userToken =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZjhmMmEwNjZjYmU4NDAwMTcwYzc3M2MiLCJzaWQiOiI1ZjkyYzU4OTk3OTQyNTAwMTdkNGZiNTkiLCJpYXQiOjE2MDM0NTQzNDUsImV4cCI6MTYwMzQ1NjE0NX0.4xscnNrQATCgHd2A66G4Ms7SejZ9OvnZEQ7xkv4nuCE";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZjhmMmEwNjZjYmU4NDAwMTcwYzc3M2MiLCJzaWQiOiI1ZjkyZDRiMDk3OTQyNTAwMTdkNGZiNjgiLCJpYXQiOjE2MDM0NTgyMjQsImV4cCI6MTYwMzQ2MDAyNH0.FMCSqI5HaQX26CEsrLKeguSb6amqHuepyUJiVKHEwr0";
   const transactions = useSelector((state) => state.transactions);
 
-  useEffect(() => {
-    dispatch(getCurrentTransactions(userToken));
-  }, []);
+  const [currentTransaction, setCurrentTransaction] = useState({});
+  const [modalWindow, setModalWindow] = useState(false);
+  const openModalHandler = () => {
+    setModalWindow((state) => !state);
+  };
 
   const transactionFilter = ({ target: { value } }) => {
     dispatch(getFilteredTransactions(value, userToken));
@@ -25,6 +28,15 @@ const Transaction = () => {
   const deleteTransaction = ({ target: { value } }) => {
     dispatch(deteteCurrentTransaction(value, userToken, transactions));
   };
+
+  const editTransaction = ({ target: { value } }) => {
+    setCurrentTransaction(transactions.filter((item) => item.id === value)[0]);
+    openModalHandler();
+  };
+
+  useEffect(() => {
+    dispatch(getCurrentTransactions(userToken));
+  }, []);
 
   return (
     <>
@@ -104,7 +116,11 @@ const Transaction = () => {
               {item.balanceAfter}
             </span>
           </p>
-          <button className={styles.transaction__list_edit}></button>
+          <button
+            onClick={editTransaction}
+            value={item.id}
+            className={styles.transaction__list_edit}
+          ></button>
           <button
             onClick={deleteTransaction}
             value={item.id}
@@ -117,6 +133,13 @@ const Transaction = () => {
           )}
         </div>
       ))}
+      {modalWindow && (
+        <TransactionForm
+          modalHandler={openModalHandler}
+          status={modalWindow}
+          currentTransaction={currentTransaction}
+        />
+      )}
     </>
   );
 };

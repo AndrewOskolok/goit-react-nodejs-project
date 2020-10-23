@@ -8,29 +8,29 @@ axios.defaults.baseURL = "https://goit-react-nodejs-project.herokuapp.com";
 // axios.defaults.headers.common["Authorization"] = localStorage.getItem("token");
 
 const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZjhmMmEwNjZjYmU4NDAwMTcwYzc3M2MiLCJzaWQiOiI1ZjkyYzU4OTk3OTQyNTAwMTdkNGZiNTkiLCJpYXQiOjE2MDM0NTQzNDUsImV4cCI6MTYwMzQ1NjE0NX0.4xscnNrQATCgHd2A66G4Ms7SejZ9OvnZEQ7xkv4nuCE";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZjhmMmEwNjZjYmU4NDAwMTcwYzc3M2MiLCJzaWQiOiI1ZjkyZDRiMDk3OTQyNTAwMTdkNGZiNjgiLCJpYXQiOjE2MDM0NTgyMjQsImV4cCI6MTYwMzQ2MDAyNH0.FMCSqI5HaQX26CEsrLKeguSb6amqHuepyUJiVKHEwr0";
 
 const addTransactionOperation = (transaction) => async (dispatch) => {
   try {
     dispatch(loaderToggle());
     console.log("transaction", transaction);
     // const result = await axios.post("/transactions", transaction);
-    const {data} = await axios({
+    const { data } = await axios({
       method: "post",
       data: transaction,
       url: "/transactions",
       headers: {
         Authorization: token,
       },
-    });   
+    });
 
     console.log("result after fetch", data);
     dispatch(addTransaction(data));
   } catch (error) {
-    console.dir(error);
     console.log("Fetch Error!!!");
     // dispatch(errorOn(error));
   } finally {
+    dispatch(loaderToggle());
   }
 };
 
@@ -43,6 +43,8 @@ const getCategoriesOperation = () => async (dispatch) => {
     }
   } catch (error) {
     console.log("ERROR!");
+  } finally {
+    dispatch(loaderToggle());
   }
 };
 
