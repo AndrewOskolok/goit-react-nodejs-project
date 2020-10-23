@@ -1,5 +1,5 @@
 import axios from "axios";
-import { string } from "prop-types";
+import { editedData } from "../../helpers/editedTransactions";
 import { loaderToggle } from "../actions/loaderAction";
 import {
   currentMonth,
@@ -8,21 +8,6 @@ import {
 } from "../actions/transactionActions";
 
 axios.defaults.baseURL = "https://goit-react-nodejs-project.herokuapp.com";
-
-const monthNames = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
 
 export const getCurrentTransactions = (token) => async (dispatch) => {
   try {
@@ -35,23 +20,7 @@ export const getCurrentTransactions = (token) => async (dispatch) => {
       },
     });
 
-    const newData = data.map((item) => {
-      let monthNumber = monthNames.indexOf(item.month) + 1;
-      const newYear = Number(String(item.year).slice(-2));
-      if (item.type === "income") {
-        item.type = "+";
-      }
-      if (item.type === "expense") {
-        item.type = "-";
-      }
-      if (item.date < 10) {
-        item.date = "0" + String(item.date);
-      }
-      if (monthNumber < 10) {
-        monthNumber = "0" + String(monthNumber);
-      }
-      return { ...item, month: monthNumber, year: newYear };
-    });
+    const newData = editedData(data);
     dispatch(currentMonth(newData));
   } catch (error) {
     console.log(error);
@@ -84,23 +53,7 @@ export const getFilteredTransactions = (filter, token) => async (dispatch) => {
       });
     }
 
-    const newData = transactions.data.map((item) => {
-      let monthNumber = monthNames.indexOf(item.month) + 1;
-      const newYear = Number(String(item.year).slice(-2));
-      if (item.type === "income") {
-        item.type = "+";
-      }
-      if (item.type === "expense") {
-        item.type = "-";
-      }
-      if (item.date < 10) {
-        item.date = "0" + String(item.date);
-      }
-      if (monthNumber < 10) {
-        monthNumber = "0" + String(monthNumber);
-      }
-      return { ...item, month: monthNumber, year: newYear };
-    });
+    const newData = editedData(transactions);
     dispatch(filteredTransaction(newData));
   } catch (error) {
     console.log(error);
