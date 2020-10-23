@@ -7,16 +7,19 @@ import {
 } from "../../redux/opertions/transactionsOperation";
 import { useDispatch, useSelector } from "react-redux";
 import TransactionForm from "../TransactionForm/TransactionForm";
+import { editedData } from "../../helpers/editedTransactions";
 
 const Transaction = () => {
   const dispatch = useDispatch();
   // const userToken = useSelector((state) => state.auth.token);
   const userToken =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZjhmMmEwNjZjYmU4NDAwMTcwYzc3M2MiLCJzaWQiOiI1ZjkyYzU4OTk3OTQyNTAwMTdkNGZiNTkiLCJpYXQiOjE2MDM0NTQzNDUsImV4cCI6MTYwMzQ1NjE0NX0.4xscnNrQATCgHd2A66G4Ms7SejZ9OvnZEQ7xkv4nuCE";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZjhmMmEwNjZjYmU4NDAwMTcwYzc3M2MiLCJzaWQiOiI1ZjkyZDQwZTk3OTQyNTAwMTdkNGZiNjciLCJpYXQiOjE2MDM0NTgwNjIsImV4cCI6MTYwMzQ1OTg2Mn0.vNm8mnAOs1FWa2YfH7xKbeWjJmx_5lpiWVcwN_DHxWM";
   const transactions = useSelector((state) => state.transactions);
+  const newTransactions = editedData(transactions);
 
   const [currentTransaction, setCurrentTransaction] = useState({});
   const [modalWindow, setModalWindow] = useState(false);
+
   const openModalHandler = () => {
     setModalWindow((state) => !state);
   };
@@ -70,7 +73,7 @@ const Transaction = () => {
         <li className={styles.transaction__header_item}>Сумма</li>
         <li className={styles.transaction__header_item}>Баланс</li>
       </ul>
-      {transactions.map((item) => (
+      {newTransactions.map((item) => (
         <div className={styles.transaction__list} key={item.id}>
           <p className={styles.transaction__list_item}>
             <span className={styles.transaction__list_item_key}>Дата</span>

@@ -14,7 +14,10 @@ const monthNames = [
 ];
 
 export const editedData = (transactions) => {
-  return transactions.map((item) => {
+  // const newTransactions = [...transactions];
+  const metaTransactions = transactions.map((item) => ({ ...item }));
+
+  return metaTransactions.map((item) => {
     let monthNumber = monthNames.indexOf(item.month) + 1;
     const newYear = Number(String(item.year).slice(-2));
     if (item.type === "income") {
