@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import css from "./CurrencyRate.module.css";
 
+const currencies = { USD: "USD", EUR: "EUR", RUB: "RUB" };
+
 const CurrencyRate = () => {
   const [rateList, setRateList] = useState([]);
 
@@ -34,19 +36,39 @@ const CurrencyRate = () => {
         </ul>
       </div>
       <div className={css["currency__rate_content"]}>
-        {rateList.map((item) => (
-          <ul className={css["currency__rate_content_list"]} key={item.ccy}>
-            <li className={css["currency__rate_content_list_item"]}>
-              {item.ccy === "RUR" ? "RUB" : item.ccy}
-            </li>
-            <li className={css["currency__rate_content_list_item"]}>
-              {rateList.length ? parseFloat(item.buy).toFixed(2) : "N/A"}
-            </li>
-            <li className={css["currency__rate_content_list_item"]}>
-              {rateList.length ? parseFloat(item.sale).toFixed(2) : "N/A"}
-            </li>
-          </ul>
-        ))}
+        <ul className={css["currency__rate_content_list"]}>
+          <li className={css["currency__rate_content_list_item"]}>
+            {currencies.USD}
+          </li>
+          <li className={css["currency__rate_content_list_item"]}>
+            {rateList.length ? parseFloat(rateList[0].buy).toFixed(2) : "N/A"}
+          </li>
+          <li className={css["currency__rate_content_list_item"]}>
+            {rateList.length ? parseFloat(rateList[0].sale).toFixed(2) : "N/A"}
+          </li>
+        </ul>
+        <ul className={css["currency__rate_content_list"]}>
+          <li className={css["currency__rate_content_list_item"]}>
+            {currencies.EUR}
+          </li>
+          <li className={css["currency__rate_content_list_item"]}>
+            {rateList.length ? parseFloat(rateList[1].buy).toFixed(2) : "N/A"}
+          </li>
+          <li className={css["currency__rate_content_list_item"]}>
+            {rateList.length ? parseFloat(rateList[1].sale).toFixed(2) : "N/A"}
+          </li>
+        </ul>
+        <ul className={css["currency__rate_content_list"]}>
+          <li className={css["currency__rate_content_list_item"]}>
+            {currencies.RUB}
+          </li>
+          <li className={css["currency__rate_content_list_item"]}>
+            {rateList.length ? parseFloat(rateList[2].buy).toFixed(2) : "N/A"}
+          </li>
+          <li className={css["currency__rate_content_list_item"]}>
+            {rateList.length ? parseFloat(rateList[2].sale).toFixed(2) : "N/A"}
+          </li>
+        </ul>
       </div>
     </div>
   );
