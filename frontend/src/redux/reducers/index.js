@@ -1,4 +1,5 @@
 import { combineReducers } from '@reduxjs/toolkit';
+import { error } from "./errorReducer";
 import loader from './loaderReducer';
 import user from "./userReducer";
 import currentMonthTransactions from './transactionsReduser';
@@ -10,4 +11,5 @@ export const rootReducer = combineReducers({
   transactions: currentMonthTransactions,
   categories,
   statistics,
+  error
 });

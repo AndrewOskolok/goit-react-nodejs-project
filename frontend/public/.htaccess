@@ -1,0 +1,4 @@
+Options -MultiViews
+RewriteEngine On
+RewriteCond %{REQUEST_FILENANE} !-F
+RewriteRule ^ index.html [QSA,L]

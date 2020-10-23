@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import Login from "../Containers/Login/Login";
 import ConfirmedEmail from "../Components/ConfirmedEmail/ConfirmedEmail";
@@ -10,7 +10,7 @@ function App() {
   // This state for convenient development of your components
   // Set whether the user is authorized
   // In the future, the routing system will change
-  const [authorise] = useState(false);
+  const [authorise] = useState(true);
 
   return (
     <div className={css.app}>
