@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
 import Media from "react-media";
 import alanBtn from "@alan-ai/alan-sdk-web";
 import Header from "../../Components/Header/Header";
@@ -10,10 +11,13 @@ import CurrencyRate from "../../Components/CurrencyRate/CurrencyRate";
 import Transaction from "../../Components/Transaction/Transaction";
 import AddTransaction from "../../Components/AddTransaction/AddTransaction.jsx";
 import TransactionForm from "../../Components/TransactionForm/TransactionForm";
+import transactionOperations from "../../redux/opertions/formOperations";
+import { CSSTransition } from "react-transition-group";
+import formAnimation from "../../Components/TransactionForm/transactionFormAnimation.module.css";
 import "../../helpers/alanBtnStyles.css";
 import css from "./Main.module.css";
 
-const Main = ({ history }) => {
+const Main = ({ history, getCategories }) => {
   const [modalWindow, setModalWindow] = useState(false);
   const openModalHandler = () => {
     setModalWindow((state) => !state);
@@ -33,6 +37,7 @@ const Main = ({ history }) => {
         }
       },
     });
+    getCategories();
   }, []);
 
   return (
@@ -64,11 +69,21 @@ const Main = ({ history }) => {
         </div>
       </div>
       <AddTransaction modalHandler={openModalHandler} />
-      {modalWindow && (
+      <CSSTransition
+        in={modalWindow}
+        timeout={250}
+        classNames={formAnimation}
+        mountOnEnter
+        unmountOnExit
+      >
         <TransactionForm modalHandler={openModalHandler} status={modalWindow} />
-      )}
+      </CSSTransition>
     </div>
   );
 };
 
-export default Main;
+const mapDispatchToProps = {
+  getCategories: transactionOperations.getCategoriesOperation,
+};
+
+export default connect(null, mapDispatchToProps)(Main);

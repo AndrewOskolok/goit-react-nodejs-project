@@ -3,11 +3,11 @@ import { connect } from "react-redux";
 import Select from "react-select";
 import DatePicker from "react-datepicker";
 import moment from "moment";
-import "react-datepicker/dist/react-datepicker.css";
 
-import transactionOperations from "../../redux/opertions/formOperations.js";
+import formOperations from "../../redux/opertions/formOperations.js";
 import formSelectors from "../../redux/selectors/selectors";
 
+import "react-datepicker/dist/react-datepicker.css";
 import formStyle from "./TransactionForm.module.css";
 import "./transactionFormSelect.css";
 import "./transactionFormDatepicker.css";
@@ -25,38 +25,50 @@ const initialState = {
 
 const TransactionForm = ({
   addTransaction,
-  getCategories,
   modalHandler,
   categoriesList,
   currentTransaction,
 }) => {
   const [transactionItem, setTransactionItem] = useState(initialState);
   const [startDate, setStartDate] = useState(new Date());
+  const [optionsList, setOptionsList] = useState([]);
   const [errors, setErrors] = useState({});
 
-  let options = [];
-
   const getCategoriesNames = (list) => {
-    list.reduce((acc, item) => {
-      acc.push(...item.name);
-      return acc;
-    }, []);
+    const namesList = list.map((item) =>
+      ({ "value": item.name, "label": item.name.charAt(0).toUpperCase() + item.name.slice(1) })
+    );
+    return namesList;
   };
 
   useEffect(() => {
+    if (currentTransaction) {
+      setTransactionItem((state) => ({
+        ...state,
+        ...currentTransaction
+      }))
+    }
     addListener();
-    getCategories();
+    setOptionsList(getCategoriesNames(categoriesList));
+
+    return removeListener;
   }, []);
+
+  // const changeType = ({ type }) => {
+  //   setTransactionItem((state) => ({
+  //     ...state,
+  //     type: type
+  //   }))
+  // };
 
   const closeForm = () => {
     removeListener();
     modalHandler();
   };
 
-  const handleKeyDown = (event) => {
-    if (event.code === "Escape") {
-      removeListener();
-      modalHandler();
+  const handleKeyDown = event => {
+    if (event.code === 'Escape') {
+      closeForm();
     }
   };
 
@@ -98,24 +110,18 @@ const TransactionForm = ({
     setTransactionItem((state) => ({ ...state, type: typeValue }));
   };
 
-  const validate = (amount, category, type) => {
+  const validate = (amount, category, type, description) => {
     const errors = {};
-
     if (amount.length === 0) {
-      console.log(amount);
-      console.log("Введите число.");
-      errors.amount = "Введите число!";
+      errors.amount = 'Введите число!';
     }
-
-    if (type === "expense" && category === "") {
-      console.log(type);
-      console.log(category);
-      console.log("Выберите категорию!");
-      errors.amount = "Выберите категорию!";
+    if (type === 'expense' && category === '') {
+      errors.category = 'Категория не выбрана!';
     }
-
+    if (description.length > 24) {
+      errors.description = "Делай описание лаконичнее, пиши короче!!!"
+    }
     setErrors(errors);
-
     return !!Object.keys(errors).length;
   };
 
@@ -136,15 +142,17 @@ const TransactionForm = ({
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    // if (currentTransaction) {
 
+    // }
     const {
       type,
       amount,
       category,
-      // description,
+      description,
     } = transactionItem;
 
-    const validateResult = validate(amount, category, type);
+    const validateResult = validate(amount, category, type, description);
 
     if (!validateResult) {
       if (event.target[1].checked) {
@@ -152,13 +160,13 @@ const TransactionForm = ({
       }
       event.target[1].checked
         ? // totalBalance
-          (transactionItem.balanceAfter = -amount)
+        (transactionItem.balanceAfter = -amount)
         : (transactionItem.balanceAfter = +amount);
       transactionItem.amount = Number(transactionItem.amount);
       addTransaction(transactionItem);
+      // console.log(transactionItem);
       setTransactionItem(initialState);
-      modalHandler();
-      removeListener();
+      closeForm();
     }
     return validateResult;
   };
@@ -171,9 +179,7 @@ const TransactionForm = ({
         onSubmit={handleSubmit}
       >
         <h2 className={formStyle.form__title}>Добавить транзакцию</h2>
-
         <button className={formStyle.form__closeBtn} onClick={closeForm} />
-
         <div className={formStyle.form__checkbox_wrapper}>
           <label className={formStyle.form__checkbox_label}>
             <input
@@ -183,7 +189,6 @@ const TransactionForm = ({
               onChange={handleCheckboxChange}
             />
             <span className={formStyle.form__checkbox_span}></span>
-
             <label className={formStyle.form__checkbox_income} htmlFor="check">
               Доход
             </label>
@@ -195,30 +200,39 @@ const TransactionForm = ({
             </label>
           </label>
         </div>
-        {transactionItem.type === "income" ? null : (
-          <Select
-            className="select"
-            classNamePrefix="selectprefix"
-            options={options}
-            noOptionsMessage={() => "Категория не найдена"}
-            placeholder="Выберите категорию"
-            // menuIsOpen={true}
-            isSearchable={true}
-            name="category"
-            value={transactionItem.category}
-            onChange={handleSelect}
-          />
+        {transactionItem.type === 'income' ? null : (
+          <div className={formStyle.form__errorsWrapper}>
+            <Select
+              // { "value": item.name, "label": item.name.charAt(0).toUpperCase() + item.name.slice(1) }
+
+              defaultValue={{ label: 555, value: 555 }}
+              inputValue={currentTransaction && transactionItem.category}
+              // {currentTransaction && ({"label": editedTransaction.category, "value": editedTransaction.category})}
+              className="select"
+              classNamePrefix="selectprefix"
+              options={optionsList}
+              noOptionsMessage={() => 'Категория не найдена'}
+              placeholder="Выберите категорию"
+              isSearchable={true}
+              name="category"
+              value={transactionItem.category}
+              onChange={handleSelect}
+            />
+            {errors.category && <span className={formStyle.form__categoryError}>{errors.category}</span>}
+          </div>
         )}
         <div className={formStyle.form__acBox}>
-          <input
-            type="text"
-            className={formStyle.form__amount}
-            placeholder="0.00"
-            name="amount"
-            value={transactionItem.amount}
-            onChange={handleInputAmount}
-            // required
-          />
+          <div className={formStyle.form__errorsWrapper}>
+            <input
+              type="text"
+              className={formStyle.form__amount}
+              placeholder="0.00"
+              name="amount"
+              value={transactionItem.amount}
+              onChange={handleInputAmount}
+            />
+            {errors.amount && <span className={formStyle.form__amountError}>{errors.amount}</span>}
+          </div>
           <DatePicker
             id="select"
             className={formStyle.form__calendar}
@@ -227,23 +241,28 @@ const TransactionForm = ({
             dateFormat="dd.MM.yyyy"
           />
         </div>
-        <input
-          type="text"
-          className={formStyle.form__description}
-          placeholder="Комментарий"
-          name="description"
-          value={transactionItem.description}
-          onChange={handleInput}
-        />
-        <button className={formStyle.form__add_btn}>Добавить</button>
+        <div className={formStyle.form__errorsWrapper}>
+          <input
+            type="text"
+            className={formStyle.form__description}
+            placeholder="Комментарий"
+            name="description"
+            value={transactionItem.description}
+            onChange={handleInput}
+            maxLength="24"
+          />
+          {errors.description && <span className={formStyle.form__descriptionError}>{errors.description}</span>}
+        </div>
+        <button className={formStyle.form__add_btn}>{currentTransaction ? "Изменить" : "Добавить"}</button>
         <button className={formStyle.form__cancel_btn} onClick={closeForm}>
-          Отмена
+          Отмена"
         </button>
       </form>
       <div className={formStyle.overlay} onClick={closeForm}></div>
     </>
   );
-};
+}
+
 
 const mapStateToProps = (state) => ({
   // totalBalance: ,
@@ -251,8 +270,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-  addTransaction: transactionOperations.addTransactionOperation,
-  getCategories: transactionOperations.getCategoriesOperation,
+  addTransaction: formOperations.addTransactionOperation,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TransactionForm);

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import css from "./ConfirmedEmail.module.css";
 
-const ConfirmedEmail = ({location}) => {
+const ConfirmedEmail = ({location, history}) => {
   const [isVerified, setIsVerified] = useState(null)
 
   useEffect(() => {
@@ -9,6 +9,14 @@ const ConfirmedEmail = ({location}) => {
 
     setIsVerified(path.length > 14)
   }, [location.pathname])
+
+  useEffect(()=> {
+    if (isVerified) {
+      setTimeout(() => {
+        history.push('/login')
+      }, 2000);
+    }
+  })
 
   return (
     <div className={css.confirmed}>
