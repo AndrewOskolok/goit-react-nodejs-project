@@ -1,29 +1,50 @@
-import React, { useState, useRef, useEffect } from "react";
-import queryString from "query-string";
+import React, { useState, useRef, useEffect, useCallback } from 'react';
+import queryString from 'query-string';
+import { useHistory, useLocation } from 'react-router-dom';
+import { CSSTransition } from 'react-transition-group';
+import css from './StatisticCustomSelectors.module.css';
+import animate from './slide.module.css';
 
-import { useHistory, useLocation } from "react-router-dom";
-import { CSSTransition } from "react-transition-group";
-import css from "./StatisticCustomSelectors.module.css";
-import animate from "./slide.module.css";
-
-const StatisticCustomSelectors = ({ months, years }) => {
+const StatisticCustomSelectors = ({ years, availableDates }) => {
   const history = useHistory();
   const location = useLocation();
   const [valueSelectorMonth, setValueSelectorMonth] = useState(null);
   const [valueSelectorYear, setValueSelectorYear] = useState(null);
+  const [months, setMonths] = useState([]);
+  const findCorrectMonths = year => {
+    const currentYear = availableDates.find(el => {
+      return el[`${year}`];
+    });
+    const allMonths = [...Object.values(currentYear)].flat();
+    const months = [...new Set(allMonths)];
+    return months;
+  };
+
   useEffect(() => {
     if (location.search) {
-      const { year, month } = queryString.parse(location.search);
+      let { year, month } = queryString.parse(location.search);
       if (year && month) {
+        if (!years.includes(year)) {
+          year = years[years.length - 1];
+        }
+        const months = findCorrectMonths(year);
+        setMonths(months);
         setValueSelectorYear(year);
-        setValueSelectorMonth(month);
+        if (months.includes(month)) {
+          setValueSelectorMonth(month);
+          return;
+        }
+        setValueSelectorMonth(months[months.length - 1]);
         return;
       }
     }
-
+    const correctYear = years[years.length - 1];
+    const months = findCorrectMonths(correctYear);
+    setMonths(months);
     setValueSelectorMonth(months[months.length - 1]);
-    setValueSelectorYear(years[years.length - 1]);
+    setValueSelectorYear(correctYear);
   }, []);
+
   useEffect(() => {
     if (valueSelectorMonth && valueSelectorYear) {
       history.push({
@@ -37,14 +58,28 @@ const StatisticCustomSelectors = ({ months, years }) => {
   const ref = useRef(null);
   const refYear = useRef(null);
   const openSelector = (setOpen, ref) => {
-    setOpen((state) => !state);
+    setOpen(state => !state);
     ref.current.classList.toggle(`${css.select__head_open}`);
     ref.current.classList.toggle(css.open);
   };
   const handleChangeSelector = ({ target }, setValue, setOpen, ref) => {
     const selectedOption = target.textContent;
+
+    if (!isNaN(selectedOption)) {
+      const months = findCorrectMonths(selectedOption);
+      setMonths(months);
+      const hasMonth = months.includes(valueSelectorMonth);
+      if (!hasMonth) {
+        setValueSelectorMonth(months[months.length - 1]);
+        setValue(selectedOption);
+        setOpen(state => !state);
+        ref.current.classList.toggle(`${css.select__head_open}`);
+        ref.current.classList.toggle(css.open);
+        return;
+      }
+    }
     setValue(selectedOption);
-    setOpen((state) => !state);
+    setOpen(state => !state);
     ref.current.classList.toggle(`${css.select__head_open}`);
     ref.current.classList.toggle(css.open);
   };
@@ -70,16 +105,16 @@ const StatisticCustomSelectors = ({ months, years }) => {
         >
           <ul
             className={css.select__list}
-            onClick={(e) =>
+            onClick={e =>
               handleChangeSelector(
                 e,
                 setValueSelectorMonth,
                 setIsOpenMonth,
-                ref
+                ref,
               )
             }
           >
-            {months.map((el) => (
+            {months.map(el => (
               <li key={el} className={css.select__item}>
                 {el}
               </li>
@@ -107,16 +142,16 @@ const StatisticCustomSelectors = ({ months, years }) => {
         >
           <ul
             className={css.select__list}
-            onClick={(e) =>
+            onClick={e =>
               handleChangeSelector(
                 e,
                 setValueSelectorYear,
                 setIsOpenYear,
-                refYear
+                refYear,
               )
             }
           >
-            {years.map((el) => (
+            {years.map(el => (
               <li key={el} className={css.select__item}>
                 {el}
               </li>
