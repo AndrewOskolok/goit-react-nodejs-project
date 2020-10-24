@@ -144,18 +144,8 @@
           "200": {
             "description": "Successful operation",
             "schema": {
-              "type": "object",
-              "properties": {
-                "months": {
-                  "type": "array",
-                  "items": "string"
-                },
-                "years": {
-                  "type": "array",
-                  "items": "string"
-                }
+                "$ref": "#/components/schemas/TransactionTime"
               }
-            }
           },
           "400": {
             "description": "No token provided",
@@ -1039,6 +1029,35 @@
               },
               "expense": {
                 "type": "integer"
+              }
+            }
+          }
+        }
+      },
+      "TransactionTime": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "year": {
+              "description": "User transaction months of the year in key",
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "January",
+                  "February",
+                  "March",
+                  "April",
+                  "May",
+                  "June",
+                  "July",
+                  "August",
+                  "September",
+                  "October",
+                  "November",
+                  "December"
+                ]   
               }
             }
           }

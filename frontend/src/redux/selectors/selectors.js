@@ -1,6 +1,5 @@
-// import { createSelector } from "@reduxjs/toolkit";
+export const getUserState = (state) => state.user;
 
 const categoriesSelector = (state) => state.categories;
-// const totalBalance = (state) => state.balance;
 
 export default {categoriesSelector};

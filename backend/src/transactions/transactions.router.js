@@ -39,10 +39,10 @@ const createTransactionScheme = Joi.object({
     .max(new Date().getFullYear())
     .required(),
   type: Joi.string().valid("income", "expense").required(),
-  description: Joi.string().required(),
+  description: Joi.string().required().allow(""),
   amount: Joi.number().required(),
   balanceAfter: Joi.number().required(),
-  category: Joi.string().required(),
+  category: Joi.string().required().allow(""),
 });
 
 const updateTransactionScheme = Joi.object({
@@ -63,10 +63,10 @@ const updateTransactionScheme = Joi.object({
   ),
   year: Joi.number().integer().min(1970).max(new Date().getFullYear()),
   type: Joi.string().valid("income", "expense"),
-  description: Joi.string(),
+  description: Joi.string().allow(""),
   amount: Joi.number(),
   balanceAfter: Joi.number(),
-  category: Joi.string(),
+  category: Joi.string().allow(""),
 }).min(1);
 
 const getTransactionsScheme = Joi.object({
