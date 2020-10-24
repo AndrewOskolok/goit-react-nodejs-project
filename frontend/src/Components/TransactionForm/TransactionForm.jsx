@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { connect } from "react-redux";
 import Select from "react-select";
 import DatePicker from "react-datepicker";
@@ -28,31 +28,56 @@ const TransactionForm = ({
   modalHandler,
   categoriesList,
   currentTransaction,
+  currentBalance,
 }) => {
   const [transactionItem, setTransactionItem] = useState(initialState);
   const [startDate, setStartDate] = useState(new Date());
   const [optionsList, setOptionsList] = useState([]);
   const [errors, setErrors] = useState({});
 
+  // console.log("lastTransactions", lastTransactions);
+  // const totalBalance = lastTransactions[0].balanceAfter;
+  // console.log("totalBalance", totalBalance);
+
   const getCategoriesNames = (list) => {
-    const namesList = list.map((item) =>
-      ({ "value": item.name, "label": item.name.charAt(0).toUpperCase() + item.name.slice(1) })
-    );
+    const namesList = list.map((item) => ({
+      value: item.name,
+      label: item.name.charAt(0).toUpperCase() + item.name.slice(1),
+    }));
     return namesList;
   };
+
+  const handleKeyDown = useCallback((event) => {
+    if (event.code === "Escape") {
+      closeForm();
+    }
+  }, []);
+
+  const addListener = useCallback(() => {
+    window.addEventListener("keydown", handleKeyDown);
+  }, [handleKeyDown]);
+
+  const removeListener = useCallback(() => {
+    window.removeEventListener("keydown", handleKeyDown);
+  }, [handleKeyDown]);
+
+  const closeForm = useCallback(() => {
+    removeListener();
+    modalHandler();
+  }, [modalHandler, removeListener]);
 
   useEffect(() => {
     if (currentTransaction) {
       setTransactionItem((state) => ({
         ...state,
-        ...currentTransaction
-      }))
+        ...currentTransaction,
+      }));
     }
     addListener();
     setOptionsList(getCategoriesNames(categoriesList));
 
     return removeListener;
-  }, []);
+  }, [removeListener, addListener, currentTransaction, categoriesList]);
 
   // const changeType = ({ type }) => {
   //   setTransactionItem((state) => ({
@@ -60,25 +85,6 @@ const TransactionForm = ({
   //     type: type
   //   }))
   // };
-
-  const closeForm = () => {
-    removeListener();
-    modalHandler();
-  };
-
-  const handleKeyDown = event => {
-    if (event.code === 'Escape') {
-      closeForm();
-    }
-  };
-
-  const addListener = () => {
-    window.addEventListener("keydown", handleKeyDown);
-  };
-
-  const removeListener = () => {
-    window.removeEventListener("keydown", handleKeyDown);
-  };
 
   const handleInputAmount = ({ target }) => {
     const { name, value } = target;
@@ -113,13 +119,13 @@ const TransactionForm = ({
   const validate = (amount, category, type, description) => {
     const errors = {};
     if (amount.length === 0) {
-      errors.amount = 'Введите число!';
+      errors.amount = "Введите число!";
     }
-    if (type === 'expense' && category === '') {
-      errors.category = 'Категория не выбрана!';
+    if (type === "expense" && category === "") {
+      errors.category = "Категория не выбрана!";
     }
     if (description.length > 24) {
-      errors.description = "Делай описание лаконичнее, пиши короче!!!"
+      errors.description = "Делай описание лаконичнее, пиши короче!!!";
     }
     setErrors(errors);
     return !!Object.keys(errors).length;
@@ -145,12 +151,7 @@ const TransactionForm = ({
     // if (currentTransaction) {
 
     // }
-    const {
-      type,
-      amount,
-      category,
-      description,
-    } = transactionItem;
+    const { type, amount, category, description } = transactionItem;
 
     const validateResult = validate(amount, category, type, description);
 
@@ -159,9 +160,8 @@ const TransactionForm = ({
         transactionItem.category = transactionItem.category.value;
       }
       event.target[1].checked
-        ? // totalBalance
-        (transactionItem.balanceAfter = -amount)
-        : (transactionItem.balanceAfter = +amount);
+        ? (transactionItem.balanceAfter = currentBalance - amount)
+        : (transactionItem.balanceAfter = currentBalance + amount);
       transactionItem.amount = Number(transactionItem.amount);
       addTransaction(transactionItem);
       // console.log(transactionItem);
@@ -200,7 +200,7 @@ const TransactionForm = ({
             </label>
           </label>
         </div>
-        {transactionItem.type === 'income' ? null : (
+        {transactionItem.type === "income" ? null : (
           <div className={formStyle.form__errorsWrapper}>
             <Select
               // { "value": item.name, "label": item.name.charAt(0).toUpperCase() + item.name.slice(1) }
@@ -211,14 +211,18 @@ const TransactionForm = ({
               className="select"
               classNamePrefix="selectprefix"
               options={optionsList}
-              noOptionsMessage={() => 'Категория не найдена'}
+              noOptionsMessage={() => "Категория не найдена"}
               placeholder="Выберите категорию"
               isSearchable={true}
               name="category"
               value={transactionItem.category}
               onChange={handleSelect}
             />
-            {errors.category && <span className={formStyle.form__categoryError}>{errors.category}</span>}
+            {errors.category && (
+              <span className={formStyle.form__categoryError}>
+                {errors.category}
+              </span>
+            )}
           </div>
         )}
         <div className={formStyle.form__acBox}>
@@ -231,7 +235,11 @@ const TransactionForm = ({
               value={transactionItem.amount}
               onChange={handleInputAmount}
             />
-            {errors.amount && <span className={formStyle.form__amountError}>{errors.amount}</span>}
+            {errors.amount && (
+              <span className={formStyle.form__amountError}>
+                {errors.amount}
+              </span>
+            )}
           </div>
           <DatePicker
             id="select"
@@ -251,9 +259,15 @@ const TransactionForm = ({
             onChange={handleInput}
             maxLength="24"
           />
-          {errors.description && <span className={formStyle.form__descriptionError}>{errors.description}</span>}
+          {errors.description && (
+            <span className={formStyle.form__descriptionError}>
+              {errors.description}
+            </span>
+          )}
         </div>
-        <button className={formStyle.form__add_btn}>{currentTransaction ? "Изменить" : "Добавить"}</button>
+        <button className={formStyle.form__add_btn}>
+          {currentTransaction ? "Изменить" : "Добавить"}
+        </button>
         <button className={formStyle.form__cancel_btn} onClick={closeForm}>
           Отмена"
         </button>
@@ -261,11 +275,10 @@ const TransactionForm = ({
       <div className={formStyle.overlay} onClick={closeForm}></div>
     </>
   );
-}
-
+};
 
 const mapStateToProps = (state) => ({
-  // totalBalance: ,
+  currentBalance: formSelectors.currentBalanceSelector(state),
   categoriesList: formSelectors.categoriesSelector(state),
 });
 
