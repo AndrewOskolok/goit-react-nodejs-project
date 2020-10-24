@@ -8,12 +8,14 @@ import StatisticList from '../../Components/StatisticList/StatisticList';
 import StatisticChart from '../../Components/StatisticChart/StatisticChart';
 import getFilteredStatistic from '../../redux/opertions/statisticOperation';
 import Spinner from '../../Components/Spinner/Spinner';
+import { clearStatistic } from '../../redux/actions/statisticAction';
 import { loaderToggle } from '../../redux/actions/loaderAction';
 import notFound from '../../images/icons/notFound.svg';
+import serverDown from '../../images/icons/serverDown.svg';
 import css from './Statistic.module.css';
 
 const token =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZjhmMWQ4NjZjYmU4NDAwMTcwYzc3MzgiLCJzaWQiOiI1ZjkxOTcwYmExMzNkZTAwMTc2MWE1NzgiLCJpYXQiOjE2MDMzNzY5MDcsImV4cCI6MTYwMzM3ODcwN30.rGUgmjbNN76V7A77xfxbiYUI-K-T4suTRfNCWrpcQ8U';
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZjhiNmEwMmNhZTMyNTE0N2ZmODhmODUiLCJzaWQiOiI1ZjkzMWY3Mjk3OTQyNTAwMTdkNGZiNzgiLCJpYXQiOjE2MDM0NzczNjIsImV4cCI6MTYwMzQ3OTE2Mn0.mZ9wFINmowtIsC_ULhdAGFRxUulg5Yk_Bmzgsx7s2BA';
 
 const Statistic = () => {
   const dispatch = useDispatch();
@@ -23,42 +25,58 @@ const Statistic = () => {
   const { typeOfAmount } = useSelector(state => state.statistics);
   const { balance } = useSelector(state => state.statistics);
   const { loader } = useSelector(state => state);
-  const [months, setMonths] = useState([]);
   const [years, setYears] = useState([]);
   const [nothingToShow, setNothingToShow] = useState(null);
+  const [error, setError] = useState(null);
+  const [availableDates, setAvailableDates] = useState([]);
 
-  const goToTransactions = () => {
-    setTimeout(() => {
-      history.push('/');
-    }, 3000);
-  };
-
-  const requestForTimes = async () => {
-    axios.defaults.baseURL = 'https://goit-react-nodejs-project.herokuapp.com';
-    dispatch(loaderToggle());
-    try {
-      const result = await axios.get(`/transactions/time`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const { years, months } = result.data;
-      console.log(result.data);
-
-      setMonths(months);
-      setYears(years);
-      if (months.length === 0 && years.length === 0) {
-        setNothingToShow('transactions not found');
-        goToTransactions();
-      }
-    } catch (error) {
-    } finally {
-      dispatch(loaderToggle());
-    }
-  };
   useEffect(() => {
+    const goToTransactions = () => {
+      setTimeout(() => {
+        history.push('/');
+      }, 3000);
+    };
+    const requestForTimes = async () => {
+      axios.defaults.baseURL =
+        'https://goit-react-nodejs-project.herokuapp.com';
+      dispatch(loaderToggle());
+      try {
+        const result = await axios.get(`/transactions/time`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        console.log(result.data);
+
+        const years = [...result.data.map(el => Object.keys(el))].flat();
+
+        if (years) {
+          setAvailableDates(result.data);
+          setYears(years);
+        }
+
+        if (years.length === 0) {
+          setNothingToShow('transactions not found');
+          setError(404);
+          goToTransactions();
+        }
+      } catch (error) {
+        if (error.response.status === 401) {
+          setNothingToShow('not authorized');
+          setError(404);
+        }
+        if (error.response.status === 500) {
+          setError(500);
+          setNothingToShow('Server capoot');
+
+          return;
+        }
+      } finally {
+        dispatch(loaderToggle());
+      }
+    };
     requestForTimes();
-  }, []);
+  }, [history, dispatch]);
 
   useEffect(() => {
     if (location.search) {
@@ -68,22 +86,30 @@ const Statistic = () => {
           getFilteredStatistic({
             month,
             year,
+            setError,
+            setNothingToShow,
           }),
         );
       }
     }
-  }, [location.search]);
+    return () => {
+      dispatch(clearStatistic([]));
+    };
+  }, [location.search, dispatch]);
 
   return (
     <section className={css.statistic}>
       {!loader && <Spinner />}
       {loader && (
         <>
-          {years.length === 0 && months.length === 0 ? (
+          {error || years.length === 0 ? (
             <div className={css.show__content}>
-              {nothingToShow && <img src={notFound} alt="content not found" />}
+              <img
+                src={error === 404 ? notFound : serverDown}
+                alt="content not found"
+              />
 
-              <p>{nothingToShow}</p>
+              <p>{nothingToShow ? nothingToShow : 'Something went wrong'}</p>
             </div>
           ) : (
             <>
@@ -102,7 +128,10 @@ const Statistic = () => {
 
                 <div className={css.statistic__info_wrapper}>
                   <div className={css.statistic__info_select}>
-                    <StatisticCustomSelectors months={months} years={years} />
+                    <StatisticCustomSelectors
+                      years={years}
+                      availableDates={availableDates}
+                    />
                   </div>
 
                   <div className={css.statistic__group}>
