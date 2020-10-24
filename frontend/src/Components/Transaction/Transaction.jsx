@@ -39,7 +39,7 @@ const Transaction = () => {
 
   useEffect(() => {
     dispatch(getCurrentTransactions(userToken));
-  }, []);
+  }, [dispatch]);
 
   return (
     <>

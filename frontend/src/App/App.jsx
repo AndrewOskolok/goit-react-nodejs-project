@@ -7,9 +7,6 @@ import ConfirmedEmail from "../Components/ConfirmedEmail/ConfirmedEmail";
 import Registration from "../Containers/Registration/Registration.jsx";
 import Main from "../Containers/Main/Main";
 import css from "./App.module.css";
-import Statistic from "../Containers/Statistic/Statistic";
-import Media from "react-media";
-import CurrencyRate from "../Components/CurrencyRate/CurrencyRate";
 
 function App() {
   const authorise = useSelector((state) => getUserState(state));

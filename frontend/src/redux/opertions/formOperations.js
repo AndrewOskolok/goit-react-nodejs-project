@@ -1,5 +1,4 @@
 import axios from "axios";
-import moment from "moment";
 import categoriesActions from "../actions/categoriesActions";
 import { addTransaction } from "../actions/transactionActions";
 import { loaderToggle } from "../actions/loaderAction";

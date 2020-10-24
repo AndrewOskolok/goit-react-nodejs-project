@@ -1,5 +1,4 @@
 import { getStatistic } from "../actions/statisticAction";
-import { loaderToggle } from "../actions/loaderAction";
 import axios from "axios";
 axios.defaults.baseURL = "https://goit-react-nodejs-project.herokuapp.com";
 const token =
