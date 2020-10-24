@@ -1,5 +1,6 @@
 {
   "name": "frontend",
+  "proxy": "https://goit-react-nodejs-project.herokuapp.com/api-docs/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -30,7 +31,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "CI= react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

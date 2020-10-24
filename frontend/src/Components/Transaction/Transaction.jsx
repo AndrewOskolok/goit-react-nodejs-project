@@ -11,9 +11,8 @@ import { editedData } from "../../helpers/editedTransactions";
 
 const Transaction = () => {
   const dispatch = useDispatch();
-  // const userToken = useSelector((state) => state.auth.token);
-  const userToken =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZjkzZjJmODI1Y2Q4MjAwMTdlNWIxMGUiLCJzaWQiOiI1ZjkzZmJjOTI1Y2Q4MjAwMTdlNWIxMWIiLCJpYXQiOjE2MDM1MzM3NjksImV4cCI6MTYwMzUzNTU2OX0.nqUvNBbDjQ0CA-sg-sfgKFvfLtp140fQ-nThOzZgxfs";
+  const userToken = useSelector((state) => state.user.accessToken);
+
   const transactions = useSelector((state) => state.transactions);
   const newTransactions = editedData(transactions);
 
@@ -39,7 +38,7 @@ const Transaction = () => {
 
   useEffect(() => {
     dispatch(getCurrentTransactions(userToken));
-  }, []);
+  }, [dispatch, userToken]);
 
   return (
     <>
