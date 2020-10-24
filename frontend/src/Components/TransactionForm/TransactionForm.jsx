@@ -159,10 +159,8 @@ const TransactionForm = ({
       event.target[1].checked
         ? (transactionItem.balanceAfter = Number(currentBalance) - Number(amount))
         : (transactionItem.balanceAfter = Number(currentBalance) + Number(amount));
-      transactionItem.amount = Number(transactionItem.amount);
-      // console.log("TOKEN!", token);
-      addTransaction(transactionItem, token);
-      // console.log(transactionItem);
+      transactionItem.amount = Number(transactionItem.amount);      
+      addTransaction(transactionItem, token);    
       setTransactionItem(initialState);
       closeForm();
     }
