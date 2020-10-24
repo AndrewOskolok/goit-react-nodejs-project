@@ -25,6 +25,7 @@ const initialState = {
 
 const TransactionForm = ({
   addTransaction,
+  editTransaction,
   modalHandler,
   categoriesList,
   currentTransaction,
@@ -74,14 +75,7 @@ const TransactionForm = ({
     setOptionsList(getCategoriesNames(categoriesList));
 
     return removeListener;
-  }, [removeListener, addListener, currentTransaction, categoriesList]);
-
-  // const changeType = ({ type }) => {
-  //   setTransactionItem((state) => ({
-  //     ...state,
-  //     type: type
-  //   }))
-  // };
+  }, [removeListener, addListener, currentTransaction, categoriesList]); 
 
   const handleInputAmount = ({ target }) => {
     const { name, value } = target;
@@ -145,9 +139,9 @@ const TransactionForm = ({
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // if (currentTransaction) {
 
-    // }
+    // console.log("id", currentTransaction.id);
+
     const { type, amount, category, description } = transactionItem;
 
     const validateResult = validate(amount, category, type, description);
@@ -159,8 +153,9 @@ const TransactionForm = ({
       event.target[1].checked
         ? (transactionItem.balanceAfter = Number(currentBalance) - Number(amount))
         : (transactionItem.balanceAfter = Number(currentBalance) + Number(amount));
-      transactionItem.amount = Number(transactionItem.amount);      
-      addTransaction(transactionItem, token);    
+      transactionItem.amount = Number(transactionItem.amount); 
+      // console.log("id", currentTransaction.id);
+      currentTransaction ? editTransaction(transactionItem, currentTransaction.id, token) : addTransaction(transactionItem, token);    
       setTransactionItem(initialState);
       closeForm();
     }
@@ -199,11 +194,8 @@ const TransactionForm = ({
         {transactionItem.type === "income" ? null : (
           <div className={formStyle.form__errorsWrapper}>
             <Select
-              // { "value": item.name, "label": item.name.charAt(0).toUpperCase() + item.name.slice(1) }
-
-              defaultValue={{ label: 555, value: 555 }}
-              inputValue={currentTransaction && transactionItem.category}
-              // {currentTransaction && ({"label": editedTransaction.category, "value": editedTransaction.category})}
+            defaultValue={{ label: 555, value: 555 }}
+              inputValue={currentTransaction && transactionItem.category}            
               className="select"
               classNamePrefix="selectprefix"
               options={optionsList}
@@ -281,6 +273,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   addTransaction: formOperations.addTransactionOperation,
+  editTransaction: formOperations.editTransactionOperation,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TransactionForm);
