@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { connect, useSelector } from "react-redux";
+import React, { useState, useEffect, useCallback } from "react";
+import { connect } from "react-redux";
 import Select from "react-select";
 import DatePicker from "react-datepicker";
 import moment from "moment";
@@ -28,13 +28,13 @@ const TransactionForm = ({
   modalHandler,
   categoriesList,
   currentTransaction,
+  currentBalance,
+  token
 }) => {
   const [transactionItem, setTransactionItem] = useState(initialState);
   const [startDate, setStartDate] = useState(new Date());
   const [optionsList, setOptionsList] = useState([]);
   const [errors, setErrors] = useState({});
-
-  const token = useSelector((state) => state.user.accessToken);
 
   const getCategoriesNames = (list) => {
     const namesList = list.map((item) => ({
@@ -43,6 +43,25 @@ const TransactionForm = ({
     }));
     return namesList;
   };
+
+  const handleKeyDown = useCallback((event) => {
+    if (event.code === "Escape") {
+      closeForm();
+    }
+  }, []);
+
+  const addListener = useCallback(() => {
+    window.addEventListener("keydown", handleKeyDown);
+  }, [handleKeyDown]);
+
+  const removeListener = useCallback(() => {
+    window.removeEventListener("keydown", handleKeyDown);
+  }, [handleKeyDown]);
+
+  const closeForm = useCallback(() => {
+    removeListener();
+    modalHandler();
+  }, [modalHandler, removeListener]);
 
   useEffect(() => {
     if (currentTransaction) {
@@ -55,7 +74,7 @@ const TransactionForm = ({
     setOptionsList(getCategoriesNames(categoriesList));
 
     return removeListener;
-  }, []);
+  }, [removeListener, addListener, currentTransaction, categoriesList]);
 
   // const changeType = ({ type }) => {
   //   setTransactionItem((state) => ({
@@ -63,25 +82,6 @@ const TransactionForm = ({
   //     type: type
   //   }))
   // };
-
-  const closeForm = () => {
-    removeListener();
-    modalHandler();
-  };
-
-  const handleKeyDown = (event) => {
-    if (event.code === "Escape") {
-      closeForm();
-    }
-  };
-
-  const addListener = () => {
-    window.addEventListener("keydown", handleKeyDown);
-  };
-
-  const removeListener = () => {
-    window.removeEventListener("keydown", handleKeyDown);
-  };
 
   const handleInputAmount = ({ target }) => {
     const { name, value } = target;
@@ -157,10 +157,10 @@ const TransactionForm = ({
         transactionItem.category = transactionItem.category.value;
       }
       event.target[1].checked
-        ? // totalBalance
-          (transactionItem.balanceAfter = -amount)
-        : (transactionItem.balanceAfter = +amount);
+        ? (transactionItem.balanceAfter = Number(currentBalance) - Number(amount))
+        : (transactionItem.balanceAfter = Number(currentBalance) + Number(amount));
       transactionItem.amount = Number(transactionItem.amount);
+      // console.log("TOKEN!", token);
       addTransaction(transactionItem, token);
       // console.log(transactionItem);
       setTransactionItem(initialState);
@@ -276,7 +276,8 @@ const TransactionForm = ({
 };
 
 const mapStateToProps = (state) => ({
-  // totalBalance: ,
+  token: formSelectors.tokenSelector(state),
+  currentBalance:formSelectors.currentBalanceSelector(state),
   categoriesList: formSelectors.categoriesSelector(state),
 });
 
