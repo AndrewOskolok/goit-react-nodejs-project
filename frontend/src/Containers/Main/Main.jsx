@@ -57,7 +57,7 @@ const Main = ({ history, getCategories }) => {
 
         <div className={css.content__wrapper}>
           <Switch>
-            <Route exact path="/" component={Transaction} />
+            <Route path="/" component={Transaction} />
             <Route exact path="/statistic" component={Statistic} />
 
             <Media
