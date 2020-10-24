@@ -22,9 +22,12 @@ const monthNames = [
 
 async function createTransaction(req, res) {
   const transactionId = uuidv4();
-  await UserModel.findByIdAndUpdate(req.user._id, {
-    $push: { transactions: { ...req.body, id: transactionId } },
-  });
+  const balanceAfter = req.body.balanceAfter;
+  const update = {
+    $push: { transactions: { ...req.body, id: transactionId }},
+    $set: {"currentBalance": balanceAfter}
+};
+  await UserModel.findByIdAndUpdate(req.user._id, update);
   res.status(201).send({ ...req.body, id: transactionId });
 }
 
