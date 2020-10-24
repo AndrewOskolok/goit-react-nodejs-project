@@ -4,12 +4,9 @@ import { addTransaction } from "../actions/transactionActions";
 import { loaderToggle } from "../actions/loaderAction";
 
 axios.defaults.baseURL = "https://goit-react-nodejs-project.herokuapp.com";
-// axios.defaults.headers.common["Authorization"] = localStorage.getItem("token");
+// axios.defaults.headers.common["Authorization"] = localStorage.getItem("user");
 
-const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZjhmMmEwNjZjYmU4NDAwMTcwYzc3M2MiLCJzaWQiOiI1ZjkyZTkxZDk3OTQyNTAwMTdkNGZiNmIiLCJpYXQiOjE2MDM0NjM0NTMsImV4cCI6MTYwMzQ2NTI1M30.2RbhwMxaC2xKm4Uf7eCm27IS63LZOAhTvmEZ0KoIb7Y";
-
-const addTransactionOperation = (transaction) => async (dispatch) => {
+const addTransactionOperation = (transaction, token) => async (dispatch) => {
   try {
     dispatch(loaderToggle());
     console.log("transaction", transaction);

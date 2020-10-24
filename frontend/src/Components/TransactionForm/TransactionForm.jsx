@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import Select from "react-select";
 import DatePicker from "react-datepicker";
 import moment from "moment";
@@ -33,6 +33,8 @@ const TransactionForm = ({
   const [startDate, setStartDate] = useState(new Date());
   const [optionsList, setOptionsList] = useState([]);
   const [errors, setErrors] = useState({});
+
+  const token = useSelector((state) => state.user.accessToken);
 
   const getCategoriesNames = (list) => {
     const namesList = list.map((item) => ({
@@ -159,7 +161,7 @@ const TransactionForm = ({
           (transactionItem.balanceAfter = -amount)
         : (transactionItem.balanceAfter = +amount);
       transactionItem.amount = Number(transactionItem.amount);
-      addTransaction(transactionItem);
+      addTransaction(transactionItem, token);
       // console.log(transactionItem);
       setTransactionItem(initialState);
       closeForm();
