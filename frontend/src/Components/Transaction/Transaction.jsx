@@ -11,7 +11,7 @@ import { editedData } from "../../helpers/editedTransactions";
 
 const Transaction = () => {
   const dispatch = useDispatch();
-  // const userToken = useSelector((state) => state.auth.token);
+
   const userToken =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZjhmMmEwNjZjYmU4NDAwMTcwYzc3M2MiLCJzaWQiOiI1ZjkyZTkxZDk3OTQyNTAwMTdkNGZiNmIiLCJpYXQiOjE2MDM0NjM0NTMsImV4cCI6MTYwMzQ2NTI1M30.2RbhwMxaC2xKm4Uf7eCm27IS63LZOAhTvmEZ0KoIb7Y";
   const transactions = useSelector((state) => state.transactions);
