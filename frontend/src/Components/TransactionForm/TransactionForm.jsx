@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useSelector } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { connect } from "react-redux";
 import Select from "react-select";
 import DatePicker from "react-datepicker";
@@ -29,15 +29,12 @@ const TransactionForm = ({
   categoriesList,
   currentTransaction,
   currentBalance,
+  token
 }) => {
   const [transactionItem, setTransactionItem] = useState(initialState);
   const [startDate, setStartDate] = useState(new Date());
   const [optionsList, setOptionsList] = useState([]);
   const [errors, setErrors] = useState({});
-
-  const token = useSelector((state) => state.user.accessToken);
- 
-  // const token = 0;
 
   const getCategoriesNames = (list) => {
     const namesList = list.map((item) => ({
@@ -160,9 +157,10 @@ const TransactionForm = ({
         transactionItem.category = transactionItem.category.value;
       }
       event.target[1].checked
-        ? (transactionItem.balanceAfter = currentBalance - amount)
-        : (transactionItem.balanceAfter = currentBalance + amount);
+        ? (transactionItem.balanceAfter = Number(currentBalance) - Number(amount))
+        : (transactionItem.balanceAfter = Number(currentBalance) + Number(amount));
       transactionItem.amount = Number(transactionItem.amount);
+      // console.log("TOKEN!", token);
       addTransaction(transactionItem, token);
       // console.log(transactionItem);
       setTransactionItem(initialState);
@@ -278,7 +276,8 @@ const TransactionForm = ({
 };
 
 const mapStateToProps = (state) => ({
-  currentBalance: formSelectors.currentBalanceSelector(state),
+  token: formSelectors.tokenSelector(state),
+  currentBalance:formSelectors.currentBalanceSelector(state),
   categoriesList: formSelectors.categoriesSelector(state),
 });
 
