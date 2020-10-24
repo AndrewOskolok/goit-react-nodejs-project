@@ -14,7 +14,7 @@ import TransactionForm from "../../Components/TransactionForm/TransactionForm";
 import transactionOperations from "../../redux/opertions/formOperations";
 import { CSSTransition } from "react-transition-group";
 import formAnimation from "../../Components/TransactionForm/transactionFormAnimation.module.css";
-import "./alanBtnStyles.css";
+import "../../helpers/alanBtnStyles.css";
 import css from "./Main.module.css";
 
 const Main = ({ history, getCategories }) => {
@@ -35,9 +35,6 @@ const Main = ({ history, getCategories }) => {
         } else if (commandData.command === "open") {
           openModalHandler();
         }
-        // else if (commandData.command === 'setData') {
-        //   dataSetter(commandData.input);
-        // }
       },
     });
     getCategories();
@@ -57,7 +54,7 @@ const Main = ({ history, getCategories }) => {
 
         <div className={css.content__wrapper}>
           <Switch>
-            <Route path="/" component={Transaction} />
+            <Route exact path="/" component={Transaction} />
             <Route exact path="/statistic" component={Statistic} />
 
             <Media

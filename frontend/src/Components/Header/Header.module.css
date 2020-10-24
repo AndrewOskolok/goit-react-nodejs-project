@@ -20,7 +20,7 @@
   font-weight: bold;
   position: relative;
   padding-left: 42px;
-  transition: all 0.4s linear;
+  transition: color 0.3s linear;
 }
 
 .header__title:hover,
