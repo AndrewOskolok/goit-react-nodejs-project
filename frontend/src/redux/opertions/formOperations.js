@@ -7,17 +7,17 @@ axios.defaults.baseURL = "https://goit-react-nodejs-project.herokuapp.com";
 // axios.defaults.headers.common["Authorization"] = localStorage.getItem("user");
 
 const addTransactionOperation = (transaction, token) => async (dispatch) => {
+  // console.log("token", token);
   try {
     dispatch(loaderToggle());
-    console.log("transaction", transaction);
-    // const result = await axios.post("/transactions", transaction);
+    console.log("transaction", transaction); 
     const { data } = await axios({
       method: "post",
       data: transaction,
       url: "/transactions",
-      // headers: {
-      //   Authorization: token,
-      // },
+      headers: {
+        Authorization: token,
+      },
     });
 
     console.log("result after fetch", data);

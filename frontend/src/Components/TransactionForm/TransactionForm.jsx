@@ -36,6 +36,8 @@ const TransactionForm = ({
   const [errors, setErrors] = useState({});
 
   const token = useSelector((state) => state.user.accessToken);
+ 
+  // const token = 0;
 
   const getCategoriesNames = (list) => {
     const namesList = list.map((item) => ({
