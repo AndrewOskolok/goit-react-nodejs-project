@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
-import axios from 'axios';
-import queryString from 'query-string';
-import StatisticCustomSelectors from '../../Components/StatisticCustomSelectors/StatisticCustomSelectors';
-import StatisticList from '../../Components/StatisticList/StatisticList';
-import StatisticChart from '../../Components/StatisticChart/StatisticChart';
-import getFilteredStatistic from '../../redux/opertions/statisticOperation';
-import Spinner from '../../Components/Spinner/Spinner';
-import { loaderToggle } from '../../redux/actions/loaderAction';
-import css from './Statistic.module.css';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
+import queryString from "query-string";
+import StatisticCustomSelectors from "../../Components/StatisticCustomSelectors/StatisticCustomSelectors";
+import StatisticList from "../../Components/StatisticList/StatisticList";
+import StatisticChart from "../../Components/StatisticChart/StatisticChart";
+import getFilteredStatistic from "../../redux/opertions/statisticOperation";
+import Spinner from "../../Components/Spinner/Spinner";
+import { loaderToggle } from "../../redux/actions/loaderAction";
+import css from "./Statistic.module.css";
 
 const token =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZjhmMmEwNjZjYmU4NDAwMTcwYzc3M2MiLCJzaWQiOiI1ZjkxNGZmZmExMzNkZTAwMTc2MWE1NjEiLCJpYXQiOjE2MDMzNTg3MTksImV4cCI6MTYwMzM2MDUxOX0.mMY1Z_qlv9RcVazcyzHbXV4YXtPCg-2ICeIfHymnumU";
@@ -17,15 +17,15 @@ const token =
 const Statistic = () => {
   const dispatch = useDispatch();
   const location = useLocation();
-  const arrayOfStat = useSelector(state => state.statistics.items);
-  const { typeOfAmount } = useSelector(state => state.statistics);
-  const { balance } = useSelector(state => state.statistics);
-  const { loader } = useSelector(state => state);
+  const arrayOfStat = useSelector((state) => state.statistics.items);
+  const { typeOfAmount } = useSelector((state) => state.statistics);
+  const { balance } = useSelector((state) => state.statistics);
+  const { loader } = useSelector((state) => state);
   const [months, setMonths] = useState([]);
   const [years, setYears] = useState([]);
 
   const requestForTimes = async () => {
-    axios.defaults.baseURL = 'https://goit-react-nodejs-project.herokuapp.com';
+    axios.defaults.baseURL = "https://goit-react-nodejs-project.herokuapp.com";
     dispatch(loaderToggle());
     try {
       const result = await axios.get(`/transactions/time`, {
@@ -55,7 +55,7 @@ const Statistic = () => {
           getFilteredStatistic({
             month,
             year,
-          }),
+          })
         );
       }
     }

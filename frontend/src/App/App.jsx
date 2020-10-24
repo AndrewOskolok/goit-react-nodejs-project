@@ -1,12 +1,15 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Switch, Route, Redirect } from "react-router-dom";
+import { getUserState } from "../redux/selectors/selectors";
 import Login from "../Containers/Login/Login";
 import ConfirmedEmail from "../Components/ConfirmedEmail/ConfirmedEmail";
 import Registration from "../Containers/Registration/Registration.jsx";
 import Main from "../Containers/Main/Main";
-import { getUserState } from "../redux/selectors/selectors";
 import css from "./App.module.css";
+import Statistic from "../Containers/Statistic/Statistic";
+import Media from "react-media";
+import CurrencyRate from "../Components/CurrencyRate/CurrencyRate";
 
 function App() {
   const authorise = useSelector((state) => getUserState(state));
@@ -14,22 +17,28 @@ function App() {
   return (
     <div className={css.app}>
       <Switch>
-        {!authorise && <Route path="/login" component={Login} />}
-        {!authorise && <Route path="/registration" component={Registration} />}
         {!authorise && (
-          <Route exact path="/verification" component={ConfirmedEmail} />
+          <Switch>
+            <Route path="/login" component={Login} />
+            <Route exact path="/registration" component={Registration} />
+            <Route exact path="/verification" component={ConfirmedEmail} />
+            <Route
+              exact
+              path="/verification/:token"
+              component={ConfirmedEmail}
+            />
+            <Redirect to="/login" />
+          </Switch>
         )}
-        {!authorise && (
-          <Route
-            exact
-            path="/verification/:verificationToken"
-            component={ConfirmedEmail}
-          />
-        )}
-        {!authorise && <Redirect to="/login" />}
 
-        {authorise && <Route path="/" component={Main} />}
-        {authorise && <Redirect to="/" />}
+        {authorise && (
+          <Switch>
+            <Route exact path="/" component={Main} />
+            <Route exact path="/statistic" component={Main} />
+            <Route exact path="/currency" component={Main} />
+            <Redirect to="/" />
+          </Switch>
+        )}
       </Switch>
     </div>
   );
