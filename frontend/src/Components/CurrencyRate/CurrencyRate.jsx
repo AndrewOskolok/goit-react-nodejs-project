@@ -9,15 +9,10 @@ const CurrencyRate = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const proxyurl = "https://cors-anywhere.herokuapp.com/";
       const url =
         "https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5";
       try {
-        const result = await axios(proxyurl + url, {
-          headers: {
-            Origin: "https://api.privatbank.ua/",
-          },
-        });
+        const result = await axios(url);
         const data = result.data.filter((item) => item.ccy !== "BTC");
         setRateList(data);
       } catch {
