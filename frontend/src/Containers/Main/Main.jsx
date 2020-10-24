@@ -1,43 +1,40 @@
-import React, { useState, useEffect } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { Switch, Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import Media from 'react-media';
-import alanBtn from '@alan-ai/alan-sdk-web';
-import Header from '../../Components/Header/Header';
-import Statistic from '../Statistic/Statistic';
-import Balance from '../../Components/Balance/Balance';
-import Navigation from '../../Components/Navigation/Navigation';
-import CurrencyRate from '../../Components/CurrencyRate/CurrencyRate';
-import Transaction from '../../Components/Transaction/Transaction';
-import AddTransaction from '../../Components/AddTransaction/AddTransaction.jsx';
-import TransactionForm from '../../Components/TransactionForm/TransactionForm';
-import transactionOperations from "../../redux/opertions/formOperations"
+import Media from "react-media";
+import alanBtn from "@alan-ai/alan-sdk-web";
+import Header from "../../Components/Header/Header";
+import Statistic from "../Statistic/Statistic";
+import Balance from "../../Components/Balance/Balance";
+import Navigation from "../../Components/Navigation/Navigation";
+import CurrencyRate from "../../Components/CurrencyRate/CurrencyRate";
+import Transaction from "../../Components/Transaction/Transaction";
+import AddTransaction from "../../Components/AddTransaction/AddTransaction.jsx";
+import TransactionForm from "../../Components/TransactionForm/TransactionForm";
+import transactionOperations from "../../redux/opertions/formOperations";
 import { CSSTransition } from "react-transition-group";
 import formAnimation from "../../Components/TransactionForm/transactionFormAnimation.module.css";
-import './alanBtnStyles.css';
-import css from './Main.module.css';
+import "../../helpers/alanBtnStyles.css";
+import css from "./Main.module.css";
 
 const Main = ({ history, getCategories }) => {
   const [modalWindow, setModalWindow] = useState(false);
   const openModalHandler = () => {
-    setModalWindow(state => !state);
+    setModalWindow((state) => !state);
   };
 
   useEffect(() => {
     alanBtn({
       key:
-        'fae165cb71975b784fc426e228d7d48e2e956eca572e1d8b807a3e2338fdd0dc/stage',
-      onCommand: commandData => {
-        if (commandData.command === 'statistic') {
-          history.push('/statistic');
-        } else if (commandData.command === 'mainPage') {
-          history.push('/');
-        } else if (commandData.command === 'open') {
+        "fae165cb71975b784fc426e228d7d48e2e956eca572e1d8b807a3e2338fdd0dc/stage",
+      onCommand: (commandData) => {
+        if (commandData.command === "statistic") {
+          history.push("/statistic");
+        } else if (commandData.command === "mainPage") {
+          history.push("/");
+        } else if (commandData.command === "open") {
           openModalHandler();
         }
-        // else if (commandData.command === 'setData') {
-        //   dataSetter(commandData.input);
-        // }
       },
     });
     getCategories();
@@ -72,7 +69,13 @@ const Main = ({ history, getCategories }) => {
         </div>
       </div>
       <AddTransaction modalHandler={openModalHandler} />
-      <CSSTransition in={modalWindow} timeout={250} classNames={formAnimation} mountOnEnter unmountOnExit>
+      <CSSTransition
+        in={modalWindow}
+        timeout={250}
+        classNames={formAnimation}
+        mountOnEnter
+        unmountOnExit
+      >
         <TransactionForm modalHandler={openModalHandler} status={modalWindow} />
       </CSSTransition>
     </div>
