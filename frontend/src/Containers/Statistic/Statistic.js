@@ -10,17 +10,18 @@ import getFilteredStatistic from '../../redux/opertions/statisticOperation';
 import Spinner from '../../Components/Spinner/Spinner';
 import { clearStatistic } from '../../redux/actions/statisticAction';
 import { loaderToggle } from '../../redux/actions/loaderAction';
+import { getUser } from '../../redux/actions/userAction';
 import notFound from '../../images/icons/notFound.svg';
 import serverDown from '../../images/icons/serverDown.svg';
 import css from './Statistic.module.css';
-
-const token =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZjhiNmEwMmNhZTMyNTE0N2ZmODhmODUiLCJzaWQiOiI1ZjkzMWY3Mjk3OTQyNTAwMTdkNGZiNzgiLCJpYXQiOjE2MDM0NzczNjIsImV4cCI6MTYwMzQ3OTE2Mn0.mZ9wFINmowtIsC_ULhdAGFRxUulg5Yk_Bmzgsx7s2BA';
 
 const Statistic = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const history = useHistory();
+  const token = useSelector(state => state.user.accessToken);
+  const sid = useSelector(state => state.user.refreshToken);
+  const { user } = useSelector(state => state);
   const arrayOfStat = useSelector(state => state.statistics.items);
   const { typeOfAmount } = useSelector(state => state.statistics);
   const { balance } = useSelector(state => state.statistics);
@@ -61,10 +62,20 @@ const Statistic = () => {
           goToTransactions();
         }
       } catch (error) {
-        if (error.response.status === 401) {
-          setNothingToShow('not authorized');
-          setError(404);
+        if (error.response && error.response.status === 401) {
+          const result = await axios.get(`/auth/refresh`, {
+            body: {
+              sid,
+            },
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          dispatch(getUser({ ...user, ...result.data }));
+          console.log('new token', result.data);
+          console.log('get new token with refresh token');
         }
+
         if (error.response.status === 500) {
           setError(500);
           setNothingToShow('Server capoot');
@@ -102,16 +113,19 @@ const Statistic = () => {
       {!loader && <Spinner />}
       {loader && (
         <>
-          {error || years.length === 0 ? (
+          {error && years.length === 0 && (
             <div className={css.show__content}>
               <img
-                src={error === 404 ? notFound : serverDown}
+                src={
+                  (error === 404 && notFound) || (error === 500 && serverDown)
+                }
                 alt="content not found"
               />
 
               <p>{nothingToShow ? nothingToShow : 'Something went wrong'}</p>
             </div>
-          ) : (
+          )}
+          {!error && years.length > 0 && (
             <>
               <h2 className={css.statistic__title}>Статистика</h2>
               <div className={css.statistic__wrapper}>
