@@ -1,5 +1,2 @@
-const GET_CATEGORIES = "@transactions/getCategories";
-
-export default { 
-  GET_CATEGORIES
-}
+export const GET_CATEGORIES = "@transactions/getCategories";
+export const EDIT_BALANCE = "@transactions/editBalance";
