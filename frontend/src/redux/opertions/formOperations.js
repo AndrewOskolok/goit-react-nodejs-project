@@ -2,13 +2,12 @@ import axios from "axios";
 import categoriesActions from "../actions/categoriesActions";
 import { addTransaction } from "../actions/transactionActions";
 import { loaderToggle } from "../actions/loaderAction";
-import { useSelector } from "react-redux";
 
 axios.defaults.baseURL = "https://goit-react-nodejs-project.herokuapp.com";
-// axios.defaults.headers.common["Authorization"] = localStorage.getItem("token");
+axios.defaults.headers.common["Authorization"] = localStorage.getItem("user.accessToken");
 
-
-
+// const token =
+//   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZjkzZjJmODI1Y2Q4MjAwMTdlNWIxMGUiLCJzaWQiOiI1ZjkzZmJjOTI1Y2Q4MjAwMTdlNWIxMWIiLCJpYXQiOjE2MDM1MzM3NjksImV4cCI6MTYwMzUzNTU2OX0.nqUvNBbDjQ0CA-sg-sfgKFvfLtp140fQ-nThOzZgxfs";
 
 const addTransactionOperation = (transaction) => async (dispatch) => {
   try {
@@ -19,9 +18,9 @@ const addTransactionOperation = (transaction) => async (dispatch) => {
       method: "post",
       data: transaction,
       url: "/transactions",
-      headers: {
-        Authorization: token,
-      },
+      // headers: {
+      //   Authorization: token,
+      // },
     });
 
     console.log("result after fetch", data);
