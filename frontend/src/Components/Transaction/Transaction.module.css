@@ -6,6 +6,7 @@
     border-radius: 30px;
     margin-bottom: 10px;
     width: 50%;
+    flex-wrap: nowrap;
 }
 
 .transaction__filter_button {
