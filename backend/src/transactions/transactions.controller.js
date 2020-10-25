@@ -74,25 +74,35 @@ async function updateTransaction(req, res) {
   let newBalance = req.user.currentBalance;
   let newType = amountOperation;
   let diff;
-  if(req.body.type && req.body.type !== amountOperation) {
+  if (req.body.type && req.body.type !== amountOperation) {
     newType = req.body.type;
+    newType === "income" ? req.user.currentBalance = req.user.currentBalance + transactionAmount : req.user.currentBalance = req.user.currentBalance - transactionAmount;
   }
-  if(req.body.amount && transactionAmount !== req.body.amount) {
+  if (req.body.amount) {
     switch (newType) {
       case "income":
-        diff = transactionAmount - req.body.amount;
-        newBalance = req.user.currentBalance - diff;
+        if (newType === amountOperation) {
+          diff = transactionAmount - req.body.amount;
+          newBalance = req.user.currentBalance - diff;
+        } else {
+            newBalance = req.user.currentBalance + req.body.amount;
+        }
         break;
   
       case "expense":
-        diff = transactionAmount - req.body.amount;
-        newBalance = req.user.currentBalance + diff;
+        if (newType === amountOperation) {
+          diff = transactionAmount - req.body.amount;
+          newBalance = req.user.currentBalance + diff;
+        } else {
+            newBalance = req.user.currentBalance - req.body.amount;
+        }
         break;
   
       default:
         return;
     }
   }
+  // 75adf073-2fef-4cf9-91e2-0ca57572f6ad
   const updatedTransaction = { ...transactionToUpdate, ...req.body };
   await UserModel.update(
     { "transactions.id": req.params.transactionId },
