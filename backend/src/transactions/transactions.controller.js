@@ -29,27 +29,78 @@ async function createTransaction(req, res) {
 }
 
 async function deleteTransaction(req, res) {
-  await UserModel.findByIdAndUpdate(req.user._id, {
-    $pull: { transactions: { id: `${req.params.transactionId}` } },
-  });
+  const transactionId = req.params.transactionId;
+  const transaction = req.user.transactions.find(
+    (transaction) => transaction.id === transactionId
+  );
+  const transactionAmount = transaction.amount;
+  const amountOperation = transaction.type;
+  let newBalance;
+
+  switch (amountOperation) {
+    case "income":
+      newBalance = req.user.currentBalance - transactionAmount;
+      break;
+
+    case "expense":
+      newBalance = req.user.currentBalance + transactionAmount;
+      break;
+
+    default:
+      return;
+  }
+
+  const update = {
+    $pull: { transactions: { id: transactionId } },
+    $set: {
+      "currentBalance": newBalance,
+    },
+  };
+
+  await UserModel.findByIdAndUpdate(req.user._id, update);
   return res.status(204).send();
 }
 
 async function updateTransaction(req, res) {
-  const userToUpdate = await UserModel.findById(req.user._id);
+  const userToUpdate = req.user;
   const transactionToUpdate = userToUpdate.transactions.find(
     (transaction) => transaction.id === req.params.transactionId
   );
+  const transactionAmount = transactionToUpdate.amount;
+  const amountOperation = transactionToUpdate.type;
+  let newBalance = req.user.currentBalance;
+  let diff;
+  if(req.body.amount && transactionAmount !== req.body.amount) {
+    switch (amountOperation) {
+      case "income":
+        diff = transactionAmount - req.body.amount;
+        newBalance = req.user.currentBalance - diff;
+        break;
+  
+      case "expense":
+        diff = transactionAmount - req.body.amount;
+        if(diff < 0 ) {
+          newBalance = req.user.currentBalance - diff;
+        } else {
+          newBalance = req.user.currentBalance + diff;
+        }
+        break;
+  
+      default:
+        return;
+    }
+  }
   const updatedTransaction = { ...transactionToUpdate, ...req.body };
   await UserModel.update(
     { "transactions.id": req.params.transactionId },
     {
       $set: {
         "transactions.$": updatedTransaction,
+        "currentBalance": newBalance
       },
     }
   );
-  return res.status(204).send(updatedTransaction);
+  return res.status(201).send(updatedTransaction);
 }
 
 async function getTransactions(req, res) {
