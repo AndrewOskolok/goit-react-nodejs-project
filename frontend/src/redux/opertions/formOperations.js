@@ -1,17 +1,14 @@
 import axios from "axios";
-import categoriesActions from "../actions/categoriesActions";
+import {getCategories, editBalanceOnAdd, editBalanceOnEdit, editTransaction} from "../actions/transactionFormActions";
 import { addTransaction } from "../actions/transactionActions";
 import { loaderToggle } from "../actions/loaderAction";
-import {errorOn, errorOff} from "../actions/errorAction"
+import { errorOn, errorOff } from "../actions/errorAction";
 
 axios.defaults.baseURL = "https://goit-react-nodejs-project.herokuapp.com";
-// axios.defaults.headers.common["Authorization"] = localStorage.getItem("user");
 
 const addTransactionOperation = (transaction, token) => async (dispatch) => {
-  // console.log("token", token);
-  try {
+  try {   
     dispatch(loaderToggle());
-    console.log("transaction", transaction); 
     const { data } = await axios({
       method: "post",
       data: transaction,
@@ -19,14 +16,40 @@ const addTransactionOperation = (transaction, token) => async (dispatch) => {
       headers: {
         Authorization: token,
       },
-    });
-
-    console.log("result after fetch", data);
+    });   
+    // console.log("balanceAfter  ADD", data.balanceAfter);
+    // console.log("Trabsaction  ADD", data);
     dispatch(addTransaction(data));
-    dispatch(categoriesActions.editCurrentBalance(data));
+    dispatch(editBalanceOnAdd(data));
   } catch (error) {
-    console.log("Fetch Error!!!");
     dispatch(errorOn(error));
+  } finally {
+    dispatch(loaderToggle());
+  }
+};
+
+const editTransactionOperation = (transaction, id, token) => async (
+  dispatch
+) => {
+  delete transaction.id;
+
+  try {
+    dispatch(loaderToggle());
+    const { data } = await axios({
+      method: "patch",
+      data: transaction,
+      url: `/transactions/${id}`,
+      headers: {
+        Authorization: token,
+      },
+    });
+    // console.log("DataOnEdit", data.updatedTransaction);
+    // console.log("balanceAfter  EDIT", data.currentBalance);
+    dispatch(editTransaction(data));
+    dispatch(editBalanceOnEdit(data));
+  } catch (error) {
+    dispatch(errorOn(error));
+    // console.dir(error);
   } finally {
     dispatch(loaderToggle());
   }
@@ -37,7 +60,7 @@ const getCategoriesOperation = () => async (dispatch) => {
     dispatch(loaderToggle());
     const result = await axios.get("/categories");
     if (result.status === 200) {
-      dispatch(categoriesActions.getCategories(result));
+      dispatch(getCategories(result));
     }
   } catch (error) {
     console.log("ERROR!");
@@ -46,4 +69,8 @@ const getCategoriesOperation = () => async (dispatch) => {
   }
 };
 
-export default { addTransactionOperation, getCategoriesOperation };
+export default {
+  addTransactionOperation,
+  getCategoriesOperation,
+  editTransactionOperation,
+};

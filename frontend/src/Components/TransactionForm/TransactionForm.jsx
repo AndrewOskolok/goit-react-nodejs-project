@@ -25,15 +25,17 @@ const initialState = {
 
 const TransactionForm = ({
   addTransaction,
+  editTransaction,
   modalHandler,
   categoriesList,
   currentTransaction,
   currentBalance,
-  token
+  token,
 }) => {
   const [transactionItem, setTransactionItem] = useState(initialState);
   const [startDate, setStartDate] = useState(new Date());
   const [optionsList, setOptionsList] = useState([]);
+  const [checkedBox, setCheckedBox] = useState(false);
   const [errors, setErrors] = useState({});
 
   const getCategoriesNames = (list) => {
@@ -64,24 +66,20 @@ const TransactionForm = ({
   }, [modalHandler, removeListener]);
 
   useEffect(() => {
+    if (currentTransaction && currentTransaction.type === "expense") {
+      setCheckedBox((state) => !state);
+    }
     if (currentTransaction) {
       setTransactionItem((state) => ({
         ...state,
         ...currentTransaction,
+        category: "",
       }));
     }
     addListener();
     setOptionsList(getCategoriesNames(categoriesList));
-
     return removeListener;
   }, [removeListener, addListener, currentTransaction, categoriesList]);
-
-  // const changeType = ({ type }) => {
-  //   setTransactionItem((state) => ({
-  //     ...state,
-  //     type: type
-  //   }))
-  // };
 
   const handleInputAmount = ({ target }) => {
     const { name, value } = target;
@@ -108,10 +106,11 @@ const TransactionForm = ({
     }));
   };
 
-  const handleCheckboxChange = ({ target }) => {
-    const typeValue = target.checked ? "expense" : "income";
+  const handleCheckboxChange = () => {
+    setCheckedBox((state) => !state);
+    const typeValue = !checkedBox ? "expense" : "income";
     setTransactionItem((state) => ({ ...state, type: typeValue }));
-  };
+  }; 
 
   const validate = (amount, category, type, description) => {
     const errors = {};
@@ -131,7 +130,6 @@ const TransactionForm = ({
   const handleDate = (date) => {
     setStartDate(date);
     const formatedDate = moment(date).format("DD/MMMM/yyyy");
-    console.log(formatedDate);
     const dateD = moment(formatedDate).date();
     const month = moment(formatedDate).format("MMMM");
     const year = moment(formatedDate).year();
@@ -144,10 +142,8 @@ const TransactionForm = ({
   };
 
   const handleSubmit = (event) => {
-    event.preventDefault();
-    // if (currentTransaction) {
+    event.preventDefault();   
 
-    // }
     const { type, amount, category, description } = transactionItem;
 
     const validateResult = validate(amount, category, type, description);
@@ -156,13 +152,18 @@ const TransactionForm = ({
       if (event.target[1].checked) {
         transactionItem.category = transactionItem.category.value;
       }
-      event.target[1].checked
-        ? (transactionItem.balanceAfter = Number(currentBalance) - Number(amount))
-        : (transactionItem.balanceAfter = Number(currentBalance) + Number(amount));
+      
+      if (!currentTransaction) {
+        event.target[1].checked
+        ? (transactionItem.balanceAfter =
+            Number(currentBalance) - Number(amount))
+        : (transactionItem.balanceAfter =
+            Number(currentBalance) + Number(amount));
+      }      
       transactionItem.amount = Number(transactionItem.amount);
-      // console.log("TOKEN!", token);
-      addTransaction(transactionItem, token);
-      // console.log(transactionItem);
+      currentTransaction
+        ? editTransaction(transactionItem, currentTransaction.id, token)
+        : addTransaction(transactionItem, token);
       setTransactionItem(initialState);
       closeForm();
     }
@@ -185,6 +186,7 @@ const TransactionForm = ({
               type="checkbox"
               className={formStyle.form__checkbox_input}
               onChange={handleCheckboxChange}
+              checked={checkedBox}
             />
             <span className={formStyle.form__checkbox_span}></span>
             <label className={formStyle.form__checkbox_income} htmlFor="check">
@@ -201,11 +203,8 @@ const TransactionForm = ({
         {transactionItem.type === "income" ? null : (
           <div className={formStyle.form__errorsWrapper}>
             <Select
-              // { "value": item.name, "label": item.name.charAt(0).toUpperCase() + item.name.slice(1) }
-
-              defaultValue={{ label: 555, value: 555 }}
-              inputValue={currentTransaction && transactionItem.category}
-              // {currentTransaction && ({"label": editedTransaction.category, "value": editedTransaction.category})}
+              // inputValue={currentTransaction && transactionItem.category}
+              // isOptionSelected={!!currentTransaction && transactionItem.category}
               className="select"
               classNamePrefix="selectprefix"
               options={optionsList}
@@ -277,12 +276,13 @@ const TransactionForm = ({
 
 const mapStateToProps = (state) => ({
   token: formSelectors.tokenSelector(state),
-  currentBalance:formSelectors.currentBalanceSelector(state),
+  currentBalance: formSelectors.currentBalanceSelector(state),
   categoriesList: formSelectors.categoriesSelector(state),
 });
 
 const mapDispatchToProps = {
   addTransaction: formOperations.addTransactionOperation,
+  editTransaction: formOperations.editTransactionOperation,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TransactionForm);
