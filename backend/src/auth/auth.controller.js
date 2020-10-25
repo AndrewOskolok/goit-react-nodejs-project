@@ -190,7 +190,7 @@ async function logout(req, res) {
 }
 
 async function sendVerificationEmail(email, verificationToken) {
-  const verificationLink = `${process.env.BASE_URL}/auth/verify/${verificationToken}`;
+  const verificationLink = `${process.env.PROJECT_URL}/auth/verify/${verificationToken}`;
   return transporter.sendMail({
     to: email,
     from: process.env.NODEMAILER_EMAIL,
