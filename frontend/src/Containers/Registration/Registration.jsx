@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "../../redux/actions/userAction";
+import { errorOff, errorOn } from "../../redux/actions/errorAction";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import css from "./Registration.module.css";
+import { getErrorMessage } from "../../redux/selectors/selectors";
 
 const initialState = {
   email: "",
@@ -22,13 +24,21 @@ const Registration = ({ history }) => {
   const [errorPasswordValidate, setErrorPasswordValidate] = useState(false);
   const [errorFirstNameLength, setErrorFirstNameLength] = useState(false);
 
+  const errorMessage = useSelector(state => getErrorMessage(state))
+
   axios.defaults.baseURL = "https://goit-react-nodejs-project.herokuapp.com";
 
   const dispatch = useDispatch();
 
+  useEffect(()=> {
+    errorMessage && dispatch(errorOff())
+  },[dispatch]) 
+
   const handleFormInput = ({ target }) => {
     const { name, value } = target;
     setForm((state) => ({ ...state, [name]: value }));
+
+    errorMessage && dispatch(errorOff())
   };
 
   useEffect(() => {
@@ -77,6 +87,7 @@ const Registration = ({ history }) => {
     }
 
     //=====================================password===============================//
+
     if (form.password.length < 6) {
       setErrorPasswordLength(true);
       errors.passwordLength = true;
@@ -92,6 +103,7 @@ const Registration = ({ history }) => {
     }
 
     //=====================================name======================================//
+
     if (firstName.length < 2) {
       setErrorFirstNameLength(true);
       errors.firstNameLength = true;
@@ -111,6 +123,7 @@ const Registration = ({ history }) => {
 
         result.status === 201 && history.push("/verification");
       } catch (error) {
+        dispatch(errorOn({message: "Такая почта уже зарегистрирована"}));
         console.log("error :>> ", error);
       }
     }
@@ -125,17 +138,16 @@ const Registration = ({ history }) => {
           <p className={css.registration__logo}>Wallet</p>
 
           {/* ------------------------ email input ------------------------ */}
+
           <div className={css.registration__button_data}>
             <label className={css.registration__email_icon}>
               <input
                 className={css.registration__email}
                 id="email"
-                // type="email"
                 placeholder="E-mail"
                 name="email"
                 value={email}
                 onChange={handleFormInput}
-                // required
                 autoFocus
               />
             </label>
@@ -151,7 +163,10 @@ const Registration = ({ history }) => {
               </p>
             )}
 
+            {errorMessage && <p className={css.registration__errorMessage}>{errorMessage}</p>}
+
             {/* ------------------------ password input ------------------------*/}
+
             <label className={css.registration__password_icon}>
               <input
                 className={css.registration__password}
@@ -162,7 +177,6 @@ const Registration = ({ history }) => {
                 onChange={handleFormInput}
                 minLength="6"
                 maxLength="20"
-                // required
               />
             </label>
 
@@ -173,11 +187,12 @@ const Registration = ({ history }) => {
             )}
             {errorPasswordValidate && (
               <p className={css.registration__errorPasswordValidate_p}>
-                *Пароль должен содержать цифру и большую букву
+                *Пароль должен содержать цифру, большую и маленькую букву
               </p>
             )}
 
             {/* ------------------------ password confirm status------------------------*/}
+
             {reliability && (
               <div className={css.registration__password_reliability}>
                 {reliability === 1 && (
@@ -199,6 +214,7 @@ const Registration = ({ history }) => {
             )}
 
             {/* ------------------------ password confirm input ------------------------ */}
+
             <label className={css.registration__password_icon}>
               <input
                 className={css.registration__password_confirm}
@@ -209,7 +225,6 @@ const Registration = ({ history }) => {
                 onChange={handleFormInput}
                 minLength="6"
                 maxLength="20"
-                // required
               />
             </label>
 
@@ -220,6 +235,7 @@ const Registration = ({ history }) => {
             )}
 
             {/* ----------------------- name user input ------------------------------        */}
+
             <label className={css.registration__avatar_icon}>
               <input
                 className={css.registration__name_input}
@@ -231,7 +247,6 @@ const Registration = ({ history }) => {
                 onChange={handleFormInput}
                 minLength="2"
                 maxLength="11"
-                // required
               />
             </label>
 
@@ -243,6 +258,7 @@ const Registration = ({ history }) => {
           </div>
 
           {/* ----------------------- buttons login/register ------------------------ */}
+          
           <div className={css.registration__button}>
             <button className={css.registration__submit_btn}>
               Регистрация
