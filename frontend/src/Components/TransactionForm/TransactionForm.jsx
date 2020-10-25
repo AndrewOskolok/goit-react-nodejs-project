@@ -202,9 +202,7 @@ const TransactionForm = ({
         </div>
         {transactionItem.type === "income" ? null : (
           <div className={formStyle.form__errorsWrapper}>
-            <Select
-              // inputValue={currentTransaction && transactionItem.category}
-              // isOptionSelected={!!currentTransaction && transactionItem.category}
+            <Select             
               className="select"
               classNamePrefix="selectprefix"
               options={optionsList}
