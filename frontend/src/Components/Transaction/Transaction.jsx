@@ -11,9 +11,10 @@ import { editedData } from "../../helpers/editedTransactions";
 
 const Transaction = () => {
   const dispatch = useDispatch();
-  const userToken = useSelector((state) => state.user.accessToken);
 
+  const userToken = useSelector((state) => state.user.accessToken);
   const transactions = useSelector((state) => state.transactions);
+
   const newTransactions = editedData(transactions);
 
   const [currentTransaction, setCurrentTransaction] = useState({});

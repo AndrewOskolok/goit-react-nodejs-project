@@ -5,7 +5,7 @@
     background-color: #FFFFFF;
     border-radius: 30px;
     margin-bottom: 10px;
-    width: 50%;
+    flex-wrap: nowrap;
 }
 
 .transaction__filter_button {
@@ -204,6 +204,18 @@
 
 @media(min-width:768px) {
 
+    .leftBorder_expense {
+        display: none;
+    }
+
+    .leftBorder_income {
+        display: none;
+    }
+
+    .transaction__filter {
+        width: 50%;
+    }
+
     .leftBorder {
         display: none;
     }
@@ -235,22 +247,22 @@
     }
 
     .transaction__header_item:nth-of-type(2) {
-        width: 60px;
+        width: 40px;
         text-align: center;
     }
 
     .transaction__header_item:nth-of-type(3) {
-        width: 120px;
+        width: 110px;
         text-align: left;
     }
 
     .transaction__header_item:nth-of-type(4) {
-        width: 120px;
+        width: 140px;
         text-align: left;
     }
 
     .transaction__header_item:nth-of-type(5) {
-        width: 60px;
+        width: 70px;
         text-align: right;
     }
 
@@ -322,22 +334,26 @@
     }
 
     .transaction__list_item:nth-of-type(2) .transaction__list_item_value {
-        width: 60px;
+        width: 40px;
         text-align: center;
     }
 
     .transaction__list_item:nth-of-type(3) .transaction__list_item_value {
-        width: 120px;
+        width: 110px;
         text-align: left;
     }
 
     .transaction__list_item:nth-of-type(4) .transaction__list_item_value {
-        width: 120px;
+        width: 140px;
         text-align: left;
     }
 
+    .transaction__list_item_value_income {
+        width: 70px;
+    }
+
     .transaction__list_item:nth-of-type(5) .transaction__list_item_value {
-        width: 60px;
+        width: 70px;
         text-align: right;
     }
 
