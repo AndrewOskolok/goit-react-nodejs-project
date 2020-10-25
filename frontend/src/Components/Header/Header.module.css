@@ -52,12 +52,7 @@
 }
 
 .header__login_avatar {
-  display: block;
-  width: 60px;
-  height: 60px;
-  background-image: url(../../images/icons/header/empty_avatar.svg);
-  background-size: cover;
-  cursor: pointer;
+  display: none;
 }
 
 .header__logout_button {
@@ -89,44 +84,47 @@
   }
 
   .header__login_wrapper {
+    display: flex;
+    align-items: center;
+    padding-right: 78px;
     position: relative;
     right: -6px;
   }
 
   .header__login_name {
-    font-size: 20px;
-    position: absolute;
-    right: 140px;
-    bottom: -12px;
+    height: 20px;
+    position: relative;
+  }
+
+  .header__login_avatar {
+    display: block;
+    width: 60px;
+    height: 60px;
+    background-image: url(../../images/icons/header/empty_avatar.svg);
+    background-size: cover;
+    cursor: pointer;
+    margin-right: 12px;
   }
 
   .header__logout_button {
-    position: absolute;
-    bottom: -10px;
-    right: 104px;
-  }
-
-  .header__login_name::before {
-    position: absolute;
-    bottom: -4px;
-    right: -16px;
-    display: block;
-    content: "";
-    height: 30px;
-    width: 1px;
-    background-color: #bdbdbd;
+    position: relative;
   }
 
   .header__logout_button::after {
-    position: absolute;
-    bottom: -19px;
-    right: -78px;
-    display: block;
     content: "Выйти";
+    display: block;
+    height: 20px;
+    position: absolute;
+    top: -1px;
+    right: -78px;
     color: #bdbdbd;
     font-size: 20px;
-    height: 40px;
     font-family: "Montserrat";
+    transition: color 0.2s linear;
+  }
+
+  .header__logout_button:hover::after {
+    color: #000;
   }
 }
 
