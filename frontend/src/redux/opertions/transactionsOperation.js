@@ -4,6 +4,7 @@ import { loaderToggle } from "../actions/loaderAction";
 import {
   currentMonth,
   deleteTransaction,
+  editCurrentBalance,
   filteredTransaction,
 } from "../actions/transactionActions";
 
@@ -67,18 +68,20 @@ export const deteteCurrentTransaction = (
 ) => async (dispatch) => {
   try {
     dispatch(loaderToggle());
-    const { status } = await axios({
+    const data = await axios({
       method: "delete",
       url: `/transactions/${transactionId}`,
       headers: {
         Authorization: token,
       },
     });
-    if (status) {
+
+    if (data.status === 201) {
       const newTransactionsList = transactions.filter(
         (item) => item.id !== transactionId
       );
       dispatch(deleteTransaction(newTransactionsList));
+      dispatch(editCurrentBalance(data));
     }
   } catch (error) {
     dispatch(errorOn(error));

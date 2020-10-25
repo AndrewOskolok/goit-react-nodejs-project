@@ -1,14 +1,3 @@
-/* .transaction__filter {
-    display: flex;
-    align-items: center;
-    margin: 0 auto;
-    background-color: #FFFFFF;
-    border-radius: 30px;
-    margin-bottom: 10px;
-    height: 20px;
-    flex-wrap: nowrap;
-} */
-
 .transaction__filter_button {
     font-family: "Montserrat",
         sans-serif;
