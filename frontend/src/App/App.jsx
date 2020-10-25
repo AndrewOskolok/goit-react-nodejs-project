@@ -21,7 +21,7 @@ function App() {
             <Route exact path="/verification" component={ConfirmedEmail} />
             <Route
               exact
-              path="/verification/:token"
+              path="/auth/verify/:token"
               component={ConfirmedEmail}
             />
             <Redirect to="/login" />

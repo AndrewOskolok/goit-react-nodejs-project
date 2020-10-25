@@ -4,24 +4,31 @@ import css from "./ConfirmedEmail.module.css";
 
 const ConfirmedEmail = ({ location, history, match }) => {
   const [isVerified, setIsVerified] = useState(null);
-  console.log(isVerified);
 
   axios.defaults.baseURL = "https://goit-react-nodejs-project.herokuapp.com";
 
-  // useEffect(() => {
-  //   if (isVerified) {
-  //     setTimeout(() => {
-  //       history.push("/login");
-  //     }, 2000);
-  //   }
-  // }, [history, isVerified]);
+  useEffect(() => {
+    const path = location.pathname;
+
+    setIsVerified(path.length > 14);
+  }, [location.pathname]);
+
+  useEffect(() => {
+    if (isVerified) {
+      setTimeout(() => {
+        history.push("/login");
+      }, 2000);
+    }
+  }, [history, isVerified]);
 
   const request = async () => {
-    try {
-      const result = await axios.get(`/auth/verify/${match.params.token}`);
-      setIsVerified(result.status);
-    } catch (error) {
-      console.log(error);
+    if (isVerified) {
+      try {
+        const result = await axios.get(`/auth/verify/${match.params.token}`);
+        result.status === 200 && setIsVerified(true);
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
