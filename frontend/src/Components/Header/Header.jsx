@@ -7,7 +7,7 @@ import css from "./Header.module.css";
 
 const Header = () => {
   const user = useSelector((state) => getUserState(state));
-  
+
   const dispatch = useDispatch();
 
   const logOut = () => {
@@ -22,11 +22,13 @@ const Header = () => {
 
         <div className={css.header__login_wrapper}>
           <p className={css.header__login_name}>{user.username}</p>
-          <form action="">
+
+          <form>
             <label
               className={css.header__login_avatar}
               htmlFor="avatar"
             ></label>
+            <img src={user.userAvatar} alt="" />
 
             <input
               id="avatar"
