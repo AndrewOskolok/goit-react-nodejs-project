@@ -1,4 +1,4 @@
-.transaction__filter {
+/* .transaction__filter {
     display: flex;
     align-items: center;
     margin: 0 auto;
@@ -7,7 +7,7 @@
     margin-bottom: 10px;
     height: 20px;
     flex-wrap: nowrap;
-}
+} */
 
 .transaction__filter_button {
     font-family: "Montserrat",
@@ -30,6 +30,10 @@
     border-right: 1px solid #DCDCDF;
     border-top-left-radius: 30px;
     border-bottom-left-radius: 30px;
+}
+
+.transaction__filter_button:nth-of-type(2) {
+    border-right: 1px solid #DCDCDF;
 }
 
 .transaction__filter_button:last-of-type {
@@ -162,7 +166,19 @@
     }
 
     .transaction__filter {
+        display: flex;
+        align-items: center;
+        margin: 0 auto;
+        background-color: #FFFFFF;
+        border-radius: 30px;
+        margin-bottom: 10px;
+        height: 20px;
+        flex-wrap: nowrap;
         width: 100%;
+    }
+
+    .transaction__filter_button {
+        font-size: 14px;
     }
 
     .transaction__list:hover .transaction__list_item {
@@ -214,6 +230,14 @@
     }
 
     .transaction__filter {
+        display: flex;
+        align-items: center;
+        margin: 0 auto;
+        background-color: #FFFFFF;
+        border-radius: 30px;
+        margin-bottom: 10px;
+        height: 20px;
+        flex-wrap: nowrap;
         width: 50%;
     }
 
