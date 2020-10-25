@@ -2,7 +2,7 @@ import axios from "axios";
 import {getCategories, editBalanceOnAdd, editBalanceOnEdit, editTransaction} from "../actions/transactionFormActions";
 import { addTransaction } from "../actions/transactionActions";
 import { loaderToggle } from "../actions/loaderAction";
-import { errorOn, errorOff } from "../actions/errorAction";
+import { errorOn } from "../actions/errorAction";
 
 axios.defaults.baseURL = "https://goit-react-nodejs-project.herokuapp.com";
 
@@ -16,9 +16,7 @@ const addTransactionOperation = (transaction, token) => async (dispatch) => {
       headers: {
         Authorization: token,
       },
-    });   
-    // console.log("balanceAfter  ADD", data.balanceAfter);
-    // console.log("Trabsaction  ADD", data);
+    });     
     dispatch(addTransaction(data));
     dispatch(editBalanceOnAdd(data));
   } catch (error) {
@@ -42,14 +40,11 @@ const editTransactionOperation = (transaction, id, token) => async (
       headers: {
         Authorization: token,
       },
-    });
-    // console.log("DataOnEdit", data.updatedTransaction);
-    // console.log("balanceAfter  EDIT", data.currentBalance);
+    });    
     dispatch(editTransaction(data));
     dispatch(editBalanceOnEdit(data));
   } catch (error) {
-    dispatch(errorOn(error));
-    // console.dir(error);
+    dispatch(errorOn(error));  
   } finally {
     dispatch(loaderToggle());
   }
@@ -62,8 +57,8 @@ const getCategoriesOperation = () => async (dispatch) => {
     if (result.status === 200) {
       dispatch(getCategories(result));
     }
-  } catch (error) {
-    console.log("ERROR!");
+  } catch (error) { 
+    dispatch(errorOn(error));  
   } finally {
     dispatch(loaderToggle());
   }
