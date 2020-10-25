@@ -61,7 +61,7 @@ async function deleteTransaction(req, res) {
   };
 
   await UserModel.findByIdAndUpdate(req.user._id, update);
-  return res.status(204).send();
+  return res.status(201).send({"currentBalance": newBalance});
 }
 
 async function updateTransaction(req, res) {
