@@ -5,7 +5,7 @@
     background-color: #FFFFFF;
     border-radius: 30px;
     margin-bottom: 10px;
-    width: 50%;
+    flex-wrap: nowrap;
 }
 
 .transaction__filter_button {
@@ -14,11 +14,10 @@
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
-    line-height: 27px;
     color: #FFFFFF;
     background-color: transparent;
     width: 100%;
-    height: 30px;
+    height: 20px;
     outline: none;
     border: none;
     cursor: pointer;
@@ -45,11 +44,11 @@
 .transaction__list {
     background-color: #FFFFFF;
     border-radius: 5px;
-    border-left: 5px solid #FF6596;
+    /* border-left: 5px solid #FF6596; */
     margin-bottom: 10px;
     transition: transform, padding 250ms linear;
     position: relative;
-    overflow: hidden;
+
 }
 
 .transaction__list:not(:last-child) {
@@ -100,7 +99,7 @@
     color: #FF6596;
 }
 
-.transaction__list_item:not(:last-child) {
+.transaction__list_item:not(:last-of-type) {
     border-bottom: 1px solid #DCDCDF;
 }
 
@@ -112,7 +111,7 @@
     line-height: 46px;
     text-align: right;
     color: #000000;
-    margin-left: 15px;
+    margin-left: 20px;
 }
 
 .transaction__list_item_value {
@@ -125,7 +124,41 @@
     margin-right: 20px;
 }
 
+.transaction__list_item_value_income {
+    font-family: "Montserrat", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    text-align: right;
+    color: #24cca7;
+
+}
+
+
+
 @media(max-width:767px) {
+
+    .leftBorder_expense {
+        width: 5px;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        background-color: #FF6596;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+    }
+
+    .leftBorder_income {
+        width: 5px;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        background-color: #24CCA7;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+    }
 
     .transaction__filter {
         width: 100%;
@@ -133,6 +166,11 @@
 
     .transaction__list:hover .transaction__list_item {
         opacity: 0;
+    }
+
+    .transaction__list_item_value_income {
+        margin-right: 20px;
+        width: 60px;
     }
 
     .transaction__list_edit {
@@ -166,6 +204,22 @@
 
 @media(min-width:768px) {
 
+    .leftBorder_expense {
+        display: none;
+    }
+
+    .leftBorder_income {
+        display: none;
+    }
+
+    .transaction__filter {
+        width: 50%;
+    }
+
+    .leftBorder {
+        display: none;
+    }
+
     .transaction__header {
         display: flex;
         justify-content: space-between;
@@ -193,22 +247,22 @@
     }
 
     .transaction__header_item:nth-of-type(2) {
-        width: 60px;
+        width: 40px;
         text-align: center;
     }
 
     .transaction__header_item:nth-of-type(3) {
-        width: 120px;
+        width: 110px;
         text-align: left;
     }
 
     .transaction__header_item:nth-of-type(4) {
-        width: 120px;
+        width: 140px;
         text-align: left;
     }
 
     .transaction__header_item:nth-of-type(5) {
-        width: 60px;
+        width: 70px;
         text-align: right;
     }
 
@@ -225,6 +279,7 @@
         background-color: transparent;
         height: 58px;
         padding: 0 20px;
+        overflow: hidden;
     }
 
     .transaction__list:not(:last-child) {
@@ -279,22 +334,26 @@
     }
 
     .transaction__list_item:nth-of-type(2) .transaction__list_item_value {
-        width: 60px;
+        width: 40px;
         text-align: center;
     }
 
     .transaction__list_item:nth-of-type(3) .transaction__list_item_value {
-        width: 120px;
+        width: 110px;
         text-align: left;
     }
 
     .transaction__list_item:nth-of-type(4) .transaction__list_item_value {
-        width: 120px;
+        width: 140px;
         text-align: left;
     }
 
+    .transaction__list_item_value_income {
+        width: 70px;
+    }
+
     .transaction__list_item:nth-of-type(5) .transaction__list_item_value {
-        width: 60px;
+        width: 70px;
         text-align: right;
     }
 

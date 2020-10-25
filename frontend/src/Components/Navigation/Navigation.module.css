@@ -3,6 +3,7 @@
   justify-content: center;
   margin-bottom: 13px;
 }
+
 .main__btn {
   display: block;
   width: 38px;
@@ -10,21 +11,33 @@
   border: none;
   background-repeat: no-repeat;
   outline: none;
+  font-weight: normal;
+  color: black;
+  opacity: 0.8;
 }
 
 .main__btn:hover,
 .main__btn:focus {
-  fill: #4a56e2;
+  transform: scale(1.1);
+}
+
+.main__btn_active {
+  font-weight: bold;
+  color: black;
+  transform: scale(1.1);
+  opacity: 1;
 }
 
 .main__btn_home {
   background-image: url(../../images/icons/navigation/home.svg);
   margin-right: 36px;
 }
+
 .main__btn_statistic {
   background-image: url(../../images/icons/navigation/statistic.svg);
   margin-right: 36px;
 }
+
 .main__btn_course {
   background-image: url(../../images/icons/navigation/course.svg);
 }
@@ -43,6 +56,12 @@
     height: 18px;
   }
 
+  .main__btn:hover,
+  .main__btn:focus,
+  .main__btn_active {
+    transform: none;
+  }
+
   .main__btn_home {
     background-size: cover;
     margin-bottom: 19px;
@@ -57,11 +76,6 @@
     content: "Главная";
     font-size: 18px;
     font-family: "Montserrat";
-  }
-
-  .main__btn_home:hover::after,
-  .main__btn_home:focus::after {
-    color: #4a56e2;
   }
 
   .main__btn_statistic {
@@ -79,16 +93,10 @@
     font-family: "Montserrat";
   }
 
-  .main__btn_statistic:hover::after,
-  .main__btn_statistic:focus::after {
-    color: #4a56e2;
-  }
-
   .main__btn_course {
     display: none;
   }
 }
-
 @media (min-width: 1280px) {
   .main__buttons_wrapper {
     width: 350px;

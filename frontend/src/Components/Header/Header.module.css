@@ -20,6 +20,7 @@
   font-weight: bold;
   position: relative;
   padding-left: 42px;
+  transition: color 0.3s linear;
 }
 
 .header__title:hover,
@@ -30,7 +31,7 @@
 .header__title::before {
   position: absolute;
   content: "";
-  background-image: url(../../images/icons/Logotype.svg);
+  background-image: url(../../images/icons/header/Logotype.svg);
   background-size: cover;
   display: block;
   width: 30px;
@@ -50,13 +51,17 @@
   font-family: "Montserrat";
 }
 
+.header__login_avatar {
+  display: none;
+}
+
 .header__logout_button {
   cursor: pointer;
   background-color: #ffffff;
   background-size: cover;
   border: none;
   outline: none;
-  background-image: url(../../images/icons/Logout.svg);
+  background-image: url(../../images/icons/header/Logout.svg);
   display: block;
   height: 18px;
   width: 18px;
@@ -78,42 +83,48 @@
     height: 40px;
   }
 
+  .header__login_wrapper {
+    display: flex;
+    align-items: center;
+    padding-right: 78px;
+    position: relative;
+    right: -6px;
+  }
+
   .header__login_name {
-    font-size: 20px;
-    margin-right: 30px;
+    height: 20px;
     position: relative;
   }
 
-  .header__login_wrapper {
-    padding-right: 84px;
-  }
-
-  .header__login_name::after {
-    position: absolute;
-    bottom: -4px;
-    left: 58px;
+  .header__login_avatar {
     display: block;
-    content: "";
-    height: 30px;
-    width: 1px;
-    background-color: #bdbdbd;
+    width: 60px;
+    height: 60px;
+    background-image: url(../../images/icons/header/empty_avatar.svg);
+    background-size: cover;
+    cursor: pointer;
+    margin-right: 12px;
   }
 
   .header__logout_button {
     position: relative;
-    top: 2px;
   }
 
   .header__logout_button::after {
-    position: absolute;
-    bottom: -20px;
-    left: 32px;
-    display: block;
     content: "Выйти";
+    display: block;
+    height: 20px;
+    position: absolute;
+    top: -1px;
+    right: -78px;
     color: #bdbdbd;
     font-size: 20px;
-    height: 40px;
     font-family: "Montserrat";
+    transition: color 0.2s linear;
+  }
+
+  .header__logout_button:hover::after {
+    color: #000;
   }
 }
 
@@ -122,7 +133,7 @@
     width: 1110px;
   }
 
-  .header__title {
-    margin-right: 780px;
+  .header__login_wrapper {
+    right: -19px;
   }
 }

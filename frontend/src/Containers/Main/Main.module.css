@@ -1,6 +1,6 @@
 .main {
   background-color: rgba(238, 238, 238, 0.4);
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .main__wrapper {
@@ -15,21 +15,36 @@
 
 @media (min-width: 768px) {
   .main {
-    background: url(../../images/icons/main/MainBackground.svg),
-      url(../../images/icons/main/BackgroundMain.svg), rgba(238, 238, 238, 0.4);
+    background-image: rgba(238, 238, 238, 0.4);
     background-position: left bottom, right top 80px;
     background-repeat: no-repeat;
+    position: relative;
+  }
+
+  .main::before {
+    content: "";
+    display: block;
+    width: 456px;
+    height: 486px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-image: url(../../images/icons/main/BackgroundMain.svg);
+    background-size: cover;
+    filter: blur(50px);
   }
 
   .main::after {
+    content: "";
     display: block;
+    width: 539px;
+    height: 439px;
     position: absolute;
-    top: 0;
-    bottom: 0;
     left: 0;
-    right: 0;
-    content: '';
-    backdrop-filter: blur(50px);
+    bottom: 0;
+    background-image: url(../../images/icons/main/MainBackground.svg);
+    background-size: cover;
+    filter: blur(50px);
   }
 
   .main__wrapper {
@@ -54,12 +69,17 @@
 }
 
 @media (min-width: 1280px) {
-  .main {
-    background: url(../../images/icons/main/MainBackground.svg),
-      url(../../images/icons/main/BackgroundDesktop.svg),
-      rgba(238, 238, 238, 0.4);
-    background-position: left bottom, right top 80px;
-    background-repeat: no-repeat;
+  .main::before {
+    content: "";
+    display: block;
+    width: 640px;
+    height: 486px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-image: url(../../images/icons/main/BackgroundDesktop.svg);
+    background-size: cover;
+    filter: blur(50px);
   }
 
   .main__wrapper {
