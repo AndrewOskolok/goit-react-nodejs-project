@@ -5,24 +5,19 @@ import {
   EDIT_TRANSACTION,
 } from "../constants/transactionFormConstants";
 
-const getCategories = createAction(GET_CATEGORIES, (payload) => ({
+export const getCategories = createAction(GET_CATEGORIES, (payload) => ({
   payload: payload.data,
 }));
-const editCurrentBalanceOnAdd = createAction(EDIT_BALANCE, (payload) => {
-  console.log("payloadInAction", payload);
-  return payload.balanceAfter;
-});
 
-const editCurrentBalanceOnEdit = createAction(EDIT_BALANCE, (payload) => {
-  console.log("payloadInAction", payload);
-  return payload.currentBalance;
-});
+export const editBalanceOnAdd = createAction(EDIT_BALANCE, (payload) => ({
+  payload: payload.balanceAfter,
+}));
 
-const editTransaction = createAction(EDIT_TRANSACTION, (payload) => payload);
+export const editBalanceOnEdit = createAction(EDIT_BALANCE, (payload) => ({
+  payload: payload.currentBalance,
+}));
 
-export default {
-  getCategories,
-  editCurrentBalanceOnAdd,
-  editTransaction,
-  editCurrentBalanceOnEdit
-};
+export const editTransaction = createAction(
+  EDIT_TRANSACTION,
+  (payload) => ({payload: payload.updatedTransaction})
+);

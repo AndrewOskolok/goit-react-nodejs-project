@@ -1,5 +1,5 @@
 import axios from "axios";
-import categoriesActions from "../actions/transactionFormActions";
+import {getCategories, editBalanceOnAdd, editBalanceOnEdit, editTransaction} from "../actions/transactionFormActions";
 import { addTransaction } from "../actions/transactionActions";
 import { loaderToggle } from "../actions/loaderAction";
 import { errorOn, errorOff } from "../actions/errorAction";
@@ -16,11 +16,11 @@ const addTransactionOperation = (transaction, token) => async (dispatch) => {
       headers: {
         Authorization: token,
       },
-    });
-    console.log("balanceAfter  ADD", data.balanceAfter);
-    console.log("Trabsaction  ADD", data);
+    });   
+    // console.log("balanceAfter  ADD", data.balanceAfter);
+    // console.log("Trabsaction  ADD", data);
     dispatch(addTransaction(data));
-    dispatch(categoriesActions.editCurrentBalanceOnAdd(data));
+    dispatch(editBalanceOnAdd(data));
   } catch (error) {
     dispatch(errorOn(error));
   } finally {
@@ -43,10 +43,10 @@ const editTransactionOperation = (transaction, id, token) => async (
         Authorization: token,
       },
     });
-    console.log("DataOnEdit", data.updatedTransaction);
-    console.log("balanceAfter  EDIT", data.currentBalance);
-    dispatch(categoriesActions.editTransaction(data.updatedTransaction));
-    dispatch(categoriesActions.editCurrentBalanceOnEdit(data));
+    // console.log("DataOnEdit", data.updatedTransaction);
+    // console.log("balanceAfter  EDIT", data.currentBalance);
+    dispatch(editTransaction(data));
+    dispatch(editBalanceOnEdit(data));
   } catch (error) {
     dispatch(errorOn(error));
     // console.dir(error);
@@ -60,7 +60,7 @@ const getCategoriesOperation = () => async (dispatch) => {
     dispatch(loaderToggle());
     const result = await axios.get("/categories");
     if (result.status === 200) {
-      dispatch(categoriesActions.getCategories(result));
+      dispatch(getCategories(result));
     }
   } catch (error) {
     console.log("ERROR!");
