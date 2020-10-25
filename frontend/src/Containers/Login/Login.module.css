@@ -60,10 +60,22 @@
 
 .login__errorEmailLength_p{
     color: red;
+    position: absolute;
+    display: block;
+    transform: translate(0, -40px);
+    font-family: "Montserrat";
+    font-weight: 700;
+    font-size: 8px;
 }
 
 .login__errorEmailValidate_p{
     color: red;
+    position: absolute;
+    display: block;
+    transform: translate(0, -40px);
+    font-family: "Montserrat";
+    font-weight: 700;
+    font-size: 8px;
 }
 
 .login__password {
@@ -91,10 +103,22 @@
 
 .login__errorPasswordLength_p {
     color: red;
+    position: absolute;
+    display: block;
+    transform: translate(0, -40px);
+    font-family: "Montserrat";
+    font-weight: 700;
+    font-size: 8px;
 }
 
 .login__errorPasswordValidate_p {
     color: red;
+    position: absolute;
+    display: block;
+    transform: translate(0, -40px);
+    font-family: "Montserrat";
+    font-weight: 700;
+    font-size: 8px;
 }
 
 .login__submit_btn {
@@ -200,11 +224,30 @@
         margin-bottom: 40px;
     }
 
+    .login__errorEmailLength_p{
+        transform: translate(-147px, 45px);
+        font-size: 11px;
+    }
+
+    .login__errorEmailValidate_p{
+        transform: translate(-140px, 45px);
+        font-size: 11px;
+    }
+
     .login__password {
         width: 410px;
         margin-bottom: 40px;
     }
     
+    .login__errorPasswordLength_p{
+        transform: translate(65px, 43px);
+        font-size: 11px;
+    }
+
+    .login__errorPasswordValidate_p {
+        transform: translate(65px, 43px);
+        font-size: 11px;
+    }
     .login__button{
         display: flex;
         flex-direction: column;

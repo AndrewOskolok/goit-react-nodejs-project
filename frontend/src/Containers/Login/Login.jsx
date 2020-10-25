@@ -13,7 +13,9 @@ const initialState = {
 const Login = () => {
   const [form, setForm] = useState(initialState);
   const [errorEmailLength, setErrorEmailLength] = useState(false);
+  const [errorEmailValidate, setErrorEmailValidate] = useState(false);
   const [errorPasswordLength, setErrorPasswordLength] = useState(false);
+  const [errorPasswordValidate, setErrorPasswordValidate] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -24,7 +26,8 @@ const Login = () => {
 
   const validate = async (e) => {
     e.preventDefault();
-
+    const re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    const passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
     const errors = {};
 
     //====================================email==================================//
@@ -32,9 +35,15 @@ const Login = () => {
     if (form.email.length === 0) {
       setErrorEmailLength(true);
       errors.emailLength = true;
+      setErrorEmailValidate(false);
+      errors.emailValidateLength = false;
     } else {
       setErrorEmailLength(false);
       errors.emailLength = false;
+      if (!re.test(form.email)) {
+        setErrorEmailValidate(true);
+        errors.emailValidateLength = true;
+      }
     }
 
     //=====================================password===========================//
@@ -42,14 +51,15 @@ const Login = () => {
     if (form.password.length < 6) {
       setErrorPasswordLength(true);
       errors.passwordLength = true;
+      setErrorPasswordValidate(false);
+      errors.passwordValidate = false;
     } else {
       setErrorPasswordLength(false);
       errors.passwordLength = false;
-    }
-
-    const arr = Object.values(errors);
-    if (!arr.find((error) => error === true)) {
-      dispatch(loginHandler({ email, password }));
+      if (!passw.test(form.password)) {
+        setErrorPasswordValidate(true);
+        errors.passwordValidate = true;
+      }
     }
   };
 
@@ -67,17 +77,24 @@ const Login = () => {
               <input
                 className={css.login__email}
                 placeholder="E-mail"
-                type="email"
+                // type="email"
                 name="email"
                 value={email}
                 onChange={handleFormInput}
-                required
+                // required
                 autoFocus
               />
             </label>
 
             {errorEmailLength && (
-              <p className={css.login__errorEmailLength_p}>email</p>
+              <p className={css.login__errorEmailLength_p}>
+                *Введите ваш Email
+              </p>
+            )}
+            {errorEmailValidate && (
+              <p className={css.login__errorEmailValidate_p}>
+                *Некорректный Email
+              </p>
             )}
 
             {/* --------- password input --------- */}
@@ -90,14 +107,19 @@ const Login = () => {
                 value={password}
                 onChange={handleFormInput}
                 minLength="6"
-                required
+                // required
               />
             </label>
           </div>
 
           {errorPasswordLength && (
-            <p className={css.login__errorPasswordLength_p}>password</p>
+            <p className={css.login__errorPasswordLength_p}>*Введите ваш пароль</p>
           )}
+          {errorPasswordValidate && (
+              <p className={css.login__errorPasswordValidate_p}>
+                *Пароль должен содержать цифру, большую и маленькую букву
+              </p>
+            )}
 
           {/* --------- buttons login/register --------- */}
           <div className={css.login__button}>

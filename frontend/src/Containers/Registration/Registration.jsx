@@ -152,6 +152,7 @@ const Registration = ({ history }) => {
             )}
 
             {/* ------------------------ password input ------------------------*/}
+
             <label className={css.registration__password_icon}>
               <input
                 className={css.registration__password}
@@ -173,11 +174,12 @@ const Registration = ({ history }) => {
             )}
             {errorPasswordValidate && (
               <p className={css.registration__errorPasswordValidate_p}>
-                *Пароль должен содержать цифру и большую букву
+                *Пароль должен содержать цифру, большую и маленькую букву
               </p>
             )}
 
             {/* ------------------------ password confirm status------------------------*/}
+
             {reliability && (
               <div className={css.registration__password_reliability}>
                 {reliability === 1 && (
@@ -199,6 +201,7 @@ const Registration = ({ history }) => {
             )}
 
             {/* ------------------------ password confirm input ------------------------ */}
+
             <label className={css.registration__password_icon}>
               <input
                 className={css.registration__password_confirm}
@@ -220,6 +223,7 @@ const Registration = ({ history }) => {
             )}
 
             {/* ----------------------- name user input ------------------------------        */}
+
             <label className={css.registration__avatar_icon}>
               <input
                 className={css.registration__name_input}
@@ -243,6 +247,7 @@ const Registration = ({ history }) => {
           </div>
 
           {/* ----------------------- buttons login/register ------------------------ */}
+          
           <div className={css.registration__button}>
             <button className={css.registration__submit_btn}>
               Регистрация
