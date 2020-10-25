@@ -1,22 +1,33 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import css from "./ConfirmedEmail.module.css";
 
-const ConfirmedEmail = ({ location, history }) => {
+const ConfirmedEmail = ({ location, history, match }) => {
   const [isVerified, setIsVerified] = useState(null);
+  console.log(isVerified);
 
-  useEffect(() => {
-    const path = location.pathname;
+  axios.defaults.baseURL = "https://goit-react-nodejs-project.herokuapp.com";
 
-    setIsVerified(path.length > 14);
-  }, [location.pathname]);
+  // useEffect(() => {
+  //   if (isVerified) {
+  //     setTimeout(() => {
+  //       history.push("/login");
+  //     }, 2000);
+  //   }
+  // }, [history, isVerified]);
 
-  useEffect(() => {
-    if (isVerified) {
-      setTimeout(() => {
-        history.push("/login");
-      }, 2000);
+  const request = async () => {
+    try {
+      const result = await axios.get(`/auth/verify/${match.params.token}`);
+      setIsVerified(result.status);
+    } catch (error) {
+      console.log(error);
     }
-  });
+  };
+
+  useEffect(() => {
+    request();
+  }, []);
 
   return (
     <div className={css.confirmed}>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserState } from "../../redux/selectors/selectors";
 import { getUser } from "../../redux/actions/userAction";
-
+import { avatarHandler } from "../../redux/opertions/userOperation";
 import css from "./Header.module.css";
 
 const Header = () => {
@@ -11,7 +11,7 @@ const Header = () => {
   const dispatch = useDispatch();
 
   const inputAvatar = ({ target }) => {
-    console.log(target.files[0]);
+    dispatch(avatarHandler(target.files[0], user.accessToken));
   };
 
   const logOut = () => {
@@ -37,6 +37,7 @@ const Header = () => {
                 />
               )}
             </label>
+
             <input
               onChange={inputAvatar}
               id="inputAvatar"

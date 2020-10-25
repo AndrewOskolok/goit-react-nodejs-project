@@ -1,5 +1,5 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { getUser } from "../actions/userAction";
+import { getUser, updateUserAvatar } from "../actions/userAction";
 import {
   editBalanceOnAdd,
   editBalanceOnEdit,
@@ -10,6 +10,10 @@ const initialState = null;
 
 export default createReducer(initialState, {
   [getUser]: (_, { payload }) => payload,
+  [updateUserAvatar]: (state, { payload }) => ({
+    ...state,
+    avatarUrl: payload,
+  }),
   [editBalanceOnAdd]: (state, { payload }) => {
     return { ...state, currentBalance: payload };
   },
