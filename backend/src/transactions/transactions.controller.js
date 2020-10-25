@@ -24,9 +24,9 @@ async function createTransaction(req, res) {
   const transactionId = uuidv4();
   const balanceAfter = req.body.balanceAfter;
   const update = {
-    $push: { transactions: { ...req.body, id: transactionId }},
-    $set: {"currentBalance": balanceAfter}
-};
+    $push: { transactions: { ...req.body, id: transactionId } },
+    $set: { currentBalance: balanceAfter },
+  };
   await UserModel.findByIdAndUpdate(req.user._id, update);
   res.status(201).send({ ...req.body, id: transactionId });
 }
@@ -84,13 +84,17 @@ async function filteredStatisticsByDate(req, res) {
 async function getMonthsAndYears(req, res) {
   const loggedUser = req.user;
   const transactionsYears = [
-    ...new Set(loggedUser.transactions.map((transaction) => transaction.year).sort()),
+    ...new Set(
+      loggedUser.transactions.map((transaction) => transaction.year).sort()
+    ),
   ];
-  const bigArr = transactionsYears.map(year => loggedUser.transactions.filter(transaction => transaction.year === year));
-  const yearAndItsMonths = bigArr.map(arr => ({[arr[0].year]: arr.map(transaction => transaction.month)}));
-  return res
-    .status(200)
-    .send(yearAndItsMonths);
+  const bigArr = transactionsYears.map((year) =>
+    loggedUser.transactions.filter((transaction) => transaction.year === year)
+  );
+  const yearAndItsMonths = bigArr.map((arr) => ({
+    [arr[0].year]: arr.map((transaction) => transaction.month),
+  }));
+  return res.status(200).send(yearAndItsMonths);
 }
 
 async function getCurrentMonth(req, res) {
