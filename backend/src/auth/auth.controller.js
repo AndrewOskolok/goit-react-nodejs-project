@@ -102,6 +102,7 @@ async function login(req, res) {
     id: user._id,
     sid: newSession._id,
     username: user.username,
+    avatarUrl: user.avatarUrl,
     currentBalance: user.currentBalance,
     transactions: currentMonthTransactions,
     accessToken,

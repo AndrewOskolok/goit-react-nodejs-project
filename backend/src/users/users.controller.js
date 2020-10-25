@@ -4,6 +4,7 @@ const { avatarCompresHandler } = require("../helpers/avatarCompres");
 const { UserModel } = require("./users.model");
 
 exports.getCurrent = async function getCurrent(req, res) {
+  console.log(req.user);
   res.status(200).send(req.user);
 };
 
