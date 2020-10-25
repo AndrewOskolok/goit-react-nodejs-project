@@ -185,9 +185,17 @@
           }
         ],
         "responses": {
-          "204": {
+          "201": {
             "description": "Successful operation",
-            "content": {}
+            "schema": {
+            "type": "object",
+            "properties": {
+              "currentBalance": {
+                "type": "integer",
+                "description": "User's new balance"
+              }
+            }
+          }
           },
           "400": {
             "description": "Bad request / No token provided",
@@ -232,9 +240,20 @@
           }
         ],
         "responses": {
-          "204": {
+          "201": {
             "description": "Successful operation",
-            "schema": { "$ref": "#/components/schemas/ReturnedTransaction" }
+            "schema": {
+              "type": "object",
+              "properties": {
+                "updatedTransaction": {
+                  "$ref": "#/components/schemas/ReturnedTransaction"
+                },
+                "currentBalance": {
+                  "type": "integer",
+                  "description": "User's new balance"
+                }
+              }
+            }
           },
           "400": {
             "description": "Bad request / No token provided",
