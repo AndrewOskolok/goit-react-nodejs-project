@@ -14,7 +14,6 @@ const monthNames = [
 ];
 
 export const editedData = (transactions) => {
-  // const newTransactions = [...transactions];
   const metaTransactions = transactions.map((item) => ({ ...item }));
 
   return metaTransactions.map((item) => {

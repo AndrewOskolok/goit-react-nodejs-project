@@ -5,24 +5,24 @@
     max-width: 44px !important;
     min-height: 44px !important;
     height: 44px !important;
-    max-height: 44px !important;
+    /* max-height: 44px !important; */
   }
   .alanBtn-root {
-    bottom: 150px !important;
-    right: 31px !important;
+    bottom: 70px !important;
+    right: 20px !important;
   }
 }
 
 @media (min-width: 768px) {
   .alanBtn-root {
-    bottom: 93px !important;
+    bottom: 70px !important;
     right: 40px !important;
+    z-index: 1000 !important;
   }
 }
 
 @media (min-width: 1280px) {
   .alanBtn-root {
-    bottom: 93px !important;
     right: 85px !important;
   }
 }
