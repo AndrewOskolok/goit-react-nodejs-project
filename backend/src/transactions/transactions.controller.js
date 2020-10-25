@@ -103,7 +103,7 @@ async function updateTransaction(req, res) {
       },
     }
   );
-  return res.status(201).send(updatedTransaction);
+  return res.status(201).send({"updatedTransaction": updatedTransaction, "currentBalance": newBalance});
 }
 
 async function getTransactions(req, res) {
