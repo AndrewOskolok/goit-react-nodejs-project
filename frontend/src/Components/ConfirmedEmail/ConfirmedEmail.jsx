@@ -11,17 +11,25 @@ const ConfirmedEmail = ({ history, match }) => {
     match.params.token && setIsVerified(true);
   }, [match]);
 
-  useEffect(() => {
-    if (isVerified) {
-      try {
-        axios.get(`/auth/verify/${match.params.token}`);
+  const request = async () => {
+    console.log(match.params.token);
+    try {
+      const result = await axios.get(`/auth/verify/${match.params.token}`);
 
+      console.log(result);
+
+      result.status === 200 &&
         setTimeout(() => {
           history.push("/login");
         }, 2000);
-      } catch (error) {
-        console.log(error);
-      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (isVerified) {
+      request();
     }
   });
 
