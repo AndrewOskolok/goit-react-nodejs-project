@@ -1,6 +1,6 @@
 import { createReducer } from "@reduxjs/toolkit";
 import { getUser } from "../actions/userAction";
-import balanceAction from "../actions/categoriesActions.js";
+import balanceAction from "../actions/transactionFormActions.js";
 
 const initialState = null;
 

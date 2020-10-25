@@ -35,6 +35,7 @@ const TransactionForm = ({
   const [transactionItem, setTransactionItem] = useState(initialState);
   const [startDate, setStartDate] = useState(new Date());
   const [optionsList, setOptionsList] = useState([]);
+  const [checkedBox, setCheckedBox] = useState(false);
   const [errors, setErrors] = useState({});
 
   const getCategoriesNames = (list) => {
@@ -65,15 +66,18 @@ const TransactionForm = ({
   }, [modalHandler, removeListener]);
 
   useEffect(() => {
-    if (currentTransaction) {
+    if(currentTransaction && currentTransaction.type === "expense"){
+      setCheckedBox((state) => !state);
+    }
+    if (currentTransaction) {      
       setTransactionItem((state) => ({
         ...state,
         ...currentTransaction,
+        category: ""
       }));
     }
     addListener();
-    setOptionsList(getCategoriesNames(categoriesList));
-
+    setOptionsList(getCategoriesNames(categoriesList));    
     return removeListener;
   }, [removeListener, addListener, currentTransaction, categoriesList]); 
 
@@ -101,11 +105,15 @@ const TransactionForm = ({
       category: option,
     }));
   };
-
+//=============================================================================
   const handleCheckboxChange = ({ target }) => {
-    const typeValue = target.checked ? "expense" : "income";
+    setCheckedBox((state) => !state);
+    const typeValue = !checkedBox ? "expense" : "income";
     setTransactionItem((state) => ({ ...state, type: typeValue }));
   };
+
+  console.log("checkedBox", checkedBox);
+  console.log("TRANSACTION", transactionItem);
 
   const validate = (amount, category, type, description) => {
     const errors = {};
@@ -124,8 +132,7 @@ const TransactionForm = ({
 
   const handleDate = (date) => {
     setStartDate(date);
-    const formatedDate = moment(date).format("DD/MMMM/yyyy");
-    console.log(formatedDate);
+    const formatedDate = moment(date).format("DD/MMMM/yyyy");   
     const dateD = moment(formatedDate).date();
     const month = moment(formatedDate).format("MMMM");
     const year = moment(formatedDate).year();
@@ -138,9 +145,9 @@ const TransactionForm = ({
   };
 
   const handleSubmit = (event) => {
-    event.preventDefault();
-
-    // console.log("id", currentTransaction.id);
+    event.preventDefault();  
+    
+    console.log("transactionItem!!!!", transactionItem);
 
     const { type, amount, category, description } = transactionItem;
 
@@ -153,8 +160,7 @@ const TransactionForm = ({
       event.target[1].checked
         ? (transactionItem.balanceAfter = Number(currentBalance) - Number(amount))
         : (transactionItem.balanceAfter = Number(currentBalance) + Number(amount));
-      transactionItem.amount = Number(transactionItem.amount); 
-      // console.log("id", currentTransaction.id);
+      transactionItem.amount = Number(transactionItem.amount);      
       currentTransaction ? editTransaction(transactionItem, currentTransaction.id, token) : addTransaction(transactionItem, token);    
       setTransactionItem(initialState);
       closeForm();
@@ -178,6 +184,7 @@ const TransactionForm = ({
               type="checkbox"
               className={formStyle.form__checkbox_input}
               onChange={handleCheckboxChange}
+              checked={checkedBox}
             />
             <span className={formStyle.form__checkbox_span}></span>
             <label className={formStyle.form__checkbox_income} htmlFor="check">
@@ -193,9 +200,9 @@ const TransactionForm = ({
         </div>
         {transactionItem.type === "income" ? null : (
           <div className={formStyle.form__errorsWrapper}>
-            <Select
-            defaultValue={{ label: 555, value: 555 }}
-              inputValue={currentTransaction && transactionItem.category}            
+            <Select           
+              // inputValue={currentTransaction && transactionItem.category} 
+              // isOptionSelected={!!currentTransaction && transactionItem.category}       
               className="select"
               classNamePrefix="selectprefix"
               options={optionsList}

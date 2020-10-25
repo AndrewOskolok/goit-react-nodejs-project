@@ -6,7 +6,7 @@ import {
   addTransaction,
 } from "../actions/transactionActions";
 
-import editTransaction from "../actions/categoriesActions";
+import editTransaction from "../actions/transactionFormActions";
 
 export default createReducer([], {
   [currentMonth]: (_, { payload }) => payload,

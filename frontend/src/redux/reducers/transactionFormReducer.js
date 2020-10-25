@@ -1,5 +1,5 @@
 import { createReducer } from "@reduxjs/toolkit";
-import transactionActions from "../actions/categoriesActions.js";
+import transactionActions from "../actions/transactionFormActions.js";
 
 const initialState = [];
 

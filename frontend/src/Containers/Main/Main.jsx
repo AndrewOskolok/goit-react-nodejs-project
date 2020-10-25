@@ -22,7 +22,6 @@ const Main = ({ history, getCategories }) => {
   const openModalHandler = () => {
     setModalWindow((state) => !state);
   };
-
   useEffect(() => {
     alanBtn({
       key:
@@ -38,7 +37,7 @@ const Main = ({ history, getCategories }) => {
       },
     });
     getCategories();
-  }, []);
+  }, [getCategories]);
 
   return (
     <div className={css.main}>
