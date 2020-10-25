@@ -111,8 +111,10 @@ async function login(req, res) {
 
 async function authorize(req, res, next) {
   const authorizationHeader = req.get("Authorization");
+  console.log(process.env.JWT_SECRET);
   if (authorizationHeader) {
     const accessToken = authorizationHeader.replace("Bearer ", "");
+    console.log(accessToken);
     let payload;
     try {
       payload = jwt.verify(accessToken, process.env.JWT_SECRET);

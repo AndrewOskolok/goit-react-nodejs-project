@@ -72,9 +72,13 @@ async function updateTransaction(req, res) {
   const transactionAmount = transactionToUpdate.amount;
   const amountOperation = transactionToUpdate.type;
   let newBalance = req.user.currentBalance;
+  let newType = amountOperation;
   let diff;
+  if(req.body.type && req.body.type !== amountOperation) {
+    newType = req.body.type;
+  }
   if(req.body.amount && transactionAmount !== req.body.amount) {
-    switch (amountOperation) {
+    switch (newType) {
       case "income":
         diff = transactionAmount - req.body.amount;
         newBalance = req.user.currentBalance - diff;
@@ -82,11 +86,7 @@ async function updateTransaction(req, res) {
   
       case "expense":
         diff = transactionAmount - req.body.amount;
-        if(diff < 0 ) {
-          newBalance = req.user.currentBalance - diff;
-        } else {
-          newBalance = req.user.currentBalance + diff;
-        }
+        newBalance = req.user.currentBalance + diff;
         break;
   
       default:
