@@ -30,7 +30,7 @@ const TransactionForm = ({
   categoriesList,
   currentTransaction,
   currentBalance,
-  token
+  token,
 }) => {
   const [transactionItem, setTransactionItem] = useState(initialState);
   const [startDate, setStartDate] = useState(new Date());
@@ -66,20 +66,20 @@ const TransactionForm = ({
   }, [modalHandler, removeListener]);
 
   useEffect(() => {
-    if(currentTransaction && currentTransaction.type === "expense"){
+    if (currentTransaction && currentTransaction.type === "expense") {
       setCheckedBox((state) => !state);
     }
-    if (currentTransaction) {      
+    if (currentTransaction) {
       setTransactionItem((state) => ({
         ...state,
         ...currentTransaction,
-        category: ""
+        category: "",
       }));
     }
     addListener();
-    setOptionsList(getCategoriesNames(categoriesList));    
+    setOptionsList(getCategoriesNames(categoriesList));
     return removeListener;
-  }, [removeListener, addListener, currentTransaction, categoriesList]); 
+  }, [removeListener, addListener, currentTransaction, categoriesList]);
 
   const handleInputAmount = ({ target }) => {
     const { name, value } = target;
@@ -105,15 +105,12 @@ const TransactionForm = ({
       category: option,
     }));
   };
-//=============================================================================
-  const handleCheckboxChange = ({ target }) => {
+
+  const handleCheckboxChange = () => {
     setCheckedBox((state) => !state);
     const typeValue = !checkedBox ? "expense" : "income";
     setTransactionItem((state) => ({ ...state, type: typeValue }));
-  };
-
-  console.log("checkedBox", checkedBox);
-  console.log("TRANSACTION", transactionItem);
+  }; 
 
   const validate = (amount, category, type, description) => {
     const errors = {};
@@ -132,7 +129,7 @@ const TransactionForm = ({
 
   const handleDate = (date) => {
     setStartDate(date);
-    const formatedDate = moment(date).format("DD/MMMM/yyyy");   
+    const formatedDate = moment(date).format("DD/MMMM/yyyy");
     const dateD = moment(formatedDate).date();
     const month = moment(formatedDate).format("MMMM");
     const year = moment(formatedDate).year();
@@ -145,9 +142,7 @@ const TransactionForm = ({
   };
 
   const handleSubmit = (event) => {
-    event.preventDefault();  
-    
-    console.log("transactionItem!!!!", transactionItem);
+    event.preventDefault();   
 
     const { type, amount, category, description } = transactionItem;
 
@@ -157,11 +152,18 @@ const TransactionForm = ({
       if (event.target[1].checked) {
         transactionItem.category = transactionItem.category.value;
       }
-      event.target[1].checked
-        ? (transactionItem.balanceAfter = Number(currentBalance) - Number(amount))
-        : (transactionItem.balanceAfter = Number(currentBalance) + Number(amount));
-      transactionItem.amount = Number(transactionItem.amount);      
-      currentTransaction ? editTransaction(transactionItem, currentTransaction.id, token) : addTransaction(transactionItem, token);    
+      
+      if (!currentTransaction) {
+        event.target[1].checked
+        ? (transactionItem.balanceAfter =
+            Number(currentBalance) - Number(amount))
+        : (transactionItem.balanceAfter =
+            Number(currentBalance) + Number(amount));
+      }      
+      transactionItem.amount = Number(transactionItem.amount);
+      currentTransaction
+        ? editTransaction(transactionItem, currentTransaction.id, token)
+        : addTransaction(transactionItem, token);
       setTransactionItem(initialState);
       closeForm();
     }
@@ -200,9 +202,9 @@ const TransactionForm = ({
         </div>
         {transactionItem.type === "income" ? null : (
           <div className={formStyle.form__errorsWrapper}>
-            <Select           
-              // inputValue={currentTransaction && transactionItem.category} 
-              // isOptionSelected={!!currentTransaction && transactionItem.category}       
+            <Select
+              // inputValue={currentTransaction && transactionItem.category}
+              // isOptionSelected={!!currentTransaction && transactionItem.category}
               className="select"
               classNamePrefix="selectprefix"
               options={optionsList}
@@ -274,7 +276,7 @@ const TransactionForm = ({
 
 const mapStateToProps = (state) => ({
   token: formSelectors.tokenSelector(state),
-  currentBalance:formSelectors.currentBalanceSelector(state),
+  currentBalance: formSelectors.currentBalanceSelector(state),
   categoriesList: formSelectors.categoriesSelector(state),
 });
 
