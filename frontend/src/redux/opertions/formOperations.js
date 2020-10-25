@@ -7,8 +7,7 @@ import { errorOn, errorOff } from "../actions/errorAction";
 axios.defaults.baseURL = "https://goit-react-nodejs-project.herokuapp.com";
 
 const addTransactionOperation = (transaction, token) => async (dispatch) => {
-  try {
-    console.log("AddOperation", transaction);
+  try {   
     dispatch(loaderToggle());
     const { data } = await axios({
       method: "post",
@@ -18,8 +17,10 @@ const addTransactionOperation = (transaction, token) => async (dispatch) => {
         Authorization: token,
       },
     });
+    console.log("balanceAfter  ADD", data.balanceAfter);
+    console.log("Trabsaction  ADD", data);
     dispatch(addTransaction(data));
-    dispatch(categoriesActions.editCurrentBalance(data));
+    dispatch(categoriesActions.editCurrentBalanceOnAdd(data));
   } catch (error) {
     dispatch(errorOn(error));
   } finally {
@@ -30,9 +31,6 @@ const addTransactionOperation = (transaction, token) => async (dispatch) => {
 const editTransactionOperation = (transaction, id, token) => async (
   dispatch
 ) => {
-  console.log("ID", id);
-  console.log("transactionIEditOperation", transaction);
-  console.log("tokenEditOperation", token);
   delete transaction.id;
 
   try {
@@ -45,11 +43,13 @@ const editTransactionOperation = (transaction, id, token) => async (
         Authorization: token,
       },
     });
-    console.log("DataOnEdit", data);
-    dispatch(categoriesActions.editTransaction(data));
+    console.log("DataOnEdit", data.updatedTransaction);
+    console.log("balanceAfter  EDIT", data.currentBalance);
+    dispatch(categoriesActions.editTransaction(data.updatedTransaction));
+    dispatch(categoriesActions.editCurrentBalanceOnEdit(data));
   } catch (error) {
     dispatch(errorOn(error));
-    console.dir(error);
+    // console.dir(error);
   } finally {
     dispatch(loaderToggle());
   }

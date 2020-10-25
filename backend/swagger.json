@@ -144,8 +144,8 @@
           "200": {
             "description": "Successful operation",
             "schema": {
-                "$ref": "#/components/schemas/TransactionTime"
-              }
+              "$ref": "#/components/schemas/TransactionTime"
+            }
           },
           "400": {
             "description": "No token provided",
@@ -600,6 +600,50 @@
           }
         }
       }
+    },
+    "/users/avatar": {
+      "patch": {
+        "tags": ["Users"],
+        "summary": "Update user avatar",
+        "parameters": [
+          {
+            "name": "Request body",
+            "in": "body",
+            "description": "Avatar update body",
+            "required": true,
+            "schema": { "$ref": "#/components/schemas/UpdateAvatarBody" }
+          },
+          {
+            "name": "JWT token",
+            "description": "Access token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/components/schemas/UserAvatar"
+            }
+          },
+          "400": {
+            "description": "No token provided",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized (invalid access token) / Unverified email",
+            "content": {}
+          },
+          "404": {
+            "description": "Invalid user / Invalid session",
+            "content": {}
+          }
+        }
+      }
     }
   },
   "components": {
@@ -957,6 +1001,25 @@
           }
         }
       },
+      "UpdateAvatarBody": {
+        "type": "object",
+        "properties": {
+          "avatar": {
+            "type": "string",
+            "format": "binary",
+            "description": "Transaction's month"
+          }
+        }
+      },
+      "UserAvatar": {
+        "type": "object",
+        "properties": {
+          "avatarUrl": {
+            "type": "string",
+            "description": "User's avatar URL"
+          }
+        }
+      },
       "Statistics": {
         "type": "object",
         "required": ["month", "year"],
@@ -1057,7 +1120,7 @@
                   "October",
                   "November",
                   "December"
-                ]   
+                ]
               }
             }
           }

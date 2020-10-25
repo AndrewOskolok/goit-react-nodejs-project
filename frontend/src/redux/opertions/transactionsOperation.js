@@ -1,4 +1,5 @@
 import axios from "axios";
+import { errorOn } from "../actions/errorAction";
 import { loaderToggle } from "../actions/loaderAction";
 import {
   currentMonth,
@@ -21,7 +22,7 @@ export const getCurrentTransactions = (token) => async (dispatch) => {
 
     dispatch(currentMonth(data));
   } catch (error) {
-    console.log(error);
+    dispatch(errorOn(error));
   } finally {
     dispatch(loaderToggle());
   }
@@ -53,7 +54,7 @@ export const getFilteredTransactions = (filter, token) => async (dispatch) => {
 
     dispatch(filteredTransaction(transactions.data));
   } catch (error) {
-    console.log(error);
+    dispatch(errorOn(error));
   } finally {
     dispatch(loaderToggle());
   }
@@ -80,7 +81,7 @@ export const deteteCurrentTransaction = (
       dispatch(deleteTransaction(newTransactionsList));
     }
   } catch (error) {
-    console.log(error);
+    dispatch(errorOn(error));
   } finally {
     dispatch(loaderToggle());
   }
