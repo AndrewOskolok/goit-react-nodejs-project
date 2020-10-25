@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import moment from "moment";
 import styles from "./Transaction.module.css";
 import {
   deteteCurrentTransaction,
@@ -24,6 +25,8 @@ const Transaction = () => {
   const openModalHandler = () => {
     setModalWindow((state) => !state);
   };
+
+  const month = moment(new Date()).format("MMMM");
 
   const getMonthTransactions = useCallback(() => {
     dispatch(getCurrentTransactions(userToken));
@@ -59,7 +62,7 @@ const Transaction = () => {
           onClick={getMonthTransactions}
           className={styles.transaction__filter_button}
         >
-          Месяц
+          {month}
         </button>
         <button
           onClick={transactionFilter}
