@@ -102,7 +102,7 @@ async function updateTransaction(req, res) {
         return;
     }
   }
-  // 75adf073-2fef-4cf9-91e2-0ca57572f6ad
+
   const updatedTransaction = { ...transactionToUpdate, ...req.body };
   await UserModel.update(
     { "transactions.id": req.params.transactionId },
