@@ -22,7 +22,6 @@ const Main = ({ history, getCategories }) => {
   const openModalHandler = () => {
     setModalWindow((state) => !state);
   };
-
   useEffect(() => {
     alanBtn({
       key:
@@ -32,13 +31,17 @@ const Main = ({ history, getCategories }) => {
           history.push("/statistic");
         } else if (commandData.command === "mainPage") {
           history.push("/");
+        } else if (commandData.command === "currencies") {
+          history.push("/currency");
+        } else if (commandData.command === "goBack") {
+          history.goBack();
         } else if (commandData.command === "open") {
           openModalHandler();
         }
       },
     });
     getCategories();
-  }, []);
+  }, [getCategories]);
 
   return (
     <div className={css.main}>
