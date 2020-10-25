@@ -57,7 +57,8 @@
   }
 
   .main__btn:hover,
-  .main__btn:focus {
+  .main__btn:focus,
+  .main__btn_active {
     transform: none;
   }
 
