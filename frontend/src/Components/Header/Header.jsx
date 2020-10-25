@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserState } from "../../redux/selectors/selectors";
 import { getUser } from "../../redux/actions/userAction";
@@ -9,6 +9,10 @@ const Header = () => {
   const user = useSelector((state) => getUserState(state));
 
   const dispatch = useDispatch();
+
+  const inputAvatar = ({ target }) => {
+    console.log(target.files[0]);
+  };
 
   const logOut = () => {
     dispatch(getUser(null));
@@ -23,15 +27,19 @@ const Header = () => {
         <div className={css.header__login_wrapper}>
           <p className={css.header__login_name}>{user.username}</p>
 
-          <form>
-            <label
-              className={css.header__login_avatar}
-              htmlFor="avatar"
-            ></label>
-            <img src={user.userAvatar} alt="" />
-
+          <form id="avatar">
+            <label className={css.header__login_avatar} htmlFor="inputAvatar">
+              {user.avatarUrl && (
+                <img
+                  src={user.avatarUrl}
+                  className={css.header__login_avatar_user}
+                  alt={user.username}
+                />
+              )}
+            </label>
             <input
-              id="avatar"
+              onChange={inputAvatar}
+              id="inputAvatar"
               type="file"
               name="avatar"
               accept=".jpg,.jpeg,.png"
