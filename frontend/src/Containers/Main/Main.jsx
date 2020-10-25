@@ -32,6 +32,10 @@ const Main = ({ history, getCategories }) => {
           history.push("/statistic");
         } else if (commandData.command === "mainPage") {
           history.push("/");
+        } else if (commandData.command === "currencies") {
+          history.push("/currency");
+        } else if (commandData.command === "goBack") {
+          history.goBack();
         } else if (commandData.command === "open") {
           openModalHandler();
         }
