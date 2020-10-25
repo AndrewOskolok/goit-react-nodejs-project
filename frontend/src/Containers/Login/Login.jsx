@@ -1,9 +1,12 @@
 import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { loginHandler } from "../../redux/opertions/userOperation";
-import { useDispatch } from "react-redux";
+import { errorOff } from "../../redux/actions/errorAction";
 import css from "./Login.module.css";
+import { getErrorMessage } from "../../redux/selectors/selectors";
+import { useEffect } from "react";
 
 const initialState = {
   email: "",
@@ -13,21 +16,26 @@ const initialState = {
 const Login = () => {
   const [form, setForm] = useState(initialState);
   const [errorEmailLength, setErrorEmailLength] = useState(false);
-  const [errorEmailValidate, setErrorEmailValidate] = useState(false);
   const [errorPasswordLength, setErrorPasswordLength] = useState(false);
-  const [errorPasswordValidate, setErrorPasswordValidate] = useState(false);
+
+  const errorMessageLogin = useSelector(state => getErrorMessage(state))
 
   const dispatch = useDispatch();
+
+  useEffect(()=> {
+    errorMessageLogin && dispatch(errorOff())
+  
+  },[dispatch]) 
 
   const handleFormInput = ({ target }) => {
     const { name, value } = target;
     setForm((state) => ({ ...state, [name]: value }));
+
+    errorMessageLogin && dispatch(errorOff())
   };
 
   const validate = async (e) => {
     e.preventDefault();
-    const re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    const passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
     const errors = {};
 
     //====================================email==================================//
@@ -35,15 +43,9 @@ const Login = () => {
     if (form.email.length === 0) {
       setErrorEmailLength(true);
       errors.emailLength = true;
-      setErrorEmailValidate(false);
-      errors.emailValidateLength = false;
     } else {
       setErrorEmailLength(false);
       errors.emailLength = false;
-      if (!re.test(form.email)) {
-        setErrorEmailValidate(true);
-        errors.emailValidateLength = true;
-      }
     }
 
     //=====================================password===========================//
@@ -51,16 +53,16 @@ const Login = () => {
     if (form.password.length < 6) {
       setErrorPasswordLength(true);
       errors.passwordLength = true;
-      setErrorPasswordValidate(false);
-      errors.passwordValidate = false;
     } else {
       setErrorPasswordLength(false);
       errors.passwordLength = false;
-      if (!passw.test(form.password)) {
-        setErrorPasswordValidate(true);
-        errors.passwordValidate = true;
-      }
     }
+
+    const arr = Object.values(errors);
+    if (!arr.find((error) => error === true)) {
+      dispatch(loginHandler({ email, password }));
+    }
+  
   };
 
   const { email, password } = form;
@@ -72,16 +74,15 @@ const Login = () => {
           <p className={css.login__logo}>Wallet</p>
 
           {/* --------- email input --------- */}
+
           <div className={css.login__button_data}>
             <label className={css.login__email_icon}>
               <input
                 className={css.login__email}
                 placeholder="E-mail"
-                // type="email"
                 name="email"
                 value={email}
                 onChange={handleFormInput}
-                // required
                 autoFocus
               />
             </label>
@@ -91,13 +92,11 @@ const Login = () => {
                 *Введите ваш Email
               </p>
             )}
-            {errorEmailValidate && (
-              <p className={css.login__errorEmailValidate_p}>
-                *Некорректный Email
-              </p>
-            )}
+
+            {errorMessageLogin && <p className={css.login__errorMessageLogin}>{errorMessageLogin}</p>}
 
             {/* --------- password input --------- */}
+
             <label className={css.login__password_icon}>
               <input
                 className={css.login__password}
@@ -107,7 +106,6 @@ const Login = () => {
                 value={password}
                 onChange={handleFormInput}
                 minLength="6"
-                // required
               />
             </label>
           </div>
@@ -115,13 +113,9 @@ const Login = () => {
           {errorPasswordLength && (
             <p className={css.login__errorPasswordLength_p}>*Введите ваш пароль</p>
           )}
-          {errorPasswordValidate && (
-              <p className={css.login__errorPasswordValidate_p}>
-                *Пароль должен содержать цифру, большую и маленькую букву
-              </p>
-            )}
 
           {/* --------- buttons login/register --------- */}
+
           <div className={css.login__button}>
             <button type="submit" className={css.login__submit_btn}>
               Вход
