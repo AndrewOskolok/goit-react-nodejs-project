@@ -24,21 +24,21 @@ const Registration = ({ history }) => {
   const [errorPasswordValidate, setErrorPasswordValidate] = useState(false);
   const [errorFirstNameLength, setErrorFirstNameLength] = useState(false);
 
-  const errorMessage = useSelector(state => getErrorMessage(state))
+  const errorMessage = useSelector((state) => getErrorMessage(state));
 
   axios.defaults.baseURL = "https://goit-react-nodejs-project.herokuapp.com";
 
   const dispatch = useDispatch();
 
-  useEffect(()=> {
-    errorMessage && dispatch(errorOff())
-  },[dispatch]) 
+  useEffect(() => {
+    errorMessage && dispatch(errorOff());
+  }, [dispatch]);
 
   const handleFormInput = ({ target }) => {
     const { name, value } = target;
     setForm((state) => ({ ...state, [name]: value }));
 
-    errorMessage && dispatch(errorOff())
+    errorMessage && dispatch(errorOff());
   };
 
   useEffect(() => {
@@ -123,8 +123,11 @@ const Registration = ({ history }) => {
 
         result.status === 201 && history.push("/verification");
       } catch (error) {
-        dispatch(errorOn({message: "Такая почта уже зарегистрирована"}));
+        dispatch(errorOn({ message: "Такая почта уже зарегистрирована" }));
         console.log("error :>> ", error);
+        setTimeout(() => {
+          dispatch(errorOff());
+        }, 3000);
       }
     }
   };
@@ -163,7 +166,9 @@ const Registration = ({ history }) => {
               </p>
             )}
 
-            {errorMessage && <p className={css.registration__errorMessage}>{errorMessage}</p>}
+            {errorMessage && (
+              <p className={css.registration__errorMessage}>{errorMessage}</p>
+            )}
 
             {/* ------------------------ password input ------------------------*/}
 
@@ -258,7 +263,7 @@ const Registration = ({ history }) => {
           </div>
 
           {/* ----------------------- buttons login/register ------------------------ */}
-          
+
           <div className={css.registration__button}>
             <button className={css.registration__submit_btn}>
               Регистрация
