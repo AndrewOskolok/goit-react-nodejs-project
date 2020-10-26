@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import moment from "moment";
 import styles from "./Transaction.module.css";
 import {
   deteteCurrentTransaction,
@@ -26,7 +25,9 @@ const Transaction = () => {
     setModalWindow((state) => !state);
   };
 
-  const month = moment(new Date()).format("MMMM");
+  const month = new Date().toLocaleDateString("ru", {
+    month: "long",
+  });
 
   const getMonthTransactions = useCallback(() => {
     dispatch(getCurrentTransactions(userToken));
