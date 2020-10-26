@@ -1,5 +1,5 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { getUserState } from "../redux/selectors/selectors";
 import Login from "../Containers/Login/Login";
@@ -7,9 +7,23 @@ import ConfirmedEmail from "../Components/ConfirmedEmail/ConfirmedEmail";
 import Registration from "../Containers/Registration/Registration.jsx";
 import Main from "../Containers/Main/Main";
 import css from "./App.module.css";
+import { updateToken } from "../redux/opertions/userOperation";
 
 function App() {
   const authorise = useSelector((state) => getUserState(state));
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    authorise &&
+      dispatch(
+        updateToken(
+          authorise.accessToken,
+          authorise.refreshToken,
+          authorise.sid
+        )
+      );
+  }, [dispatch]);
 
   return (
     <div className={css.app}>

@@ -1,6 +1,10 @@
 import axios from "axios";
 import { errorOn } from "../actions/errorAction.js";
-import { getUser, updateUserAvatar } from "../actions/userAction.js";
+import {
+  getUser,
+  updateUser,
+  updateUserAvatar,
+} from "../actions/userAction.js";
 
 axios.defaults.baseURL = "https://goit-react-nodejs-project.herokuapp.com";
 
@@ -14,12 +18,28 @@ export const loginHandler = (userObject) => async (dispatch) => {
   }
 };
 
-export const verifiedEmail = (verifiedKey) => async (dispatch) => {
+export const updateToken = (token, refreshToken, sid) => async (dispatch) => {
   try {
-    const result = await axios.get(`/auth/verify/${verifiedKey}`);
-    console.log(result);
+    const result = await axios.get("/users", {
+      headers: {
+        Authorization: token,
+      },
+    });
+
+    dispatch(updateUser(result.data));
   } catch (error) {
-    console.log("Email уже подтверждён");
+    const result = await axios({
+      method: "post",
+      data: {
+        sid: sid,
+      },
+      url: "/auth/refresh",
+      headers: {
+        Authorization: refreshToken,
+      },
+    });
+
+    dispatch(updateUser(result.data));
   }
 };
 
