@@ -251,6 +251,7 @@
 }
 
 .form__errorsWrapper {
+  transition: 250ms;
   position: relative;
 }
 

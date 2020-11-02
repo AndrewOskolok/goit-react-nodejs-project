@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
+import { CSSTransition } from "react-transition-group";
 import { connect } from "react-redux";
 import Select from "react-select";
 import DatePicker from "react-datepicker";
@@ -35,7 +36,7 @@ const TransactionForm = ({
   const [transactionItem, setTransactionItem] = useState(initialState);
   const [startDate, setStartDate] = useState(new Date());
   const [optionsList, setOptionsList] = useState([]);
-  const [checkedBox, setCheckedBox] = useState(false);
+  const [checkedBox, setCheckedBox] = useState(false); 
   const [errors, setErrors] = useState({});
 
   const getCategoriesNames = (list) => {
@@ -60,7 +61,8 @@ const TransactionForm = ({
     window.removeEventListener("keydown", handleKeyDown);
   }, [handleKeyDown]);
 
-  const closeForm = useCallback(() => {
+  const closeForm = useCallback((e) => {
+    e.preventDefault();
     removeListener();
     modalHandler();
   }, [modalHandler, removeListener]);
@@ -110,7 +112,7 @@ const TransactionForm = ({
     setCheckedBox((state) => !state);
     const typeValue = !checkedBox ? "expense" : "income";
     setTransactionItem((state) => ({ ...state, type: typeValue }));
-  }; 
+  };
 
   const validate = (amount, category, type, description) => {
     const errors = {};
@@ -142,7 +144,7 @@ const TransactionForm = ({
   };
 
   const handleSubmit = (event) => {
-    event.preventDefault();   
+    event.preventDefault();
 
     const { type, amount, category, description } = transactionItem;
 
@@ -152,14 +154,14 @@ const TransactionForm = ({
       if (event.target[1].checked) {
         transactionItem.category = transactionItem.category.value;
       }
-      
+
       if (!currentTransaction) {
         event.target[1].checked
-        ? (transactionItem.balanceAfter =
-            Number(currentBalance) - Number(amount))
-        : (transactionItem.balanceAfter =
-            Number(currentBalance) + Number(amount));
-      }      
+          ? (transactionItem.balanceAfter =
+              Number(currentBalance) - Number(amount))
+          : (transactionItem.balanceAfter =
+              Number(currentBalance) + Number(amount));
+      }
       transactionItem.amount = Number(transactionItem.amount);
       currentTransaction
         ? editTransaction(transactionItem, currentTransaction.id, token)
@@ -202,7 +204,7 @@ const TransactionForm = ({
         </div>
         {transactionItem.type === "income" ? null : (
           <div className={formStyle.form__errorsWrapper}>
-            <Select             
+            <Select
               className="select"
               classNamePrefix="selectprefix"
               options={optionsList}
