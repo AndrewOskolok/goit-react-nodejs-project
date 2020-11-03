@@ -18,7 +18,7 @@
 
 .main__btn:hover,
 .main__btn:focus {
-  transform: scale(1.1);  
+  transform: scale(1.1);
 }
 
 .main__btn_active {
@@ -42,7 +42,6 @@
   background-image: url(../../images/icons/navigation/course.svg);
 }
 
-
 @media (min-width: 768px) {
   .main__buttons_wrapper {
     flex-direction: column;
@@ -55,6 +54,12 @@
   .main__btn {
     width: 18px;
     height: 18px;
+  }
+
+  .main__btn:hover,
+  .main__btn:focus,
+  .main__btn_active {
+    transform: none;
   }
 
   .main__btn_home {

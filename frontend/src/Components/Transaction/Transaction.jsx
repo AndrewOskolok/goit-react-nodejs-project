@@ -8,12 +8,14 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import TransactionForm from "../TransactionForm/TransactionForm";
 import { editedData } from "../../helpers/editedTransactions";
+import { useCallback } from "react";
 
 const Transaction = () => {
   const dispatch = useDispatch();
-  const userToken = useSelector((state) => state.user.accessToken);
 
+  const userToken = useSelector((state) => state.user.accessToken);
   const transactions = useSelector((state) => state.transactions);
+
   const newTransactions = editedData(transactions);
 
   const [currentTransaction, setCurrentTransaction] = useState({});
@@ -23,12 +25,16 @@ const Transaction = () => {
     setModalWindow((state) => !state);
   };
 
+  const month = new Date().toLocaleDateString("ru", {
+    month: "long",
+  });
+
+  const getMonthTransactions = useCallback(() => {
+    dispatch(getCurrentTransactions(userToken));
+  }, [dispatch, userToken]);
+
   const transactionFilter = ({ target: { value } }) => {
     dispatch(getFilteredTransactions(value, userToken));
-  };
-
-  const deleteTransaction = ({ target: { value } }) => {
-    dispatch(deteteCurrentTransaction(value, userToken, transactions));
   };
 
   const editTransaction = ({ target: { value } }) => {
@@ -36,9 +42,13 @@ const Transaction = () => {
     openModalHandler();
   };
 
+  const deleteTransaction = ({ target: { value } }) => {
+    dispatch(deteteCurrentTransaction(value, userToken, transactions));
+  };
+
   useEffect(() => {
-    dispatch(getCurrentTransactions(userToken));
-  }, [dispatch, userToken]);
+    getMonthTransactions();
+  }, [getMonthTransactions]);
 
   return (
     <>
@@ -48,6 +58,12 @@ const Transaction = () => {
           className={styles.transaction__filter_button}
         >
           Все
+        </button>
+        <button
+          onClick={getMonthTransactions}
+          className={styles.transaction__filter_button}
+        >
+          {month}
         </button>
         <button
           onClick={transactionFilter}

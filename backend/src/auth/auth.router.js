@@ -30,7 +30,11 @@ const refreshSchema = Joi.object({
 
 router.post("/register", validate(signUpSchema), tryCatchWrapper(register));
 router.post("/login", validate(signInSchema), tryCatchWrapper(login));
-router.get("/refresh", validate(refreshSchema), tryCatchWrapper(refreshTokens));
+router.post(
+  "/refresh",
+  validate(refreshSchema),
+  tryCatchWrapper(refreshTokens)
+);
 router.post("/logout", authorize, tryCatchWrapper(logout));
 router.get("/verify/:verificationToken", tryCatchWrapper(verifyEmail));
 

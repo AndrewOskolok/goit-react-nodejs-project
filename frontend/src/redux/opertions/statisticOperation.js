@@ -1,13 +1,14 @@
 import axios from 'axios';
 import { getStatistic } from '../actions/statisticAction';
-import { getUser } from '../actions/userAction';
 axios.defaults.baseURL = 'https://goit-react-nodejs-project.herokuapp.com';
 
 const getFilteredStatistic = params => async (dispatch, getState) => {
   const state = getState();
   const token = state.user.accessToken;
-  const sid = state.user.refreshToken;
-  const user = state.user;
+  if (!token) {
+    return;
+  }
+  params.setLoader(true);
 
   try {
     const result = await axios.get(
@@ -21,11 +22,18 @@ const getFilteredStatistic = params => async (dispatch, getState) => {
 
     dispatch(getStatistic(result.data));
   } catch (error) {
+    if (error.response.status === 401) {
+      params.setError(404);
+      params.setNothingToShow('Авторизируйтесь');
+      return;
+    }
+
     if (error.response.status === 500) {
       params.setError(500);
-      params.setNothingToShow('Server capoot');
+      params.setNothingToShow('проблемы на сервере.');
     }
   } finally {
+    params.setLoader(false);
   }
 };
 
