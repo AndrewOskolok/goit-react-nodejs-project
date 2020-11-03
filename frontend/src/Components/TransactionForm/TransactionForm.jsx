@@ -36,7 +36,7 @@ const TransactionForm = ({
   const [transactionItem, setTransactionItem] = useState(initialState);
   const [startDate, setStartDate] = useState(new Date());
   const [optionsList, setOptionsList] = useState([]);
-  const [checkedBox, setCheckedBox] = useState(false); 
+  const [checkedBox, setCheckedBox] = useState(false);
   const [errors, setErrors] = useState({});
 
   const getCategoriesNames = (list) => {
@@ -61,11 +61,16 @@ const TransactionForm = ({
     window.removeEventListener("keydown", handleKeyDown);
   }, [handleKeyDown]);
 
-  const closeForm = useCallback((e) => {
-    e.preventDefault();
-    removeListener();
-    modalHandler();
-  }, [modalHandler, removeListener]);
+  const closeForm = useCallback(
+    (e) => {
+      if (e) {
+        e.preventDefault();
+      }
+      removeListener();
+      modalHandler();
+    },
+    [modalHandler, removeListener]
+  );
 
   useEffect(() => {
     if (currentTransaction && currentTransaction.type === "expense") {
@@ -167,7 +172,7 @@ const TransactionForm = ({
         ? editTransaction(transactionItem, currentTransaction.id, token)
         : addTransaction(transactionItem, token);
       setTransactionItem(initialState);
-      closeForm();
+      closeForm();     
     }
     return validateResult;
   };
