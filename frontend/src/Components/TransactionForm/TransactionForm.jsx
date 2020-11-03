@@ -172,109 +172,112 @@ const TransactionForm = ({
         ? editTransaction(transactionItem, currentTransaction.id, token)
         : addTransaction(transactionItem, token);
       setTransactionItem(initialState);
-      closeForm();     
+      closeForm();
     }
     return validateResult;
   };
 
   return (
-    <>
-      <form
-        className={formStyle.form}
-        autoComplete="off"
-        onSubmit={handleSubmit}
-      >
-        <h2 className={formStyle.form__title}>Добавить транзакцию</h2>
-        <button className={formStyle.form__closeBtn} onClick={closeForm} />
-        <div className={formStyle.form__checkbox_wrapper}>
-          <label className={formStyle.form__checkbox_label}>
-            <input
-              id="check"
-              type="checkbox"
-              className={formStyle.form__checkbox_input}
-              onChange={handleCheckboxChange}
-              checked={checkedBox}
-            />
-            <span className={formStyle.form__checkbox_span}></span>
-            <label className={formStyle.form__checkbox_income} htmlFor="check">
-              Доход
+    <>      
+        <form
+          className={formStyle.form}
+          autoComplete="off"
+          onSubmit={handleSubmit}
+        >
+          <h2 className={formStyle.form__title}>Добавить транзакцию</h2>
+          <button className={formStyle.form__closeBtn} onClick={closeForm} />
+          <div className={formStyle.form__checkbox_wrapper}>
+            <label className={formStyle.form__checkbox_label}>
+              <input
+                id="check"
+                type="checkbox"
+                className={formStyle.form__checkbox_input}
+                onChange={handleCheckboxChange}
+                checked={checkedBox}
+              />
+              <span className={formStyle.form__checkbox_span}></span>
+              <label
+                className={formStyle.form__checkbox_income}
+                htmlFor="check"
+              >
+                Доход
+              </label>
+              <label
+                className={formStyle.form__checkbox_consumption}
+                htmlFor="check"
+              >
+                Расход
+              </label>
             </label>
-            <label
-              className={formStyle.form__checkbox_consumption}
-              htmlFor="check"
-            >
-              Расход
-            </label>
-          </label>
-        </div>
-        {transactionItem.type === "income" ? null : (
-          <div className={formStyle.form__errorsWrapper}>
-            <Select
-              className="select"
-              classNamePrefix="selectprefix"
-              options={optionsList}
-              noOptionsMessage={() => "Категория не найдена"}
-              placeholder="Выберите категорию"
-              isSearchable={true}
-              name="category"
-              value={transactionItem.category}
-              onChange={handleSelect}
-            />
-            {errors.category && (
-              <span className={formStyle.form__categoryError}>
-                {errors.category}
-              </span>
-            )}
           </div>
-        )}
-        <div className={formStyle.form__acBox}>
+          {transactionItem.type === "income" ? null : (
+            <div className={formStyle.form__errorsWrapper}>
+              <Select
+                className="select"
+                classNamePrefix="selectprefix"
+                options={optionsList}
+                noOptionsMessage={() => "Категория не найдена"}
+                placeholder="Выберите категорию"
+                isSearchable={true}
+                name="category"
+                value={transactionItem.category}
+                onChange={handleSelect}
+              />
+              {errors.category && (
+                <span className={formStyle.form__categoryError}>
+                  {errors.category}
+                </span>
+              )}
+            </div>
+          )}
+          <div className={formStyle.form__acBox}>
+            <div className={formStyle.form__errorsWrapper}>
+              <input
+                type="text"
+                className={formStyle.form__amount}
+                placeholder="0.00"
+                name="amount"
+                value={transactionItem.amount}
+                onChange={handleInputAmount}
+              />
+              {errors.amount && (
+                <span className={formStyle.form__amountError}>
+                  {errors.amount}
+                </span>
+              )}
+            </div>
+            <DatePicker
+              id="select"
+              className={formStyle.form__calendar}
+              selected={startDate}
+              onChange={handleDate}
+              dateFormat="dd.MM.yyyy"
+            />
+          </div>
           <div className={formStyle.form__errorsWrapper}>
             <input
               type="text"
-              className={formStyle.form__amount}
-              placeholder="0.00"
-              name="amount"
-              value={transactionItem.amount}
-              onChange={handleInputAmount}
+              className={formStyle.form__description}
+              placeholder="Комментарий"
+              name="description"
+              value={transactionItem.description}
+              onChange={handleInput}
+              maxLength="24"
             />
-            {errors.amount && (
-              <span className={formStyle.form__amountError}>
-                {errors.amount}
+            {errors.description && (
+              <span className={formStyle.form__descriptionError}>
+                {errors.description}
               </span>
             )}
           </div>
-          <DatePicker
-            id="select"
-            className={formStyle.form__calendar}
-            selected={startDate}
-            onChange={handleDate}
-            dateFormat="dd.MM.yyyy"
-          />
-        </div>
-        <div className={formStyle.form__errorsWrapper}>
-          <input
-            type="text"
-            className={formStyle.form__description}
-            placeholder="Комментарий"
-            name="description"
-            value={transactionItem.description}
-            onChange={handleInput}
-            maxLength="24"
-          />
-          {errors.description && (
-            <span className={formStyle.form__descriptionError}>
-              {errors.description}
-            </span>
-          )}
-        </div>
-        <button className={formStyle.form__add_btn}>
-          {currentTransaction ? "Изменить" : "Добавить"}
-        </button>
-        <button className={formStyle.form__cancel_btn} onClick={closeForm}>
-          Отмена"
-        </button>
-      </form>
-      <div className={formStyle.overlay} onClick={closeForm}></div>
+          <button className={formStyle.form__add_btn}>
+            {currentTransaction ? "Изменить" : "Добавить"}
+          </button>
+          <button className={formStyle.form__cancel_btn} onClick={closeForm}>
+            Отмена"
+          </button>
+        </form>
+        <div className={formStyle.overlay} onClick={closeForm}></div>      
     </>
   );
 };
