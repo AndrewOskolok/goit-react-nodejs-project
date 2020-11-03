@@ -1,10 +1,21 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { useSelector } from 'react-redux';
+
 const configData = arrayOfStat => {
-  const categories = arrayOfStat.map(el => el.category);
-  const values = arrayOfStat.map(el => el.total);
-  const colors = arrayOfStat.map(el => el.color);
+  let categories = [];
+  let values = [];
+  let colors = [];
+  if (arrayOfStat.length > 0) {
+    categories = arrayOfStat.map(el => el.category);
+    values = arrayOfStat.map(el => el.total);
+    colors = arrayOfStat.map(el => el.color);
+  } else {
+    categories = ['Нет расходов'];
+    values = [1];
+    colors = ['#C0C0C0'];
+  }
+
   const data = {
     labels: categories,
     datasets: [
@@ -21,9 +32,10 @@ const configData = arrayOfStat => {
 
 const StatisticChart = () => {
   const arrayOfStat = useSelector(state => state.statistics.items);
+  const data = useMemo(() => configData(arrayOfStat), [arrayOfStat]);
   return (
     <Doughnut
-      data={configData(arrayOfStat)}
+      data={data}
       options={{
         maintainAspectRatio: false,
         responsive: true,
@@ -34,13 +46,6 @@ const StatisticChart = () => {
         legend: {
           display: false,
         },
-        // animation: {
-        //   duration: 0, // general animation time
-        // },
-        // hover: {
-        //   animationDuration: 0, // duration of animations when hovering an item
-        // },
-        // responsiveAnimationDuration: 0, // animation duration after a resize
       }}
     />
   );

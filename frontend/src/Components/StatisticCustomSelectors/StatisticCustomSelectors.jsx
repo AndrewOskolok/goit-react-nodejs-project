@@ -1,11 +1,11 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import queryString from 'query-string';
 import { useHistory, useLocation } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
 import css from './StatisticCustomSelectors.module.css';
 import animate from './slide.module.css';
 
-const StatisticCustomSelectors = ({ years, availableDates }) => {
+const StatisticCustomSelectors = ({ years, availableDates, loader }) => {
   const history = useHistory();
   const location = useLocation();
   const [valueSelectorMonth, setValueSelectorMonth] = useState(null);
@@ -43,7 +43,7 @@ const StatisticCustomSelectors = ({ years, availableDates }) => {
     setMonths(months);
     setValueSelectorMonth(months[months.length - 1]);
     setValueSelectorYear(correctYear);
-  }, []);
+  }, [years]);
 
   useEffect(() => {
     if (valueSelectorMonth && valueSelectorYear) {
@@ -86,79 +86,83 @@ const StatisticCustomSelectors = ({ years, availableDates }) => {
 
   return (
     <>
-      <div className={css.select}>
-        <input className={css.select__input} type="hidden" />
-        <div
-          onClick={() => openSelector(setIsOpenMonth, ref)}
-          ref={ref}
-          className={css.select__head}
-        >
-          {valueSelectorMonth}
-        </div>
+      {!loader && (
+        <>
+          <div className={css.select}>
+            <input className={css.select__input} type="hidden" />
+            <div
+              onClick={() => openSelector(setIsOpenMonth, ref)}
+              ref={ref}
+              className={css.select__head}
+            >
+              {valueSelectorMonth}
+            </div>
 
-        <CSSTransition
-          in={isOpen}
-          mountOnEnter
-          unmountOnExit
-          timeout={200}
-          classNames={animate}
-        >
-          <ul
-            className={css.select__list}
-            onClick={e =>
-              handleChangeSelector(
-                e,
-                setValueSelectorMonth,
-                setIsOpenMonth,
-                ref,
-              )
-            }
-          >
-            {months.map(el => (
-              <li key={el} className={css.select__item}>
-                {el}
-              </li>
-            ))}
-          </ul>
-        </CSSTransition>
-      </div>
+            <CSSTransition
+              in={isOpen}
+              mountOnEnter
+              unmountOnExit
+              timeout={200}
+              classNames={animate}
+            >
+              <ul
+                className={css.select__list}
+                onClick={e =>
+                  handleChangeSelector(
+                    e,
+                    setValueSelectorMonth,
+                    setIsOpenMonth,
+                    ref,
+                  )
+                }
+              >
+                {months.map(el => (
+                  <li key={el} className={css.select__item}>
+                    {el}
+                  </li>
+                ))}
+              </ul>
+            </CSSTransition>
+          </div>
 
-      <div className={css.select}>
-        <input className={css.select__input} type="hidden" />
-        <div
-          ref={refYear}
-          onClick={() => openSelector(setIsOpenYear, refYear)}
-          className={css.select__head}
-        >
-          {valueSelectorYear}
-        </div>
+          <div className={css.select}>
+            <input className={css.select__input} type="hidden" />
+            <div
+              ref={refYear}
+              onClick={() => openSelector(setIsOpenYear, refYear)}
+              className={css.select__head}
+            >
+              {valueSelectorYear}
+            </div>
 
-        <CSSTransition
-          in={isOpenYear}
-          mountOnEnter
-          unmountOnExit
-          timeout={200}
-          classNames={animate}
-        >
-          <ul
-            className={css.select__list}
-            onClick={e =>
-              handleChangeSelector(
-                e,
-                setValueSelectorYear,
-                setIsOpenYear,
-                refYear,
-              )
-            }
-          >
-            {years.map(el => (
-              <li key={el} className={css.select__item}>
-                {el}
-              </li>
-            ))}
-          </ul>
-        </CSSTransition>
-      </div>
+            <CSSTransition
+              in={isOpenYear}
+              mountOnEnter
+              unmountOnExit
+              timeout={200}
+              classNames={animate}
+            >
+              <ul
+                className={css.select__list}
+                onClick={e =>
+                  handleChangeSelector(
+                    e,
+                    setValueSelectorYear,
+                    setIsOpenYear,
+                    refYear,
+                  )
+                }
+              >
+                {years.map(el => (
+                  <li key={el} className={css.select__item}>
+                    {el}
+                  </li>
+                ))}
+              </ul>
+            </CSSTransition>
+          </div>
+        </>
+      )}
     </>
   );
 };
