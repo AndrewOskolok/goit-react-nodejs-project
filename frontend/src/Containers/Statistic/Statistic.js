@@ -10,7 +10,7 @@ import getFilteredStatistic from '../../redux/opertions/statisticOperation';
 import Spinner from '../../Components/Spinner/Spinner';
 import { clearStatistic } from '../../redux/actions/statisticAction';
 import { loaderToggle } from '../../redux/actions/loaderAction';
-import { getUser } from '../../redux/actions/userAction';
+
 import notFound from '../../images/icons/notFound.svg';
 import serverDown from '../../images/icons/serverDown.svg';
 import css from './Statistic.module.css';
@@ -62,20 +62,6 @@ const Statistic = () => {
           goToTransactions();
         }
       } catch (error) {
-        if (error.response && error.response.status === 401) {
-          const result = await axios.get(`/auth/refresh`, {
-            body: {
-              sid,
-            },
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-          dispatch(getUser({ ...user, ...result.data }));
-          console.log('new token', result.data);
-          console.log('get new token with refresh token');
-        }
-
         if (error.response.status === 500) {
           setError(500);
           setNothingToShow('Server capoot');
