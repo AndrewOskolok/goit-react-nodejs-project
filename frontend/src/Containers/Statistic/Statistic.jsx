@@ -54,6 +54,7 @@ const Statistic = () => {
         if (years.length === 0) {
           setNothingToShow('Транзакции не найдены.');
           setError(404);
+          setLoader(false);
         }
       } catch (error) {
         setLoader(false);
