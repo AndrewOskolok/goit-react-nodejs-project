@@ -1,31 +1,31 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useHistory } from 'react-router-dom';
-import axios from 'axios';
-import queryString from 'query-string';
-import StatisticCustomSelectors from '../../Components/StatisticCustomSelectors/StatisticCustomSelectors';
-import StatisticList from '../../Components/StatisticList/StatisticList';
-import StatisticChart from '../../Components/StatisticChart/StatisticChart';
-import getFilteredStatistic from '../../redux/opertions/statisticOperation';
-import Spinner from '../../Components/Spinner/Spinner';
-import { clearStatistic } from '../../redux/actions/statisticAction';
-import { loaderToggle } from '../../redux/actions/loaderAction';
-import { getUser } from '../../redux/actions/userAction';
-import notFound from '../../images/icons/notFound.svg';
-import serverDown from '../../images/icons/serverDown.svg';
-import css from './Statistic.module.css';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useHistory } from "react-router-dom";
+import axios from "axios";
+import queryString from "query-string";
+import StatisticCustomSelectors from "../../Components/StatisticCustomSelectors/StatisticCustomSelectors";
+import StatisticList from "../../Components/StatisticList/StatisticList";
+import StatisticChart from "../../Components/StatisticChart/StatisticChart";
+import getFilteredStatistic from "../../redux/opertions/statisticOperation";
+import Spinner from "../../Components/Spinner/Spinner";
+import { clearStatistic } from "../../redux/actions/statisticAction";
+import { loaderToggle } from "../../redux/actions/loaderAction";
+import { getUser } from "../../redux/actions/userAction";
+import notFound from "../../images/icons/notFound.svg";
+import serverDown from "../../images/icons/serverDown.svg";
+import css from "./Statistic.module.css";
 
 const Statistic = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const history = useHistory();
-  const token = useSelector(state => state.user.accessToken);
-  const sid = useSelector(state => state.user.refreshToken);
-  const { user } = useSelector(state => state);
-  const arrayOfStat = useSelector(state => state.statistics.items);
-  const { typeOfAmount } = useSelector(state => state.statistics);
-  const { balance } = useSelector(state => state.statistics);
-  const { loader } = useSelector(state => state);
+  const token = useSelector((state) => state.user.accessToken);
+  const sid = useSelector((state) => state.user.refreshToken);
+  const { user } = useSelector((state) => state);
+  const arrayOfStat = useSelector((state) => state.statistics.items);
+  const { typeOfAmount } = useSelector((state) => state.statistics);
+  const { balance } = useSelector((state) => state.statistics);
+  const { loader } = useSelector((state) => state);
   const [years, setYears] = useState([]);
   const [nothingToShow, setNothingToShow] = useState(null);
   const [error, setError] = useState(null);
@@ -34,12 +34,12 @@ const Statistic = () => {
   useEffect(() => {
     const goToTransactions = () => {
       setTimeout(() => {
-        history.push('/');
+        history.push("/");
       }, 3000);
     };
     const requestForTimes = async () => {
       axios.defaults.baseURL =
-        'https://goit-react-nodejs-project.herokuapp.com';
+        "https://goit-react-nodejs-project.herokuapp.com";
       dispatch(loaderToggle());
       try {
         const result = await axios.get(`/transactions/time`, {
@@ -47,9 +47,8 @@ const Statistic = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log(result.data);
 
-        const years = [...result.data.map(el => Object.keys(el))].flat();
+        const years = [...result.data.map((el) => Object.keys(el))].flat();
 
         if (years) {
           setAvailableDates(result.data);
@@ -57,7 +56,7 @@ const Statistic = () => {
         }
 
         if (years.length === 0) {
-          setNothingToShow('transactions not found');
+          setNothingToShow("transactions not found");
           setError(404);
           goToTransactions();
         }
@@ -72,13 +71,13 @@ const Statistic = () => {
             },
           });
           dispatch(getUser({ ...user, ...result.data }));
-          console.log('new token', result.data);
-          console.log('get new token with refresh token');
+          console.log("new token", result.data);
+          console.log("get new token with refresh token");
         }
 
         if (error.response.status === 500) {
           setError(500);
-          setNothingToShow('Server capoot');
+          setNothingToShow("Server capoot");
 
           return;
         }
@@ -99,7 +98,7 @@ const Statistic = () => {
             year,
             setError,
             setNothingToShow,
-          }),
+          })
         );
       }
     }
@@ -122,7 +121,7 @@ const Statistic = () => {
                 alt="content not found"
               />
 
-              <p>{nothingToShow ? nothingToShow : 'Something went wrong'}</p>
+              <p>{nothingToShow ? nothingToShow : "Something went wrong"}</p>
             </div>
           )}
           {!error && years.length > 0 && (

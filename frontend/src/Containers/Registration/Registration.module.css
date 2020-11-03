@@ -68,7 +68,7 @@
   color: red;
 }
 
-.registration__errorMessage{
+.registration__errorMessage {
   position: absolute;
   display: block;
   transform: translate(0, -20px);
@@ -300,11 +300,11 @@
   }
 
   .registration__form_wrapper {
-    transform: translateY(-20px);
     width: 540px;
     height: 620px;
     background-color: #fff;
     border-radius: 20px;
+    transform: translateY(-20px);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -343,7 +343,7 @@
     transform: translate(-140px, 50px);
   }
 
-  .registration__errorMessage{
+  .registration__errorMessage {
     font-size: 11px;
     transform: translate(-98px, 50px);
   }

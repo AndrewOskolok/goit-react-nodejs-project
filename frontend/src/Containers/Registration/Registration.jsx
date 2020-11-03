@@ -32,7 +32,7 @@ const Registration = ({ history }) => {
 
   useEffect(() => {
     errorMessage && dispatch(errorOff());
-  }, [dispatch]);
+  }, [dispatch, errorMessage]);
 
   const handleFormInput = ({ target }) => {
     const { name, value } = target;

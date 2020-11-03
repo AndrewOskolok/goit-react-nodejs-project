@@ -11,12 +11,53 @@ axios.defaults.baseURL = "https://goit-react-nodejs-project.herokuapp.com";
 export const loginHandler = (userObject) => async (dispatch) => {
   try {
     const result = await axios.post("/auth/login", userObject);
-    dispatch(getUser(result.data));
+
+    const {
+      id,
+      sid,
+      username,
+      email,
+      avatarUrl,
+      currentBalance,
+      accessToken,
+      refreshToken,
+    } = result.data;
+
+    dispatch(
+      getUser({
+        id,
+        sid,
+        username,
+        email,
+        avatarUrl,
+        currentBalance,
+        accessToken,
+        refreshToken,
+      })
+    );
   } catch (error) {
     dispatch(errorOn({ message: "Неверный Email или пароль" }));
-    console.log("error :>> ", error);
   }
 };
+
+// export const updateToken = (refreshToken, sid) => async (dispatch) => {
+//   try {
+//     const result = await axios({
+//       method: "post",
+//       data: {
+//         sid: sid,
+//       },
+//       url: "/auth/refresh",
+//       headers: {
+//         Authorization: refreshToken,
+//       },
+//     });
+
+//     dispatch(updateUser(result.data));
+//   } catch (error) {
+//     dispatch(getUser(null));
+//   }
+// };
 
 export const updateToken = (token, refreshToken, sid) => async (dispatch) => {
   try {
@@ -25,21 +66,23 @@ export const updateToken = (token, refreshToken, sid) => async (dispatch) => {
         Authorization: token,
       },
     });
-
-    dispatch(updateUser(result.data));
   } catch (error) {
-    const result = await axios({
-      method: "post",
-      data: {
-        sid: sid,
-      },
-      url: "/auth/refresh",
-      headers: {
-        Authorization: refreshToken,
-      },
-    });
+    try {
+      const result = await axios({
+        method: "post",
+        data: {
+          sid: sid,
+        },
+        url: "/auth/refresh",
+        headers: {
+          Authorization: refreshToken,
+        },
+      });
 
-    dispatch(updateUser(result.data));
+      dispatch(updateUser(result.data));
+    } catch (error) {
+      dispatch(getUser(null));
+    }
   }
 };
 
