@@ -27,8 +27,6 @@ exports.updateAvatarUser = async (req, res, next) => {
 
     const newUrl = `${process.env.BASE_URL}/avatars/${fileName}`;
 
-    console.log(newUrl);
-
     await UserModel.findByIdAndUpdate(currentUser._id, {
       avatarUrl: newUrl,
     });
