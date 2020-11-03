@@ -27,7 +27,6 @@ const Statistic = () => {
   const [error, setError] = useState(null);
   const [availableDates, setAvailableDates] = useState([]);
   const [loader, setLoader] = useState(false);
-  console.log(transactions);
 
   useEffect(() => {
     const requestForTimes = async () => {
